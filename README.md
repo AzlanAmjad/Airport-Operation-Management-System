@@ -2,7 +2,7 @@
 
 ## Technologies
 - React
-- DJango
+- Django
 - PostgreSQL
 
 ## Contributers
