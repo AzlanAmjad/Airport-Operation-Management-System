@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route } from "react";
 function App() {
   return (
     <Router>
-      <div></div>
+      <div>Hello World</div>
     </Router>
   );
 }
