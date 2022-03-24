@@ -1,5 +1,11 @@
 import { Route, Routes } from "react-router-dom";
 
+// import components
+import Home from "./components/Home";
+import About from "./components/About";
+import Login from "./components/Login";
+import Signup from "./components/Signup";
+
 function App() {
   return (
     <div>
