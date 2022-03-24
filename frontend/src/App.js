@@ -8,6 +8,7 @@ import Signup from "./components/Signup";
 
 // material UI
 import Grid from "@mui/material/Grid";
+import Explore from '@mui/icons-material'
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
       align-items="center"
     >
       <Grid item>
+        <Explore />
         <div>Header</div>
       </Grid>
 
