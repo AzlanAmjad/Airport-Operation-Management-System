@@ -12,20 +12,11 @@ function App() {
       <div>Hello World</div>
 
       <Routes>
-        <Route path="/">
-          <Home />
-        </Route>
-        <Route path='/about'>
-          <About />
-        </Route>
-        <Route path='/login'>
-          <Login />
-        </Route>
-        <Route path="/signup">
-          <Signup />
-        </Route>
+        <Route path="/" element={<Home />}></Route>
+        <Route path="/about" element={<About />}></Route>
+        <Route path="/login" element={<Login />}></Route>
+        <Route path="/signup" element={<Signup />}></Route>
       </Routes>
-      
     </div>
   );
 }
