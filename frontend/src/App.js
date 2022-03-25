@@ -42,16 +42,32 @@ const theme = createTheme({
 
 function App() {
   return (
-    <LocalizationProvider dateAdapter={AdapterDateFns}>
+
+
+<LocalizationProvider dateAdapter={AdapterDateFns}>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Grid
+        container
+        className="App"
+        direction="column"
+        align="center"
+        justifyContent="space-between"
+        wrap="nowrap"
+      >
+        <Grid item>
+          <NavBar />
+        </Grid>
+
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Grid
           container
-          className="App"
           direction="column"
           align="center"
           justifyContent="space-between"
           wrap="nowrap"
+          className="App"
         >
           <Grid item>
             <NavBar />
@@ -67,6 +83,7 @@ function App() {
           </Grid>
 
           <Grid item>
+
             <Footer />
           </Grid>
         </Grid>
