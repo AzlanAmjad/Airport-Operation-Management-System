@@ -44,14 +44,14 @@ function App() {
         direction="column"
         align="center"
         justifyContent="space-between"
-        wrap='nowrap'
+        wrap="nowrap"
         style={{ height: "100vh" }}
       >
-        <Grid item>
+        <Grid item style={{ width: "100%" }}>
           <NavBar />
         </Grid>
 
-        <Grid item>
+        <Grid item style={{ width: "100%" }}>
           <Routes>
             <Route path="/" element={<Home />}></Route>
             <Route path="/about" element={<About />}></Route>
@@ -60,7 +60,7 @@ function App() {
           </Routes>
         </Grid>
 
-        <Grid item>
+        <Grid item style={{ width: "100%" }}>
           <div>Footer</div>
         </Grid>
       </Grid>
