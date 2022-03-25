@@ -17,16 +17,17 @@ import CssBaseline from "@mui/material/CssBaseline";
 
 const theme = createTheme({
   palette: {
-    mode: "dark",
     primary: {
       main: "#ad0000",
+      contrastText: "ffffff"
     },
     secondary: {
-      main: "#ad0000",
+      main: "#181818",
+      contrastText: "#ffffff"
     },
     background: {
-      default: "#000000",
-      paper: "#181818",
+      default: '#000000',
+      paper: '#181818',
     },
     text: {
       primary: "#ffffff",
