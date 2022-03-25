@@ -1,7 +1,7 @@
 # Airport-Operation-Management-Application
 
 ## Technologies
-- React
+- React (Material UI, Redux)
 - Django
 - PostgreSQL
 
