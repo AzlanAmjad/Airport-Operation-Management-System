@@ -25,7 +25,7 @@ const Home = () => {
 
       <Grid item container justifyContent="center">
         <Typography variant="h2" component="div" gutterBottom>
-          Search Flight's
+          Find a Flight
         </Typography>
       </Grid>
       <Grid item container justifyContent="center" spacing={2}>
@@ -49,7 +49,9 @@ const Home = () => {
         </Grid>
       </Grid>
       <Grid item container justifyContent="center">
-        <Button variant="contained">Submit</Button>
+
+        <Button variant="contained" style={{ minWidth: '200px' }}> Search</Button>
+
       </Grid>
 
     </Grid >
