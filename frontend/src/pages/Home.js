@@ -1,12 +1,12 @@
 import Button from "@mui/material/Button";
 
-import Grid from '@mui/material/Grid';
-import TextField from '@mui/material/TextField';
-import Autocomplete from '@mui/material/Autocomplete';
-import * as React from 'react';
-import Typography from '@mui/material/Typography';
-import DatePicker from '@mui/lab/DatePicker';
-import { styled } from '@mui/material/styles';
+import Grid from "@mui/material/Grid";
+import TextField from "@mui/material/TextField";
+import Autocomplete from "@mui/material/Autocomplete";
+import * as React from "react";
+import Typography from "@mui/material/Typography";
+import DatePicker from "@mui/lab/DatePicker";
+import { styled } from "@mui/material/styles";
 
 const Home = () => {
   const cities = ["Edmonton", "Calgary", "Toronto"];
@@ -28,17 +28,17 @@ const Home = () => {
         borderColor: "white",
       },
       "& .MuiButtonBase-root.MuiAutocomplete-clearIndicator": {
-        color: "red"
+        color: "red",
       },
       "& .MuiButtonBase-root.MuiAutocomplete-popupIndicator": {
-        color: "white"
-      }
+        color: "white",
+      },
     },
   });
 
   // styled date picker
   const StyledDatePicker = styled(DatePicker)({
-
+    
   });
 
   return (
@@ -65,13 +65,13 @@ const Home = () => {
           />
         </Grid>
         <Grid item>
-          <DatePicker
+          <StyledDatePicker
             label="Departure Date"
             inputFormat="mm/dd/yyyy"
             value={departure}
             onChange={setDeparture}
             renderInput={(params) => (
-              <TextField {...params} variant="outlined"/>
+              <TextField {...params} variant="outlined" />
             )}
           />
         </Grid>
