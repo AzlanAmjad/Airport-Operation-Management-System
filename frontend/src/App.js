@@ -10,14 +10,25 @@ import Signup from "./pages/Signup";
 import Grid from "@mui/material/Grid";
 
 // material UI theming
-import { red } from "@mui/material/colors";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 const theme = createTheme({
   palette: {
+    type: "dark",
     primary: {
-      main: red[400],
+      main: "#000000",
     },
+    secondary: {
+      main: "#ad0000",
+    },
+    background: {
+      default: "#181818",
+      paper: "#4c4c4c",
+    },
+    text: {
+      primary: "#ffffff",
+    },
+    divider: "rgba(255,255,255,0.7)",
   },
 });
 
