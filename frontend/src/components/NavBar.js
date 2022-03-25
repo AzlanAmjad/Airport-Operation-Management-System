@@ -3,7 +3,7 @@ import { AppBar, Button, Toolbar, Grid } from "@mui/material";
 const NavBar = () => {
   return (
     <div>
-      <AppBar color="secondary">
+      <AppBar>
         <Toolbar>
           <Grid
             container
