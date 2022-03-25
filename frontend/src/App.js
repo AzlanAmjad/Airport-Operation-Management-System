@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 
 // import components
+import NavBar from "./components/NavBar";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Login from "./pages/Login";
@@ -15,7 +16,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 
 const theme = createTheme({
   palette: {
-    type: "dark",
+    mode: "dark",
     primary: {
       main: "#000000",
     },
@@ -31,6 +32,7 @@ const theme = createTheme({
     },
     divider: "rgba(255,255,255,0.7)",
   },
+  typography: {},
 });
 
 function App() {
@@ -40,11 +42,13 @@ function App() {
       <Grid
         container
         direction="column"
-        justify-content="space-between"
-        align-items="center"
+        align="center"
+        justifyContent="space-between"
+        wrap='nowrap'
+        style={{ height: "100vh" }}
       >
         <Grid item>
-          <div>Header</div>
+          <NavBar />
         </Grid>
 
         <Grid item>
