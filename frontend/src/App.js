@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom";
 
 // import components
 import NavBar from "./components/NavBar";
+import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Login from "./pages/Login";
@@ -45,13 +46,13 @@ function App() {
         align="center"
         justifyContent="space-between"
         wrap="nowrap"
-        style={{ height: "100vh" }}
+        className="App"
       >
-        <Grid item style={{ width: "100%" }}>
+        <Grid item>
           <NavBar />
         </Grid>
 
-        <Grid item style={{ width: "100%" }}>
+        <Grid item>
           <Routes>
             <Route path="/" element={<Home />}></Route>
             <Route path="/about" element={<About />}></Route>
@@ -60,8 +61,8 @@ function App() {
           </Routes>
         </Grid>
 
-        <Grid item style={{ width: "100%" }}>
-          <div>Footer</div>
+        <Grid item>
+          <Footer />
         </Grid>
       </Grid>
     </ThemeProvider>
