@@ -16,22 +16,22 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 
 // Date picker
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import LocalizationProvider from "@mui/lab/LocalizationProvider";
 
 const theme = createTheme({
   palette: {
     primary: {
       main: "#ad0000",
-      contrastText: "ffffff"
+      contrastText: "ffffff",
     },
     secondary: {
       main: "#181818",
-      contrastText: "#ffffff"
+      contrastText: "#ffffff",
     },
     background: {
-      default: '#000000',
-      paper: '#181818',
+      default: "#000000",
+      paper: "#181818",
     },
     text: {
       primary: "#ffffff",
@@ -42,7 +42,6 @@ const theme = createTheme({
 
 function App() {
   return (
-
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
@@ -70,7 +69,6 @@ function App() {
             <Footer />
           </Grid>
         </Grid>
-
       </ThemeProvider>
     </LocalizationProvider>
   );
