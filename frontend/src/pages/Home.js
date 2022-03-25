@@ -6,7 +6,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 import * as React from 'react';
 import Typography from '@mui/material/Typography';
 import DatePicker from '@mui/lab/DatePicker';
-
+import { styled } from '@mui/material/styles';
 
 const Home = () => {
   const cities = ["Edmonton", "Calgary", "Toronto"];
@@ -37,7 +37,7 @@ const Home = () => {
   });
 
   // styled date picker
-  const StyledDatePicker = styled(DesktopDatePicker)({
+  const StyledDatePicker = styled(DatePicker)({
 
   });
 
