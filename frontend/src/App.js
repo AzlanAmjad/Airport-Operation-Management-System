@@ -42,11 +42,11 @@ function App() {
       <CssBaseline />
       <Grid
         container
+        className="App"
         direction="column"
         align="center"
         justifyContent="space-between"
         wrap="nowrap"
-        className="App"
       >
         <Grid item>
           <NavBar />
