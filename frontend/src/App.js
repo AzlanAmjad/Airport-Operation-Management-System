@@ -43,6 +43,7 @@ const theme = createTheme({
 function App() {
   return (
 
+
 <LocalizationProvider dateAdapter={AdapterDateFns}>
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -82,6 +83,7 @@ function App() {
           </Grid>
 
           <Grid item>
+
             <Footer />
           </Grid>
         </Grid>
