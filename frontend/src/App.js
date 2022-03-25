@@ -19,21 +19,20 @@ const theme = createTheme({
   palette: {
     mode: "dark",
     primary: {
-      main: "#000000",
+      main: "#ad0000",
     },
     secondary: {
       main: "#ad0000",
     },
     background: {
-      default: "#181818",
-      paper: "#4c4c4c",
+      default: "#000000",
+      paper: "#181818",
     },
     text: {
       primary: "#ffffff",
     },
     divider: "rgba(255,255,255,0.7)",
   },
-  typography: {},
 });
 
 function App() {

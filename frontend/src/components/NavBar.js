@@ -1,7 +1,13 @@
+import { AppBar, Button, Toolbar } from "@mui/material";
+
 const NavBar = () => {
   return (
     <div>
-      <h1>NavBar</h1>
+      <AppBar>
+        <Toolbar>
+          
+        </Toolbar>
+      </AppBar>
     </div>
   );
 };
