@@ -66,11 +66,11 @@ const Home = () => {
         <Grid item>
           <DesktopDatePicker
             label="Departure Date"
-            inputFormat="MM/dd/yyyy"
+            inputFormat="mm/dd/yyyy"
             value={departure}
             onChange={setDeparture}
             renderInput={(params) => (
-              <TextField {...params} variant="outlined" />
+              <TextField {...params} variant="outlined"/>
             )}
           />
         </Grid>
