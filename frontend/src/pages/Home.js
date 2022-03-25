@@ -5,7 +5,7 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import * as React from 'react';
 import Typography from '@mui/material/Typography';
-import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
+import DatePicker from '@mui/lab/DatePicker';
 
 const Home = () => {
 
@@ -40,7 +40,7 @@ const Home = () => {
           />
         </Grid>
         <Grid item>
-          <DesktopDatePicker
+          <DatePicker
             label="Departure Date"
             inputFormat="MM/dd/yyyy"
             value={departure}

@@ -43,35 +43,21 @@ const theme = createTheme({
 function App() {
   return (
 
-
-<LocalizationProvider dateAdapter={AdapterDateFns}>
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <Grid
-        container
-        className="App"
-        direction="column"
-        align="center"
-        justifyContent="space-between"
-        wrap="nowrap"
-      >
-        <Grid item>
-          <NavBar />
-        </Grid>
-
+    <LocalizationProvider dateAdapter={AdapterDateFns}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Grid
           container
+          className="App"
           direction="column"
           align="center"
           justifyContent="space-between"
           wrap="nowrap"
-          className="App"
         >
           <Grid item>
             <NavBar />
           </Grid>
+
 
           <Grid item>
             <Routes>
