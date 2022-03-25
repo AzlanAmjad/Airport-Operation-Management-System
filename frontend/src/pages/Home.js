@@ -26,12 +26,18 @@ const Home = () => {
       "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
         borderColor: "white",
       },
+      "& .MuiButtonBase-root.MuiAutocomplete-clearIndicator": {
+        color: "red"
+      },
+      "& .MuiButtonBase-root.MuiAutocomplete-popupIndicator": {
+        color: "white"
+      }
     },
   });
 
   // styled date picker
   const StyledDatePicker = styled(DesktopDatePicker)({
-    
+
   });
 
   return (
