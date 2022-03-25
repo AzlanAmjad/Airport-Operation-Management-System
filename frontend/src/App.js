@@ -7,6 +7,7 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import Flight from "./pages/Flight";
 
 // material UI
 import Grid from "@mui/material/Grid";
@@ -16,22 +17,22 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 
 // Date picker
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import LocalizationProvider from "@mui/lab/LocalizationProvider";
 
 const theme = createTheme({
   palette: {
     primary: {
       main: "#ad0000",
-      contrastText: "ffffff"
+      contrastText: "ffffff",
     },
     secondary: {
       main: "#181818",
-      contrastText: "#ffffff"
+      contrastText: "#ffffff",
     },
     background: {
-      default: '#000000',
-      paper: '#181818',
+      default: "#000000",
+      paper: "#181818",
     },
     text: {
       primary: "#ffffff",
@@ -42,7 +43,6 @@ const theme = createTheme({
 
 function App() {
   return (
-
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
@@ -57,19 +57,17 @@ function App() {
           <Grid item>
             <NavBar />
           </Grid>
-
-
           <Grid item>
             <Routes>
               <Route path="/" element={<Home />}></Route>
               <Route path="/about" element={<About />}></Route>
               <Route path="/login" element={<Login />}></Route>
               <Route path="/signup" element={<Signup />}></Route>
+              <Route path="/flight-details/:airline/:flight" element={<Flight />}></Route>
             </Routes>
           </Grid>
 
           <Grid item>
-
             <Footer />
           </Grid>
         </Grid>
