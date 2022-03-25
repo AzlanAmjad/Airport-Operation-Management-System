@@ -11,6 +11,7 @@ import Grid from "@mui/material/Grid";
 
 // material UI theming
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
 
 const theme = createTheme({
   palette: {
@@ -35,6 +36,7 @@ const theme = createTheme({
 function App() {
   return (
     <ThemeProvider theme={theme}>
+      <CssBaseline />
       <Grid
         container
         direction="column"
