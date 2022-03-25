@@ -15,6 +15,10 @@ import Grid from "@mui/material/Grid";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 
+// Date picker
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+
 const theme = createTheme({
   palette: {
     primary: {
@@ -38,6 +42,8 @@ const theme = createTheme({
 
 function App() {
   return (
+
+<LocalizationProvider dateAdapter={AdapterDateFns}>
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Grid
@@ -52,20 +58,35 @@ function App() {
           <NavBar />
         </Grid>
 
-        <Grid item>
-          <Routes>
-            <Route path="/" element={<Home />}></Route>
-            <Route path="/about" element={<About />}></Route>
-            <Route path="/login" element={<Login />}></Route>
-            <Route path="/signup" element={<Signup />}></Route>
-          </Routes>
-        </Grid>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Grid
+          container
+          direction="column"
+          align="center"
+          justifyContent="space-between"
+          wrap="nowrap"
+          className="App"
+        >
+          <Grid item>
+            <NavBar />
+          </Grid>
 
-        <Grid item>
-          <Footer />
+          <Grid item>
+            <Routes>
+              <Route path="/" element={<Home />}></Route>
+              <Route path="/about" element={<About />}></Route>
+              <Route path="/login" element={<Login />}></Route>
+              <Route path="/signup" element={<Signup />}></Route>
+            </Routes>
+          </Grid>
+
+          <Grid item>
+            <Footer />
+          </Grid>
         </Grid>
-      </Grid>
-    </ThemeProvider>
+      </ThemeProvider>
+    </LocalizationProvider>
   );
 }
 
