@@ -1,11 +1,12 @@
 import Button from "@mui/material/Button";
-import Grid from "@mui/material/Grid";
-import TextField from "@mui/material/TextField";
-import Autocomplete from "@mui/material/Autocomplete";
-import * as React from "react";
-import Typography from "@mui/material/Typography";
-import DesktopDatePicker from "@mui/lab/DesktopDatePicker";
-import { styled } from "@mui/material/styles";
+
+import Grid from '@mui/material/Grid';
+import TextField from '@mui/material/TextField';
+import Autocomplete from '@mui/material/Autocomplete';
+import * as React from 'react';
+import Typography from '@mui/material/Typography';
+import DatePicker from '@mui/lab/DatePicker';
+
 
 const Home = () => {
   const cities = ["Edmonton", "Calgary", "Toronto"];
@@ -64,7 +65,7 @@ const Home = () => {
           />
         </Grid>
         <Grid item>
-          <DesktopDatePicker
+          <DatePicker
             label="Departure Date"
             inputFormat="mm/dd/yyyy"
             value={departure}
