@@ -22,10 +22,10 @@ const Home = () => {
         borderColor: "white",
       },
       "&:hover .MuiOutlinedInput-notchedOutline": {
-        borderColor: "red",
+        borderColor: "white",
       },
       "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-        borderColor: "red",
+        borderColor: "white",
       },
       "& .MuiButtonBase-root.MuiAutocomplete-clearIndicator": {
         color: "red",
@@ -37,7 +37,9 @@ const Home = () => {
   });
 
   // styled date picker
-  const StyledDatePicker = styled(DatePicker)({});
+  const StyledDatePicker = styled(DatePicker)({
+
+  });
 
   return (
     <Grid
@@ -88,7 +90,6 @@ const Home = () => {
           </Grid>
           <Grid item>
             <StyledDatePicker
-              emptyLabel="Departure"
               inputFormat="mm/dd/yyyy"
               value={departure}
               onChange={setDeparture}

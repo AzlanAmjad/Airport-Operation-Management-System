@@ -24,7 +24,7 @@ const theme = createTheme({
   palette: {
     primary: {
       main: "#ad0000",
-      contrastText: "#ffffff"
+      contrastText: "#ffffff",
     },
     secondary: {
       main: "#707070",
@@ -38,6 +38,9 @@ const theme = createTheme({
       primary: "#ffffff",
     },
     divider: "rgba(255,255,255,0.7)",
+    error: {
+      main: "#ffffff",
+    }
   },
 });
 
