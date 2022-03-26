@@ -88,12 +88,12 @@ const Home = () => {
           </Grid>
           <Grid item>
             <StyledDatePicker
-              emptyLabel='Departure'
+              emptyLabel="Departure"
               inputFormat="mm/dd/yyyy"
               value={departure}
               onChange={setDeparture}
               renderInput={(params) => (
-                <TextField {...params} variant="outlined"/>
+                <TextField {...params} variant="outlined" />
               )}
             />
           </Grid>
@@ -105,7 +105,7 @@ const Home = () => {
           </Button>
         </Grid>
       </Grid>
-      <Grid item container direction='column' alignItems='center'>
+      <Grid item container direction="column" alignItems="center">
         <p>Search results go here</p>
       </Grid>
     </Grid>
