@@ -25,7 +25,7 @@ const Home = () => {
         borderColor: "red",
       },
       "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-        borderColor: "white",
+        borderColor: "red",
       },
       "& .MuiButtonBase-root.MuiAutocomplete-clearIndicator": {
         color: "red",
@@ -46,7 +46,7 @@ const Home = () => {
       direction="column"
       alignItems="center"
       justifyContent="center"
-      rowSpacing={3}
+      rowSpacing={5}
       wrap="nowrap"
       height="400px"
     >
@@ -88,12 +88,12 @@ const Home = () => {
           </Grid>
           <Grid item>
             <StyledDatePicker
-              label="Departure Date"
+              emptyLabel='Departure'
               inputFormat="mm/dd/yyyy"
               value={departure}
               onChange={setDeparture}
               renderInput={(params) => (
-                <TextField {...params} variant="outlined" />
+                <TextField {...params} variant="outlined"/>
               )}
             />
           </Grid>
