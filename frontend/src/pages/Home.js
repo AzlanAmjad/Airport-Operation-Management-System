@@ -36,11 +36,6 @@ const Home = () => {
     },
   });
 
-  // styled date picker
-  const StyledDatePicker = styled(DatePicker)({
-
-  });
-
   return (
     <Grid
       item
@@ -89,7 +84,7 @@ const Home = () => {
             />
           </Grid>
           <Grid item>
-            <StyledDatePicker
+            <DatePicker
               inputFormat="mm/dd/yyyy"
               value={departure}
               onChange={setDeparture}
