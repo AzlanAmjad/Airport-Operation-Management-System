@@ -48,7 +48,8 @@ function App() {
         <CssBaseline />
         <Grid
           container
-          className="App"
+          height='100vh'
+          width='100%'
           direction="column"
           align="center"
           justifyContent="space-between"
