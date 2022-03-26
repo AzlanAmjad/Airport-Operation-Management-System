@@ -50,44 +50,63 @@ const Home = () => {
       wrap="nowrap"
       height="400px"
     >
-      <Grid item>
-        <Typography variant="h2" component="div" gutterBottom>
-          Find a Flight
-        </Typography>
-      </Grid>
-      <Grid item container direction="row" justifyContent="center" spacing={2}>
+      <Grid
+        item
+        container
+        direction="column"
+        alignItems="center"
+        justifyContent="center"
+        rowSpacing={3}
+        wrap="nowrap"
+      >
         <Grid item>
-          <StyledAutocomplete
-            disablePortal
-            id="combo-box-demo"
-            options={cities /* Add full cities*/}
-            sx={{ width: 300 }}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                variant="outlined"
-                placeholder="Destination"
-              />
-            )}
-          />
+          <Typography variant="h2" component="div" gutterBottom>
+            Find a Flight
+          </Typography>
+        </Grid>
+        <Grid
+          item
+          container
+          direction="row"
+          justifyContent="center"
+          spacing={2}
+        >
+          <Grid item>
+            <StyledAutocomplete
+              disablePortal
+              id="combo-box-demo"
+              options={cities /* Add full cities*/}
+              sx={{ width: 300 }}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  variant="outlined"
+                  placeholder="Destination"
+                />
+              )}
+            />
+          </Grid>
+          <Grid item>
+            <StyledDatePicker
+              label="Departure Date"
+              inputFormat="mm/dd/yyyy"
+              value={departure}
+              onChange={setDeparture}
+              renderInput={(params) => (
+                <TextField {...params} variant="outlined" />
+              )}
+            />
+          </Grid>
         </Grid>
         <Grid item>
-          <StyledDatePicker
-            label="Departure Date"
-            inputFormat="mm/dd/yyyy"
-            value={departure}
-            onChange={setDeparture}
-            renderInput={(params) => (
-              <TextField {...params} variant="outlined" />
-            )}
-          />
+          <Button variant="contained" style={{ minWidth: "200px" }}>
+            {" "}
+            Search
+          </Button>
         </Grid>
       </Grid>
-      <Grid item>
-        <Button variant="contained" style={{ minWidth: "200px" }}>
-          {" "}
-          Search
-        </Button>
+      <Grid item container direction='column' alignItems='center'>
+        <p>Search results go here</p>
       </Grid>
     </Grid>
   );
