@@ -61,7 +61,7 @@ function App() {
           <Grid
             item
             container
-            sx={{ height: "100vh" }}
+            height='100vh'
             justifyContent="center"
             alignItems="center"
           >

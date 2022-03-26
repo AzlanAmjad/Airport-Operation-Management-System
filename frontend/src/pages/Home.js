@@ -48,7 +48,7 @@ const Home = () => {
       justifyContent="center"
       rowSpacing={3}
       wrap="nowrap"
-      sx={{height: '400px'}}
+      height="400px"
     >
       <Grid item>
         <Typography variant="h2" component="div" gutterBottom>
