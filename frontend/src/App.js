@@ -24,7 +24,7 @@ const theme = createTheme({
   palette: {
     primary: {
       main: "#ad0000",
-      contrastText: "ffffff",
+      contrastText: "#ffffff"
     },
     secondary: {
       main: "#707070",
@@ -48,8 +48,8 @@ function App() {
         <CssBaseline />
         <Grid
           container
-          height='100vh'
-          width='100%'
+          height="100vh"
+          width="100%"
           direction="column"
           align="center"
           justifyContent="space-between"
@@ -62,7 +62,7 @@ function App() {
           <Grid
             item
             container
-            height='100vh'
+            height="100vh"
             justifyContent="center"
             alignItems="center"
           >
