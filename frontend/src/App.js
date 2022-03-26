@@ -54,11 +54,17 @@ function App() {
           justifyContent="space-between"
           wrap="nowrap"
         >
-          <Grid item>
+          <Grid item container>
             <NavBar />
           </Grid>
 
-          <Grid item>
+          <Grid
+            item
+            container
+            style={{ height: "100vh" }}
+            justifyContent="center"
+            alignItems="center"
+          >
             <Routes>
               <Route path="/" element={<Home />}></Route>
               <Route path="/about" element={<About />}></Route>
@@ -71,7 +77,7 @@ function App() {
             </Routes>
           </Grid>
 
-          <Grid item>
+          <Grid item container>
             <Footer />
           </Grid>
         </Grid>

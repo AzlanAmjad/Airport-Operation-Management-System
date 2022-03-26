@@ -37,18 +37,25 @@ const Home = () => {
   });
 
   // styled date picker
-  const StyledDatePicker = styled(DatePicker)({
-    
-  });
+  const StyledDatePicker = styled(DatePicker)({});
 
   return (
-    <Grid container alignItems="baseline" rowSpacing={3}>
-      <Grid item container justifyContent="center">
+    <Grid
+      item
+      container
+      direction="column"
+      alignItems="center"
+      justifyContent="center"
+      rowSpacing={3}
+      wrap="nowrap"
+      style={{height: '400px'}}
+    >
+      <Grid item>
         <Typography variant="h2" component="div" gutterBottom>
           Find a Flight
         </Typography>
       </Grid>
-      <Grid item container justifyContent="center" spacing={2}>
+      <Grid item container direction="row" justifyContent="center" spacing={2}>
         <Grid item>
           <StyledAutocomplete
             disablePortal
@@ -76,7 +83,7 @@ const Home = () => {
           />
         </Grid>
       </Grid>
-      <Grid item container justifyContent="center">
+      <Grid item>
         <Button variant="contained" style={{ minWidth: "200px" }}>
           {" "}
           Search
