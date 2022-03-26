@@ -57,13 +57,17 @@ function App() {
           <Grid item>
             <NavBar />
           </Grid>
+
           <Grid item>
             <Routes>
               <Route path="/" element={<Home />}></Route>
               <Route path="/about" element={<About />}></Route>
               <Route path="/login" element={<Login />}></Route>
               <Route path="/signup" element={<Signup />}></Route>
-              <Route path="/flight-details/:airline/:flight" element={<Flight />}></Route>
+              <Route
+                path="/flight-details/:airline/:flight"
+                element={<Flight />}
+              ></Route>
             </Routes>
           </Grid>
 
