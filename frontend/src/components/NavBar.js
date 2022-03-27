@@ -1,7 +1,7 @@
 import { AppBar, Button, Toolbar, Grid, Typography } from "@mui/material";
 import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
+import IconButton from "@mui/material/IconButton";
+import MenuIcon from "@mui/icons-material/Menu";
 
 const NavBar = () => {
   return (
@@ -15,8 +15,7 @@ const NavBar = () => {
             justifyContent="space-between"
           >
             <Grid item>
-              <FlightTakeoffIcon />
-              <Typography></Typography>
+              <FlightTakeoffIcon fontSize="large" />
             </Grid>
 
             <Grid item>menu</Grid>
