@@ -93,7 +93,7 @@ const Home = () => {
                       borderColor: "white",
                     },
                     "&:hover .MuiOutlinedInput-notchedOutline": {
-                      borderColor: "white",
+                      borderColor: "red",
                     },
                     "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
                       borderColor: "red",
@@ -126,7 +126,7 @@ const Home = () => {
                       borderColor: "white",
                     },
                     "&:hover .MuiOutlinedInput-notchedOutline": {
-                      borderColor: "white",
+                      borderColor: "red",
                     },
                     "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
                       borderColor: "red",
