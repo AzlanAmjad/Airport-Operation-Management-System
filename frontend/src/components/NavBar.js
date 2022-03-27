@@ -1,4 +1,7 @@
-import { AppBar, Button, Toolbar, Grid } from "@mui/material";
+import { AppBar, Button, Toolbar, Grid, Typography } from "@mui/material";
+import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
 
 const NavBar = () => {
   return (
@@ -8,19 +11,26 @@ const NavBar = () => {
           <Grid
             container
             direction="row"
-            align="center"
+            alignItems="center"
             justifyContent="space-between"
           >
             <Grid item>
-              logo, text
+              <FlightTakeoffIcon />
+              <Typography></Typography>
             </Grid>
 
-            <Grid item>
-              menu
-            </Grid>
+            <Grid item>menu</Grid>
 
             <Grid item>
-              login, signup, user account
+              <IconButton
+                size="large"
+                edge="start"
+                color="inherit"
+                aria-label="menu"
+                sx={{ mr: 2 }}
+              >
+                <MenuIcon />
+              </IconButton>
             </Grid>
           </Grid>
         </Toolbar>

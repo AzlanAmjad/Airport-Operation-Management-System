@@ -142,7 +142,6 @@ const Home = () => {
         </Grid>
         <Grid item>
           <Button variant="contained" style={{ minWidth: "200px" }}>
-            {" "}
             Search
           </Button>
         </Grid>
