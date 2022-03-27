@@ -52,7 +52,7 @@ const Home = () => {
         direction="column"
         alignItems="center"
         justifyContent="center"
-        rowSpacing={5}
+        rowSpacing={4}
         wrap="nowrap"
       >
         <Grid item>
@@ -66,6 +66,7 @@ const Home = () => {
           direction="row"
           justifyContent="center"
           spacing={2}
+          rowSpacing={3}
         >
           <Grid item>
             <Autocomplete
