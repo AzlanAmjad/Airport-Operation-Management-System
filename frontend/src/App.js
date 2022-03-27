@@ -43,6 +43,11 @@ const theme = createTheme({
       main: "#ffffff",
     },
   },
+  typography: {
+    fontFamily: [
+      
+    ],
+  },
 });
 
 function App() {
