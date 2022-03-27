@@ -95,7 +95,7 @@ const Home = () => {
                     "&:hover .MuiOutlinedInput-notchedOutline": {
                       borderColor: "red",
                     },
-                    "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                    "&.MuiOutlinedInput-notchedOutline.Mui-focused": {
                       borderColor: "red",
                     },
                     "& .MuiButtonBase-root.MuiAutocomplete-clearIndicator": {
@@ -128,7 +128,7 @@ const Home = () => {
                     "&:hover .MuiOutlinedInput-notchedOutline": {
                       borderColor: "red",
                     },
-                    "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                    "&.MuiOutlinedInput-notchedOutline.Mui-focused": {
                       borderColor: "red",
                     },
                     "& .MuiButtonBase-root.MuiIconButton-root": {
