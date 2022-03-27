@@ -56,7 +56,7 @@ const Home = () => {
         wrap="nowrap"
       >
         <Grid item>
-          <Typography variant="h2" component="div" gutterBottom>
+          <Typography variant="h1" component="div" gutterBottom>
             Find a Flight
           </Typography>
         </Grid>

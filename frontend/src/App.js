@@ -44,7 +44,7 @@ const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: ["Raleway"].join(","),
+    fontFamily: ["Raleway", "Roboto"].join(","),
   },
 });
 
