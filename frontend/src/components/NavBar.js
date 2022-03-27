@@ -61,9 +61,9 @@ const NavBar = () => {
               >
                 <MenuItem onClick={handleClose}>Home</MenuItem>
                 <MenuItem onClick={handleClose}>Store</MenuItem>
+                <MenuItem onClick={handleClose}>About</MenuItem>
                 <MenuItem onClick={handleClose}>Login</MenuItem>
                 <MenuItem onClick={handleClose}>Signup</MenuItem>
-                <MenuItem onClick={handleClose}>About</MenuItem>
               </Menu>
             </Grid>
           </Grid>
