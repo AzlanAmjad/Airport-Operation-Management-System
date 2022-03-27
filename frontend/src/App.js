@@ -45,6 +45,9 @@ const theme = createTheme({
   },
   typography: {
     fontFamily: ["Raleway", "Roboto"].join(","),
+    h1: {
+      fontSize: 60
+    }
   },
 });
 
