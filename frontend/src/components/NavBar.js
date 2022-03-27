@@ -7,12 +7,13 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 
 const NavBar = () => {
+  // anchor for menu
   const [anchorEl, setAnchorEl] = useState(null);
 
+  // functions to handle menu
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
-
   const handleClose = () => {
     setAnchorEl(null);
   };
