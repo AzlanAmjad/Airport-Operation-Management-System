@@ -8,11 +8,32 @@ import Typography from "@mui/material/Typography";
 import DatePicker from "@mui/lab/DatePicker";
 import { styled } from "@mui/material/styles";
 
-const Home = () => {
-  const cities = ["Edmonton", "Calgary", "Toronto"];
+// state management
+import { useState } from "react";
 
-  const departure = []; // Departure date -> turn to useState hook
-  const setDeparture = () => {};
+const Home = () => {
+  // fetch all destinations
+  const [destinations, setDestinations] = useState([
+    {
+      airport_code: "YVR",
+      city: "Vancouver",
+      country: "Canada",
+    },
+    {
+      airport_code: "YYZ",
+      city: "Toronto",
+      country: "Canada",
+    },
+    {
+      airport_code: "YEG",
+      city: "Edmonton",
+      country: "Canada",
+    },
+  ]);
+
+  // input states
+  const [destination, setDestination] = useState("");
+  const [departure, setDeparture] = useState("");
 
   // styled autocomplete
   const StyledAutocomplete = styled(Autocomplete)({
@@ -72,7 +93,10 @@ const Home = () => {
             <StyledAutocomplete
               disablePortal
               id="combo-box-demo"
-              options={cities /* Add full cities*/}
+              options={destinations.map((item) => {
+                const dest = `${item.city} - ${item.airport_code}`;
+                return dest;
+              })}
               sx={{ width: 300 }}
               renderInput={(params) => (
                 <TextField
