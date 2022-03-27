@@ -52,7 +52,7 @@ const Home = () => {
         direction="column"
         alignItems="center"
         justifyContent="center"
-        rowSpacing={3}
+        rowSpacing={5}
         wrap="nowrap"
       >
         <Grid item>
@@ -112,6 +112,7 @@ const Home = () => {
           <Grid item>
             <DatePicker
               inputFormat="MM/dd/yyyy"
+              openTo="year"
               value={departure}
               onChange={(newDeparture) => {
                 setDeparture(newDeparture);
