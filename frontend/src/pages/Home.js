@@ -32,30 +32,8 @@ const Home = () => {
   ]);
 
   // input states
-  const [destination, setDestination] = useState("");
-  const [departure, setDeparture] = useState("");
-
-  // styled autocomplete
-  const StyledAutocomplete = styled(Autocomplete)({
-    "& .MuiAutocomplete-inputRoot": {
-      color: "white",
-      "& .MuiOutlinedInput-notchedOutline": {
-        borderColor: "white",
-      },
-      "&:hover .MuiOutlinedInput-notchedOutline": {
-        borderColor: "white",
-      },
-      "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-        borderColor: "white",
-      },
-      "& .MuiButtonBase-root.MuiAutocomplete-clearIndicator": {
-        color: "red",
-      },
-      "& .MuiButtonBase-root.MuiAutocomplete-popupIndicator": {
-        color: "white",
-      },
-    },
-  });
+  const [destination, setDestination] = useState(null);
+  const [departure, setDeparture] = useState(null);
 
   return (
     <Grid
@@ -90,7 +68,7 @@ const Home = () => {
           spacing={2}
         >
           <Grid item>
-            <StyledAutocomplete
+            <Autocomplete
               disablePortal
               id="combo-box-demo"
               options={destinations.map((item) => {
@@ -107,6 +85,26 @@ const Home = () => {
                   {...params}
                   variant="outlined"
                   placeholder="Destination"
+                  sx={{
+                    svg: "white",
+                    input: "white",
+                    label: "white",
+                    "& .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "white",
+                    },
+                    "&:hover .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "white",
+                    },
+                    "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "red",
+                    },
+                    "& .MuiButtonBase-root.MuiAutocomplete-clearIndicator": {
+                      color: "red",
+                    },
+                    "& .MuiButtonBase-root.MuiAutocomplete-popupIndicator": {
+                      color: "white",
+                    },
+                  }}
                 />
               )}
             />
@@ -123,9 +121,6 @@ const Home = () => {
                   {...params}
                   variant="outlined"
                   sx={{
-                    svg: "white",
-                    input: "white",
-                    label: "white",
                     "& .MuiOutlinedInput-notchedOutline": {
                       borderColor: "white",
                     },
@@ -133,7 +128,7 @@ const Home = () => {
                       borderColor: "white",
                     },
                     "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                      borderColor: "white",
+                      borderColor: "red",
                     },
                     "& .MuiButtonBase-root.MuiIconButton-root": {
                       color: "white",
