@@ -12,7 +12,7 @@ import { styled } from "@mui/material/styles";
 import { useState } from "react";
 
 const Home = () => {
-  // fetch all destinations
+  // destinations from db
   const [destinations, setDestinations] = useState([
     {
       airport_code: "YVR",
@@ -98,6 +98,10 @@ const Home = () => {
                 return dest;
               })}
               sx={{ width: 300 }}
+              value={destination}
+              onChange={(event, values) => {
+                setDestination(values);
+              }}
               renderInput={(params) => (
                 <TextField
                   {...params}
@@ -109,11 +113,33 @@ const Home = () => {
           </Grid>
           <Grid item>
             <DatePicker
-              inputFormat="mm/dd/yyyy"
+              inputFormat="MM/dd/yyyy"
               value={departure}
-              onChange={setDeparture}
+              onChange={(newDeparture) => {
+                setDeparture(newDeparture);
+              }}
               renderInput={(params) => (
-                <TextField {...params} variant="outlined" />
+                <TextField
+                  {...params}
+                  variant="outlined"
+                  sx={{
+                    svg: "white",
+                    input: "white",
+                    label: "white",
+                    "& .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "white",
+                    },
+                    "&:hover .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "white",
+                    },
+                    "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "white",
+                    },
+                    "& .MuiButtonBase-root.MuiIconButton-root": {
+                      color: "white",
+                    },
+                  }}
+                />
               )}
             />
           </Grid>
