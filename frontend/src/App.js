@@ -46,8 +46,8 @@ const theme = createTheme({
   typography: {
     fontFamily: ["Raleway", "Roboto"].join(","),
     h1: {
-      fontSize: 60
-    }
+      fontSize: 60,
+    },
   },
 });
 
@@ -77,15 +77,15 @@ function App() {
             alignItems="center"
           >
             <Routes>
-              <Route path="/" element={<Home />}></Route>
-              <Route path="/about" element={<About />}></Route>
-              <Route path="/login" element={<Login />}></Route>
-              <Route path="/signup" element={<Signup />}></Route>
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />
               <Route
                 path="/flight-details/:airline/:flight"
                 element={<Flight />}
-              ></Route>
-              <Route path="/store" element={<Store />}></Route>
+              />
+              <Route path="/store" element={<Store />} />
             </Routes>
           </Grid>
 
