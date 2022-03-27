@@ -8,6 +8,7 @@ import About from "./pages/About";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Flight from "./pages/Flight";
+import Store from "./pages/Store";
 
 // material UI
 import Grid from "@mui/material/Grid";
@@ -40,7 +41,7 @@ const theme = createTheme({
     divider: "rgba(255,255,255,0.7)",
     error: {
       main: "#ffffff",
-    }
+    },
   },
 });
 
@@ -78,6 +79,7 @@ function App() {
                 path="/flight-details/:airline/:flight"
                 element={<Flight />}
               ></Route>
+              <Route path="/store" element={<Store />}></Route>
             </Routes>
           </Grid>
 
