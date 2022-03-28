@@ -9,6 +9,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Flight from "./pages/Flight";
 import Store from "./pages/Store";
+import Shop from "./pages/Shop";
 
 // material UI
 import Grid from "@mui/material/Grid";
@@ -82,14 +83,17 @@ function App() {
           >
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/store" element={<Store />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<Signup />} />
               <Route
                 path="/flight-details/:airline/:flight"
                 element={<Flight />}
               />
+
+              <Route path="/shop" element={<Shop />} />
+              <Route path="/:store" element={<Store />} />
+
+              <Route path="/about" element={<About />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />
             </Routes>
           </Grid>
 
