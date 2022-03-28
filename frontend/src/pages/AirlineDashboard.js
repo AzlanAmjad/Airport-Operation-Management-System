@@ -1,89 +1,74 @@
-import Button from "@mui/material/Button";
 
 import Grid from "@mui/material/Grid";
-import TextField from "@mui/material/TextField";
-import Autocomplete from "@mui/material/Autocomplete";
 import * as React from "react";
-import Typography from "@mui/material/Typography";
-import DatePicker from "@mui/lab/DatePicker";
-import { styled } from "@mui/material/styles";
-import { CardActionArea, Card, CardContent } from '@mui/material';
-import { Link as RouterLink } from 'react-router-dom'
 import FlightIcon from '@mui/icons-material/Flight';
 import ArticleIcon from '@mui/icons-material/Article';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import HomeIcon from '@mui/icons-material/Home';
+import { Route, Routes, useNavigate, useLocation } from "react-router-dom";
+import Flight from "./Flight";
 
 
 
+
+function LinkTab(props) {
+    return (
+        <Tab
+            component="a"
+            onClick={(event) => {
+                event.preventDefault();
+
+            }}
+            {...props}
+        />
+    );
+}
 
 const AirlineDashboard = () => {
 
+    const [value, setValue] = React.useState(0);
+
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+    };
+    const navigate = useNavigate();
+    const location = useLocation();
+
     return (
-
-        <Grid
-            item
-            container
-            direction="column"
+        <Grid container
+            justifyContent="flex-start"
             alignItems="center"
-            justifyContent="center"
-            rowSpacing={5}
-            wrap="nowrap"
-            height="400px"
+            paddingLeft="40px"
+
         >
-            <Grid
-                item
-                container
-                direction="column"
-                alignItems="center"
-                justifyContent="center"
-                rowSpacing={4}
-                wrap="nowrap"
+            <Grid item container
+                direction="row"
+                height="1000px"
+                alignItems="flex-start"
             >
+
+                <Tabs value={value} onChange={handleChange} aria-label="nav tabs example"
+                    orientation="vertical" textColor="white">
+                    <LinkTab label="Welcome" onClick={() => navigate(`welcome`)} icon={<HomeIcon />} />
+                    <LinkTab label="Flights" onClick={() => navigate("flights")} icon={<FlightIcon />} />
+                    <LinkTab
+                        label="Complaints"
+                        icon={<ArticleIcon />}
+                        onClick={() => navigate("complaints")}
+                    />
+                </Tabs>
                 <Grid item>
-                    <Typography variant="h1" component="div" gutterBottom>
-                        Welcome,
-                    </Typography>
+                    <Routes>
+                        <Route path="welcome" element={<p>test</p>} />
+                        <Route path="flights" element={<Flight />} />
+                        <Route path="complaints" />
+                    </Routes>
                 </Grid>
-                <Grid
-                    item
-                    container
-                    direction="row"
-                    justifyContent="center"
-                    spacing={2}
-                    rowSpacing={3}
-                >
-
-                    <Grid item>
-
-
-                        <Card>
-                            <CardActionArea component={RouterLink} to="/:airline/add-flight">
-                                <CardContent>
-                                    <FlightIcon />
-                                    <Typography>Add Flight</Typography>
-                                </CardContent>
-                            </CardActionArea>
-                        </Card>
-
-                    </Grid>
-
-                    <Grid item>
-
-                        <Card>
-                            <CardActionArea component={RouterLink} to="/:airline/omplaints">
-                                <CardContent>
-                                    <ArticleIcon />
-                                    <Typography>Complaints</Typography>
-                                </CardContent>
-                            </CardActionArea>
-                        </Card>
-                    </Grid>
-
-
-                </Grid>
-
-
             </Grid>
+
         </Grid>
+
 
     );
 }
