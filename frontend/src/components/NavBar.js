@@ -61,13 +61,13 @@ const NavBar = () => {
             </Grid>
 
             <Grid item>
-              <Box sx={{ display: { xs: "none", md: "flex" } }}>
+              <Box sx={{ display: { xs: "none", lg: "flex" } }}>
                 <Typography variant="h2">YYC International Airport</Typography>
               </Box>
             </Grid>
 
             <Grid item>
-              <Box sx={{ display: { xs: "flex", sm: "none" } }}>
+              <Box sx={{ display: { xs: "flex", md: "none" } }}>
                 <IconButton
                   size="large"
                   edge="start"
@@ -108,7 +108,7 @@ const NavBar = () => {
                 </Menu>
               </Box>
               <Box
-                sx={{ display: { xs: "none", sm: "flex" }, width: "600px" }}
+                sx={{ display: { xs: "none", md: "flex" }, width: "600px" }}
                 direction="row"
                 justifyContent="space-between"
               >
