@@ -67,10 +67,6 @@ const NavBar = () => {
             </Grid>
 
             <Grid item>
-              <Box sx={{ display: { xs: "none", sm: "flex" } }}>Menu</Box>
-            </Grid>
-
-            <Grid item>
               <Box sx={{ display: { xs: "flex", sm: "none" } }}>
                 <IconButton
                   size="large"
@@ -112,16 +108,21 @@ const NavBar = () => {
                 </Menu>
               </Box>
               <Box
-                sx={{ display: { xs: "none", sm: "flex" }, width: "170px" }}
+                sx={{ display: { xs: "none", sm: "flex" }, width: "600px" }}
                 direction="row"
                 justifyContent="space-between"
               >
-                <Button variant="contained" onClick={() => navigate("/login")}>
-                  Login
-                </Button>
-                <Button variant="contained" onClick={() => navigate("/signup")}>
-                  Signup
-                </Button>
+                {menu.map((menu) => {
+                  return (
+                    <Button
+                      variant="contained"
+                      key={menu.title}
+                      onClick={() => navigate(`${menu.path}`)}
+                    >
+                      {menu.title}
+                    </Button>
+                  );
+                })}
               </Box>
             </Grid>
           </Grid>
