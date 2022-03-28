@@ -38,7 +38,7 @@ const NavBar = (props) => {
             </Grid>
 
             <Grid item>
-              <Box sx={{ display: {xs: "none", md: "flex" } }}>
+              <Box sx={{ display: { xs: "none", md: "flex" } }}>
                 <Typography variant="h2">YYC International Airport</Typography>
               </Box>
             </Grid>
@@ -89,8 +89,17 @@ const NavBar = (props) => {
                   </MenuItem>
                 </Menu>
               </Box>
-              <Box sx={{ display: { xs: "none", sm: "flex" } }}>
-                Login/Signup
+              <Box
+                sx={{ display: { xs: "none", sm: "flex" }, width: '170px'}}
+                direction="row"
+                justifyContent="space-between"
+              >
+                <Button variant="contained" onClick={() => navigate("/login")}>
+                  Login
+                </Button>
+                <Button variant="contained" onClick={() => navigate("/signup")}>
+                  Signup
+                </Button>
               </Box>
             </Grid>
           </Grid>
