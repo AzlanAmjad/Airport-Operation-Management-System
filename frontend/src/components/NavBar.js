@@ -11,6 +11,29 @@ import { Box } from "@mui/system";
 const NavBar = () => {
   // anchor for menu
   const [anchorEl, setAnchorEl] = useState(null);
+  // state for menu
+  const [menu, setMenu] = useState([
+    {
+      title: "Home",
+      path: "/",
+    },
+    {
+      title: "Store",
+      path: "/store",
+    },
+    {
+      title: "About",
+      path: "/about",
+    },
+    {
+      title: "Login",
+      path: "/login",
+    },
+    {
+      title: "Signup",
+      path: "/signup",
+    },
+  ]);
 
   const navigate = useNavigate();
 
@@ -76,19 +99,13 @@ const NavBar = () => {
                   open={Boolean(anchorEl)}
                   onClose={() => setAnchorEl(null)}
                 >
-                  <MenuItem onClick={() => handleMenuClick("/")}>Home</MenuItem>
-                  <MenuItem onClick={() => handleMenuClick("/store")}>
-                    Store
-                  </MenuItem>
-                  <MenuItem onClick={() => handleMenuClick("/about")}>
-                    About
-                  </MenuItem>
-                  <MenuItem onClick={() => handleMenuClick("/login")}>
-                    Login
-                  </MenuItem>
-                  <MenuItem onClick={() => handleMenuClick("/signup")}>
-                    Signup
-                  </MenuItem>
+                  {menu.map((menu) => {
+                    return (
+                      <MenuItem key={menu.title} onClick={() => handleMenuClick(`${menu.path}`)}>
+                        {menu.title}
+                      </MenuItem>
+                    );
+                  })}
                 </Menu>
               </Box>
               <Box
