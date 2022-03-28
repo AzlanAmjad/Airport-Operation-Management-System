@@ -21,6 +21,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 // Date picker
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
+import AirlineDashboard from "./pages/AirlineDashboard";
 
 const theme = createTheme({
   palette: {
@@ -94,6 +95,7 @@ function App() {
               <Route path="/about" element={<About />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
+              <Route path="/airlinedash/*" element={<AirlineDashboard />} />
             </Routes>
           </Grid>
 
