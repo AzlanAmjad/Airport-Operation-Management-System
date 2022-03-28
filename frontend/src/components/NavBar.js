@@ -8,7 +8,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { useNavigate } from "react-router-dom";
 import { Box } from "@mui/system";
 
-const NavBar = (props) => {
+const NavBar = () => {
   // anchor for menu
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -24,7 +24,7 @@ const NavBar = (props) => {
   };
 
   return (
-    <div>
+    <Grid item container>
       <AppBar>
         <Toolbar>
           <Grid
@@ -56,6 +56,8 @@ const NavBar = (props) => {
                   aria-label="menu"
                   sx={{ mr: 2 }}
                   onClick={handleMenu}
+                  aria-controls="menu-appbar"
+                  aria-haspopup="true"
                 >
                   <MenuIcon />
                 </IconButton>
@@ -90,7 +92,7 @@ const NavBar = (props) => {
                 </Menu>
               </Box>
               <Box
-                sx={{ display: { xs: "none", sm: "flex" }, width: '170px'}}
+                sx={{ display: { xs: "none", sm: "flex" }, width: "170px" }}
                 direction="row"
                 justifyContent="space-between"
               >
@@ -105,7 +107,7 @@ const NavBar = (props) => {
           </Grid>
         </Toolbar>
       </AppBar>
-    </div>
+    </Grid>
   );
 };
 
