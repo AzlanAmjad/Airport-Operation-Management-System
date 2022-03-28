@@ -38,7 +38,7 @@ const NavBar = (props) => {
             </Grid>
 
             <Grid item>
-              <Box sx={{ display: { xs: "none", sm: "flex" } }}>
+              <Box sx={{ display: {xs: "none", md: "flex" } }}>
                 <Typography variant="h2">YYC International Airport</Typography>
               </Box>
             </Grid>
