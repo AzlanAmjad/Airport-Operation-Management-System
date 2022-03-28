@@ -68,13 +68,13 @@ const NavBar = (props) => {
                 <MenuItem onClick={() => handleMenuClick("/store")}>
                   Store
                 </MenuItem>
-                <MenuItem onClick={() => handleMenuClick("about")}>
+                <MenuItem onClick={() => handleMenuClick("/about")}>
                   About
                 </MenuItem>
-                <MenuItem onClick={() => handleMenuClick("login")}>
+                <MenuItem onClick={() => handleMenuClick("/login")}>
                   Login
                 </MenuItem>
-                <MenuItem onClick={() => handleMenuClick("signup")}>
+                <MenuItem onClick={() => handleMenuClick("/signup")}>
                   Signup
                 </MenuItem>
               </Menu>
