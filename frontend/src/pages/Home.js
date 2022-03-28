@@ -122,6 +122,7 @@ const Home = () => {
                 <TextField
                   {...params}
                   variant="outlined"
+                  placeholder="Departure Date"
                   sx={{
                     "& .MuiOutlinedInput-notchedOutline": {
                       borderColor: "white",
