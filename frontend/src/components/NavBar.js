@@ -1,21 +1,25 @@
-import { AppBar, Button, Toolbar, Grid, Typography } from "@mui/material";
+import { AppBar, Button, Toolbar, Grid, Typography, Link } from "@mui/material";
 import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useState } from "react";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
+import { useNavigate } from "react-router-dom";
 
-const NavBar = () => {
+const NavBar = (props) => {
   // anchor for menu
   const [anchorEl, setAnchorEl] = useState(null);
+
+  const navigate = useNavigate();
 
   // functions to handle menu
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  const handleClose = () => {
+  const handleMenuClick = (path) => {
     setAnchorEl(null);
+    navigate(path);
   };
 
   return (
@@ -58,13 +62,21 @@ const NavBar = () => {
                   horizontal: "right",
                 }}
                 open={Boolean(anchorEl)}
-                onClose={handleClose}
+                onClose={() => setAnchorEl(null)}
               >
-                <MenuItem onClick={handleClose}>Home</MenuItem>
-                <MenuItem onClick={handleClose}>Store</MenuItem>
-                <MenuItem onClick={handleClose}>About</MenuItem>
-                <MenuItem onClick={handleClose}>Login</MenuItem>
-                <MenuItem onClick={handleClose}>Signup</MenuItem>
+                <MenuItem onClick={() => handleMenuClick("/")}>Home</MenuItem>
+                <MenuItem onClick={() => handleMenuClick("/store")}>
+                  Store
+                </MenuItem>
+                <MenuItem onClick={() => handleMenuClick("about")}>
+                  About
+                </MenuItem>
+                <MenuItem onClick={() => handleMenuClick("login")}>
+                  Login
+                </MenuItem>
+                <MenuItem onClick={() => handleMenuClick("signup")}>
+                  Signup
+                </MenuItem>
               </Menu>
             </Grid>
           </Grid>

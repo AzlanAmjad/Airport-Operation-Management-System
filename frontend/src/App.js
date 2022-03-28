@@ -78,6 +78,7 @@ function App() {
           >
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/store" element={<Store />} />
               <Route path="/about" element={<About />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
@@ -85,7 +86,6 @@ function App() {
                 path="/flight-details/:airline/:flight"
                 element={<Flight />}
               />
-              <Route path="/store" element={<Store />} />
             </Routes>
           </Grid>
 
