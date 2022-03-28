@@ -1,204 +1,158 @@
 import Button from "@mui/material/Button";
 
-import Grid from '@mui/material/Grid';
-import TextField from '@mui/material/TextField';
-import Autocomplete from '@mui/material/Autocomplete';
-import * as React from 'react';
-import Typography from '@mui/material/Typography';
-import DatePicker from '@mui/lab/DatePicker';
+import Grid from "@mui/material/Grid";
+import TextField from "@mui/material/TextField";
+import Autocomplete from "@mui/material/Autocomplete";
+import * as React from "react";
+import Typography from "@mui/material/Typography";
+import DatePicker from "@mui/lab/DatePicker";
 import { styled } from "@mui/material/styles";
+
+// state management
+import { useState } from "react";
+
 const Home = () => {
-  const cities = ["Edmonton", "Calgary", "Toronto"];
-
-  const departure = []; // Departure date -> turn to useState hook
-  const setDeparture = () => { };
-
-  // styled autocomplete
-  const StyledAutocomplete = styled(Autocomplete)({
-    "& .MuiAutocomplete-inputRoot": {
-      color: "white",
-      "& .MuiOutlinedInput-notchedOutline": {
-        borderColor: "white",
-      },
-      "&:hover .MuiOutlinedInput-notchedOutline": {
-        borderColor: "red",
-      },
-      "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-        borderColor: "white",
-      },
-      "& .MuiButtonBase-root.MuiAutocomplete-clearIndicator": {
-        color: "red"
-      },
-      "& .MuiButtonBase-root.MuiAutocomplete-popupIndicator": {
-        color: "white"
-      }
+  // destinations from db
+  const [destinations, setDestinations] = useState([
+    {
+      airport_code: "YVR",
+      city: "Vancouver",
+      country: "Canada",
     },
-  });
+    {
+      airport_code: "YYZ",
+      city: "Toronto",
+      country: "Canada",
+    },
+    {
+      airport_code: "YEG",
+      city: "Edmonton",
+      country: "Canada",
+    },
+  ]);
 
-  // styled date picker
-  const StyledDatePicker = styled(DatePicker)({
-    import Grid from "@mui/material/Grid";
-    import TextField from "@mui/material/TextField";
-    import Autocomplete from "@mui/material/Autocomplete";
-    import * as React from "react";
-    import Typography from "@mui/material/Typography";
-    import DatePicker from "@mui/lab/DatePicker";
-    import { styled } from "@mui/material/styles";
+  // input states
+  const [destination, setDestination] = useState(null);
+  const [departure, setDeparture] = useState(null);
 
-    // state management
-    import { useState } from "react";
-
-    const Home = () => {
-      // destinations from db
-      const [destinations, setDestinations] = useState([
-        {
-          airport_code: "YVR",
-          city: "Vancouver",
-          country: "Canada",
-        },
-        {
-          airport_code: "YYZ",
-          city: "Toronto",
-          country: "Canada",
-        },
-        {
-          airport_code: "YEG",
-          city: "Edmonton",
-          country: "Canada",
-        },
-      ]);
-
-      // input states
-      const [destination, setDestination] = useState(null);
-      const [departure, setDeparture] = useState(null);
-
-      return (
+  return (
+    <Grid
+      item
+      container
+      direction="column"
+      alignItems="center"
+      justifyContent="center"
+      rowSpacing={5}
+      wrap="nowrap"
+      height="400px"
+    >
+      <Grid
+        item
+        container
+        direction="column"
+        alignItems="center"
+        justifyContent="center"
+        rowSpacing={4}
+        wrap="nowrap"
+      >
+        <Grid item>
+          <Typography variant="h1" component="div" gutterBottom>
+            Find a Flight
+          </Typography>
+        </Grid>
         <Grid
           item
           container
-          direction="column"
-          alignItems="center"
+          direction="row"
           justifyContent="center"
-          rowSpacing={5}
-          wrap="nowrap"
-          height="400px"
+          spacing={2}
+          rowSpacing={3}
         >
-          <Grid
-            item
-            container
-            direction="column"
-            alignItems="center"
-            justifyContent="center"
-            rowSpacing={4}
-            wrap="nowrap"
-          >
-            <Grid item>
-              <Typography variant="h1" component="div" gutterBottom>
-                Find a Flight
-              </Typography>
-            </Grid>
-            <Grid
-              item
-              container
-              direction="row"
-              justifyContent="center"
-              spacing={2}
-              rowSpacing={3}
-            >
-              <Grid item>
-                <Autocomplete
-                  disablePortal
-                  id="combo-box-demo"
-                  options={destinations.map((item) => {
-                    const dest = `${item.city} - ${item.airport_code}`;
-                    return dest;
-                  })}
-                  sx={{ width: 300 }}
-                  value={destination}
-                  onChange={(event, values) => {
-                    setDestination(values);
+          <Grid item>
+            <Autocomplete
+              disablePortal
+              id="combo-box-demo"
+              options={destinations.map((item) => {
+                const dest = `${item.city} - ${item.airport_code}`;
+                return dest;
+              })}
+              sx={{ width: 300 }}
+              value={destination}
+              onChange={(event, values) => {
+                setDestination(values);
+              }}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  variant="outlined"
+                  placeholder="Destination"
+                  sx={{
+                    svg: "white",
+                    input: "white",
+                    label: "white",
+                    "& .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "white",
+                    },
+                    "&:hover .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "red",
+                    },
+                    "&.MuiOutlinedInput-notchedOutline.Mui-focused": {
+                      borderColor: "red",
+                    },
+                    "& .MuiButtonBase-root.MuiAutocomplete-clearIndicator": {
+                      color: "red",
+                    },
+                    "& .MuiButtonBase-root.MuiAutocomplete-popupIndicator": {
+                      color: "white",
+                    },
                   }}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      variant="outlined"
-                      placeholder="Destination"
-                      sx={{
-                        svg: "white",
-                        input: "white",
-                        label: "white",
-                        "& .MuiOutlinedInput-notchedOutline": {
-                          borderColor: "white",
-                        },
-                        "&:hover .MuiOutlinedInput-notchedOutline": {
-                          borderColor: "red",
-                        },
-                        "&.MuiOutlinedInput-notchedOutline.Mui-focused": {
-                          borderColor: "red",
-                        },
-                        "& .MuiButtonBase-root.MuiAutocomplete-clearIndicator": {
-                          color: "red",
-                        },
-                        "& .MuiButtonBase-root.MuiAutocomplete-popupIndicator": {
-                          color: "white",
-                        },
-                      }}
-                    />
-                  )}
                 />
-              </Grid>
-              <Grid item>
-                <DatePicker
-                  inputFormat="MM/dd/yyyy"
-                  openTo="year"
-                  value={departure}
-                  onChange={(newDeparture) => {
-                    setDeparture(newDeparture);
-                  }}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      variant="outlined"
-                      placeholder="Departure Date"
-                      sx={{
-                        "& .MuiOutlinedInput-notchedOutline": {
-                          borderColor: "white",
-                        },
-                        "&:hover .MuiOutlinedInput-notchedOutline": {
-                          borderColor: "red",
-                        },
-                        "&.MuiOutlinedInput-notchedOutline.Mui-focused": {
-                          borderColor: "red",
-                        },
-                        "& .MuiButtonBase-root.MuiIconButton-root": {
-                          color: "white",
-                        },
-                      }}
-                    />
-                  )}
-                />
-              </Grid>
-            </Grid>
-            <Grid item>
-              <DatePicker
-                label="Departure Date"
-                inputFormat="mm/dd/yyyy"
-                value={departure}
-                onChange={setDeparture}
-                renderInput={(params) => (
-                  <TextField {...params} variant="outlined" />
-                )}
-              />
-              <Button variant="contained" style={{ minWidth: "200px" }}>
-                Search
-              </Button>
-            </Grid>
+              )}
+            />
           </Grid>
-          <Grid item container direction="column" alignItems="center">
-            <p>Search results go here</p>
+          <Grid item>
+            <DatePicker
+              inputFormat="MM/dd/yyyy"
+              openTo="year"
+              value={departure}
+              onChange={(newDeparture) => {
+                setDeparture(newDeparture);
+              }}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  variant="outlined"
+                  placeholder="Departure Date"
+                  sx={{
+                    "& .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "white",
+                    },
+                    "&:hover .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "red",
+                    },
+                    "&.MuiOutlinedInput-notchedOutline.Mui-focused": {
+                      borderColor: "red",
+                    },
+                    "& .MuiButtonBase-root.MuiIconButton-root": {
+                      color: "white",
+                    },
+                  }}
+                />
+              )}
+            />
           </Grid>
         </Grid>
-      );
-    };
+        <Grid item>
+          <Button variant="contained" style={{ minWidth: "200px" }}>
+            Search
+          </Button>
+        </Grid>
+      </Grid>
+      <Grid item container direction="column" alignItems="center">
+        <p>Search results go here</p>
+      </Grid>
+    </Grid>
+  );
+};
 
-    export default Home;
+export default Home;
