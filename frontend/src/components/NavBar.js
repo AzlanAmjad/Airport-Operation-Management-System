@@ -6,6 +6,7 @@ import { useState } from "react";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { useNavigate } from "react-router-dom";
+import { Box } from "@mui/system";
 
 const NavBar = (props) => {
   // anchor for menu
@@ -36,48 +37,61 @@ const NavBar = (props) => {
               <FlightTakeoffIcon fontSize="large" />
             </Grid>
 
-            <Grid item>menu</Grid>
+            <Grid item>
+              <Box sx={{ display: { xs: "none", sm: "flex" } }}>
+                <Typography variant="h2">YYC International Airport</Typography>
+              </Box>
+            </Grid>
 
             <Grid item>
-              <IconButton
-                size="large"
-                edge="start"
-                color="inherit"
-                aria-label="menu"
-                sx={{ mr: 2 }}
-                onClick={handleMenu}
-              >
-                <MenuIcon />
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorEl}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                open={Boolean(anchorEl)}
-                onClose={() => setAnchorEl(null)}
-              >
-                <MenuItem onClick={() => handleMenuClick("/")}>Home</MenuItem>
-                <MenuItem onClick={() => handleMenuClick("/store")}>
-                  Store
-                </MenuItem>
-                <MenuItem onClick={() => handleMenuClick("/about")}>
-                  About
-                </MenuItem>
-                <MenuItem onClick={() => handleMenuClick("/login")}>
-                  Login
-                </MenuItem>
-                <MenuItem onClick={() => handleMenuClick("/signup")}>
-                  Signup
-                </MenuItem>
-              </Menu>
+              <Box sx={{ display: { xs: "none", sm: "flex" } }}>Menu</Box>
+            </Grid>
+
+            <Grid item>
+              <Box sx={{ display: { xs: "flex", sm: "none" } }}>
+                <IconButton
+                  size="large"
+                  edge="start"
+                  color="inherit"
+                  aria-label="menu"
+                  sx={{ mr: 2 }}
+                  onClick={handleMenu}
+                >
+                  <MenuIcon />
+                </IconButton>
+                <Menu
+                  id="menu-appbar"
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  open={Boolean(anchorEl)}
+                  onClose={() => setAnchorEl(null)}
+                >
+                  <MenuItem onClick={() => handleMenuClick("/")}>Home</MenuItem>
+                  <MenuItem onClick={() => handleMenuClick("/store")}>
+                    Store
+                  </MenuItem>
+                  <MenuItem onClick={() => handleMenuClick("/about")}>
+                    About
+                  </MenuItem>
+                  <MenuItem onClick={() => handleMenuClick("/login")}>
+                    Login
+                  </MenuItem>
+                  <MenuItem onClick={() => handleMenuClick("/signup")}>
+                    Signup
+                  </MenuItem>
+                </Menu>
+              </Box>
+              <Box sx={{ display: { xs: "none", sm: "flex" } }}>
+                Login/Signup
+              </Box>
             </Grid>
           </Grid>
         </Toolbar>

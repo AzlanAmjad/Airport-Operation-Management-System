@@ -48,6 +48,10 @@ const theme = createTheme({
     h1: {
       fontSize: 60,
     },
+    h2: {
+      fontSize: 25,
+      fontWeight: "bold",
+    },
   },
 });
 
