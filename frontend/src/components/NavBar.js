@@ -101,7 +101,10 @@ const NavBar = () => {
                 >
                   {menu.map((menu) => {
                     return (
-                      <MenuItem key={menu.title} onClick={() => handleMenuClick(`${menu.path}`)}>
+                      <MenuItem
+                        key={menu.title}
+                        onClick={() => handleMenuClick(`${menu.path}`)}
+                      >
                         {menu.title}
                       </MenuItem>
                     );
