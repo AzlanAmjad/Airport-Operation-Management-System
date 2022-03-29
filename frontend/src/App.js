@@ -55,6 +55,10 @@ const theme = createTheme({
       fontSize: 25,
       fontWeight: "bold",
     },
+    h3: {
+      fontSize: 25,
+      fontWeight: "bold",
+    },
   },
 });
 
