@@ -100,9 +100,12 @@ const Home = () => {
   const search = () => {
     const params = {
       dest: destination,
-      dep: departure
+      dep: departure,
+    };
+
+    {
+      params.dest && params.dep && setSearchParams(params);
     }
-    setSearchParams(params)
   };
 
   return (
@@ -216,7 +219,9 @@ const Home = () => {
           <Button
             variant="contained"
             sx={{ minWidth: "200px" }}
-            onClick={() => {search()}}
+            onClick={() => {
+              search();
+            }}
           >
             Search
           </Button>
