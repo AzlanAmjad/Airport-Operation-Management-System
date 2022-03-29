@@ -2,7 +2,14 @@ import { Box, Grid } from "@mui/material";
 
 const Footer = () => {
   return (
-    <Grid item container height="100px" alignItems="center" justifyContent="center" backgroundColor='primary.main'>
+    <Grid
+      item
+      container
+      alignItems="center"
+      justifyContent="center"
+      backgroundColor="primary.main"
+      padding="30px"
+    >
       <footer>
         <Grid item container>
           <Grid item>Hello</Grid>
