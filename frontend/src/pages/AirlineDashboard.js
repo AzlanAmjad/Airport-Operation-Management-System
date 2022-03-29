@@ -42,7 +42,6 @@ const AirlineDashboard = () => {
         container
         direction="row"
         height="1000px"
-        alignItems="flex-start"
       >
         <Tabs
           value={value}
