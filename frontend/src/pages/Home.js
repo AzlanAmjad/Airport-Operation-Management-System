@@ -44,7 +44,6 @@ const Home = () => {
       justifyContent="center"
       rowSpacing={5}
       wrap="nowrap"
-      height="400px"
     >
       <Grid
         item
