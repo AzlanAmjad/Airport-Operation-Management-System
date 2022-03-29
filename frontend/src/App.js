@@ -96,7 +96,7 @@ function App() {
               />
 
               <Route path="/shop" element={<Shop />} />
-              <Route path="/:store" element={<Store />} />
+              <Route path="/shop/:store" element={<Store />} />
 
               <Route path="/about" element={<About />} />
               <Route path="/login" element={<Login />} />
