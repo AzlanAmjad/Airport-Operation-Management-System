@@ -47,7 +47,7 @@ const NavBar = () => {
   };
 
   return (
-    <Grid item container>
+    <nav>
       <AppBar>
         <Toolbar>
           <Grid
@@ -128,7 +128,7 @@ const NavBar = () => {
           </Grid>
         </Toolbar>
       </AppBar>
-    </Grid>
+    </nav>
   );
 };
 
