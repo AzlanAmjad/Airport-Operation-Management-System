@@ -1,4 +1,3 @@
-import { Counter } from "./features/counter/Counter";
 import { Route, Routes } from "react-router-dom";
 
 // import components
