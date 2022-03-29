@@ -10,6 +10,8 @@ import Signup from "./pages/Signup";
 import Flight from "./pages/Flight";
 import Store from "./pages/Store";
 import Shop from "./pages/Shop";
+import Cart from "./pages/Cart"
+import Checkout from "./pages/Checkout"
 
 // material UI
 import Grid from "@mui/material/Grid";
@@ -104,6 +106,9 @@ function App() {
                 path="/airline-dashboard/*"
                 element={<AirlineDashboard />}
               />
+
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/checkout" element={<Checkout />} />
             </Routes>
           </Grid>
 
