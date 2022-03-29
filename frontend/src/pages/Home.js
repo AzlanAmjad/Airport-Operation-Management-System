@@ -12,7 +12,7 @@ import { styled } from "@mui/material/styles";
 import { useState } from "react";
 
 const Home = () => {
-  // destinations from db
+  // static destinations
   const [destinations, setDestinations] = useState([
     {
       airport_code: "YVR",
@@ -31,10 +31,73 @@ const Home = () => {
     },
   ]);
 
+  // static searched flights data
+  const [flights, setFlights] = useState([
+    {
+      flight_num: 0,
+      airline_name: "Air Canada",
+      category: "Economy",
+      dep_time: "1997-12-17 07:37:16-08",
+      arrival_time: "1997-12-17 07:37:16-08",
+      dest_code: "YYZ",
+      plane_id: 0
+    },
+    {
+      flight_num: 1,
+      airline_name: "Air Canada",
+      category: "Economy",
+      dep_time: "1997-12-17 07:37:16-08",
+      arrival_time: "1997-12-17 07:37:16-08",
+      dest_code: "YYZ",
+      plane_id: 0
+    },
+    {
+      flight_num: 2,
+      airline_name: "Air Canada",
+      category: "Economy",
+      dep_time: "1997-12-17 07:37:16-08",
+      arrival_time: "1997-12-17 07:37:16-08",
+      dest_code: "YYZ",
+      plane_id: 0
+    },
+    {
+      flight_num: 3,
+      airline_name: "Air Canada",
+      category: "Economy",
+      dep_time: "1997-12-17 07:37:16-08",
+      arrival_time: "1997-12-17 07:37:16-08",
+      dest_code: "YYZ",
+      plane_id: 0
+    },
+    {
+      flight_num: 4,
+      airline_name: "Air Canada",
+      category: "Economy",
+      dep_time: "1997-12-17 07:37:16-08",
+      arrival_time: "1997-12-17 07:37:16-08",
+      dest_code: "YYZ",
+      plane_id: 0
+    },
+    {
+      flight_num: 5,
+      airline_name: "Air Canada",
+      category: "Economy",
+      dep_time: "1997-12-17 07:37:16-08",
+      arrival_time: "1997-12-17 07:37:16-08",
+      dest_code: "YYZ",
+      plane_id: 0
+    },
+  ])
+
   // input states
   const [destination, setDestination] = useState(null);
   const [departure, setDeparture] = useState(null);
 
+  // search
+  const search = () => {
+
+  }
+  
   return (
     <Grid
       item
@@ -143,7 +206,7 @@ const Home = () => {
           </Grid>
         </Grid>
         <Grid item>
-          <Button variant="contained" style={{ minWidth: "200px" }}>
+          <Button variant="contained" sx={{ minWidth: "200px" }} onClick={search}>
             Search
           </Button>
         </Grid>
