@@ -2,10 +2,13 @@ import { Box, Grid } from "@mui/material";
 
 const Footer = () => {
   return (
-    <Grid item container>
-        <footer>
-            <p>Hello</p>
-        </footer>
+    <Grid item container height="100px" alignItems="center" justifyContent="center">
+      <footer>
+        <Grid item container>
+          <Grid item>Hello</Grid>
+          <Grid item>Hello</Grid>
+        </Grid>
+      </footer>
     </Grid>
   );
 };

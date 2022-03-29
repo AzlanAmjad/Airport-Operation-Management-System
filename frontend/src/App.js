@@ -82,6 +82,7 @@ function App() {
             container
             justifyContent="center"
             alignItems="center"
+            marginTop="100px"
           >
             <Routes>
               <Route path="/" element={<Home />} />
