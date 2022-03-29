@@ -238,9 +238,11 @@ const Home = () => {
           </Button>
         </Grid>
       </Grid>
-      <Grid item container direction="column" alignItems="center">
-        <p>Search results go here</p>
-      </Grid>
+      {false && (
+        <Grid item container direction="column" alignItems="center">
+          <p>Search results go here</p>
+        </Grid>
+      )}
     </Grid>
   );
 };
