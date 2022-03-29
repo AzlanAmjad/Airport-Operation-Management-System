@@ -98,24 +98,24 @@ const Home = () => {
 
   // search
   const search = () => {
-    // date get ISO string
-    const dep_string = departure.toISOString();
+    if (destination && departure) {
+      // date get ISO string
+      const dep_string = departure.toISOString();
 
-    // regex
-    const dest_reg = /[A-Z]{3}/;
-    const dep_reg = /[0-9]{4}-[0-9]{2}-[0-9]{2}/;
+      // regex
+      const dest_reg = /[A-Z]{3}/;
+      const dep_reg = /[0-9]{4}-[0-9]{2}-[0-9]{2}/;
 
-    // regex result
-    const dest = destination.match(dest_reg);
-    const dep = dep_string.match(dep_reg);
+      // regex result
+      const dest = destination.match(dest_reg);
+      const dep = dep_string.match(dep_reg);
 
-    const params = {
-      destination: dest[0],
-      departure: dep[0],
-    };
+      const params = {
+        destination: dest[0],
+        departure: dep[0],
+      };
 
-    {
-      params.destination && params.departure && setSearchParams(params);
+      setSearchParams(params);
     }
   };
 
