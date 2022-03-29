@@ -79,7 +79,6 @@ function App() {
           <Grid
             item
             container
-            height="80vh"
             justifyContent="center"
             alignItems="center"
           >
@@ -103,7 +102,7 @@ function App() {
             </Routes>
           </Grid>
 
-          <Grid item container height="20vh">
+          <Grid item container>
             <Footer />
           </Grid>
         </Grid>
