@@ -216,7 +216,7 @@ const Home = () => {
           <Button
             variant="contained"
             sx={{ minWidth: "200px" }}
-            onClick={search}
+            onClick={() => {search()}}
           >
             Search
           </Button>
