@@ -79,7 +79,7 @@ function App() {
           <Grid
             item
             container
-            height="100vh"
+            height="80vh"
             justifyContent="center"
             alignItems="center"
           >
@@ -96,11 +96,14 @@ function App() {
               <Route path="/about" element={<About />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
-              <Route path="/airline-dashboard/*" element={<AirlineDashboard />} />
+              <Route
+                path="/airline-dashboard/*"
+                element={<AirlineDashboard />}
+              />
             </Routes>
           </Grid>
 
-          <Grid item container>
+          <Grid item container height="20vh">
             <Footer />
           </Grid>
         </Grid>
