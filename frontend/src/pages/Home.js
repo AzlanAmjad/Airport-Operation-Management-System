@@ -128,7 +128,7 @@ const Home = () => {
       justifyContent="center"
       rowSpacing={5}
       wrap="nowrap"
-      height="700px"
+      minHeight="700px"
     >
       <Grid
         item

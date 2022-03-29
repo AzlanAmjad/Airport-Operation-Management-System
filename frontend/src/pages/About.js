@@ -8,10 +8,11 @@ const About = () => {
       container
       direction="column"
       alignItems="center"
-      justifyContent="center"
+      justifyContent="flex-start"
       rowSpacing={5}
       wrap="nowrap"
-      height="700px"
+      width="70%"
+      paddingY="50px"
     >
       <Grid
         item
@@ -47,7 +48,7 @@ const About = () => {
         rowSpacing={3}
       >
         <Grid item>
-          <Typography variant="h2">The Team</Typography>
+          <Typography variant="h2">The Developers</Typography>
         </Grid>
         <Grid item>
           <Typography variant="body1">
