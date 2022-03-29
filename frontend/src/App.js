@@ -82,7 +82,7 @@ function App() {
             container
             justifyContent="center"
             alignItems="center"
-            marginTop="100px"
+            mt="100px"
           >
             <Routes>
               <Route path="/" element={<Home />} />
@@ -104,7 +104,7 @@ function App() {
             </Routes>
           </Grid>
 
-          <Grid item container>
+          <Grid item container mt="50px">
             <Footer />
           </Grid>
         </Grid>
