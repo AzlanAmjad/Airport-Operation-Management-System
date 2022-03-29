@@ -71,6 +71,7 @@ function App() {
           align="center"
           justifyContent="space-between"
           wrap="nowrap"
+          overflow="auto"
         >
           <Grid item container>
             <NavBar />
