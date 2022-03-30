@@ -39,12 +39,11 @@ const Home = () => {
 
   // show flights boolean value
   const [showFlights, setShowFlights] = useState(false);
-  // static searched flights data
+  // fetch searched flight from API
   const [flights, setFlights] = useState([
     {
       flight_num: 0,
       airline_name: "Air Canada",
-      category: "Economy",
       dep_time: "1997-12-17 07:37:16-08",
       arrival_time: "1997-12-17 07:37:16-08",
       dest_code: "YYZ",
@@ -53,7 +52,6 @@ const Home = () => {
     {
       flight_num: 1,
       airline_name: "Air Canada",
-      category: "Economy",
       dep_time: "1997-12-17 07:37:16-08",
       arrival_time: "1997-12-17 07:37:16-08",
       dest_code: "YYZ",
@@ -62,7 +60,6 @@ const Home = () => {
     {
       flight_num: 2,
       airline_name: "Air Canada",
-      category: "Economy",
       dep_time: "1997-12-17 07:37:16-08",
       arrival_time: "1997-12-17 07:37:16-08",
       dest_code: "YYZ",
@@ -71,7 +68,6 @@ const Home = () => {
     {
       flight_num: 3,
       airline_name: "Air Canada",
-      category: "Economy",
       dep_time: "1997-12-17 07:37:16-08",
       arrival_time: "1997-12-17 07:37:16-08",
       dest_code: "YYZ",
@@ -80,7 +76,6 @@ const Home = () => {
     {
       flight_num: 4,
       airline_name: "Air Canada",
-      category: "Economy",
       dep_time: "1997-12-17 07:37:16-08",
       arrival_time: "1997-12-17 07:37:16-08",
       dest_code: "YYZ",
@@ -89,7 +84,6 @@ const Home = () => {
     {
       flight_num: 5,
       airline_name: "Air Canada",
-      category: "Economy",
       dep_time: "1997-12-17 07:37:16-08",
       arrival_time: "1997-12-17 07:37:16-08",
       dest_code: "YYZ",
@@ -314,9 +308,7 @@ const Home = () => {
                         color="inherit"
                         onClick={() =>
                           navigate(
-                            `/${flight.airline_name.replace(/\s+/g, "")}/${
-                              flight.flight_num
-                            }/flight-details`
+                            `/${flight.airline_name.replace(/\s+/g, '+')}/${flight.flight_num}/flight-details`
                           )
                         }
                       >

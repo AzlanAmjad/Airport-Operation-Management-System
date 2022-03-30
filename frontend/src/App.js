@@ -92,7 +92,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route
-                path="/:airline/:flight/flight-details"
+                path="/:airline_name/:flight_num/flight-details"
                 element={<Flight />}
               />
 
