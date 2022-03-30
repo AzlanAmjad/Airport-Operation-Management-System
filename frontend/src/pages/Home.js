@@ -18,7 +18,7 @@ import { useState, useEffect } from "react";
 const Home = () => {
   const navigate = useNavigate();
 
-  // static destinations
+  // fetch all destinations from API
   const [destinations, setDestinations] = useState([
     {
       airport_code: "YVR",
@@ -39,7 +39,8 @@ const Home = () => {
 
   // show flights boolean value
   const [showFlights, setShowFlights] = useState(false);
-  // fetch searched flight from API
+
+  // fetch searched flights from API
   const [flights, setFlights] = useState([
     {
       flight_num: 0,

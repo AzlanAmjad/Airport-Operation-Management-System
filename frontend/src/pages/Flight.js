@@ -1,13 +1,10 @@
-import { Grid } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 
 const Flight = () => {
-  const { airline_name, flight_num } = useParams();
-  const airline = airline_name.replace(/\++/g, " ");
-
-  console.log(airline);
-  console.log(flight_num);
+  const { airline, flight_num } = useParams();
+  const airline_name = airline.replace(/\++/g, " ");
 
   // fetch flight from API
   const [flight, setFlight] = useState({
@@ -27,9 +24,33 @@ const Flight = () => {
   });
 
   return (
-    <div>
-      <Grid></Grid>
-    </div>
+    <Grid
+      item
+      container
+      direction="column"
+      alignItems="center"
+      justifyContent="flex-start"
+      wrap="nowrap"
+      width="70%"
+      paddingY="50px"
+    >
+      <Grid
+        item
+        container
+        direction="column"
+        alignItems="flex-start"
+        justifyContent="flex-start"
+      >
+        <Grid item>
+          <Typography variant="h4">Calgary to {destination.city}</Typography>
+        </Grid>
+        <Grid item>
+          <Typography>
+            {flight.airline_name} - {flight.dep_time}
+          </Typography>
+        </Grid>
+      </Grid>
+    </Grid>
   );
 };
 
