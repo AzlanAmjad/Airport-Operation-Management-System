@@ -15,6 +15,11 @@ import TextField from "@mui/material/TextField";
 import IconButton from '@mui/material/IconButton';
 import Button from "@mui/material/Button";
 import AddIcon from '@mui/icons-material/Add';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
 
 const Flights = () => {
@@ -32,6 +37,8 @@ const Flights = () => {
   const [departure, setDeparture] = useState(null);
   const [arrival, setArrival] = useState(null);
 
+  const [dialogForm, setDialogForm] = useState(false);
+
   const [adminAirline, setAdminAirline] = useState("Air Canada")
 
   const handleCategory = (event) => {
@@ -40,6 +47,13 @@ const Flights = () => {
   };
   const handlePlaneID = (event) => {
   };
+
+  const handleDialogFormOpen = () => {
+    setDialogForm(true);
+  }
+  const handleDialogFormClose = () => {
+    setDialogForm(false);
+  }
 
 
   return (
@@ -182,8 +196,115 @@ const Flights = () => {
           </Grid>
         )}
         <Grid item >
-          <IconButton size="large" sx={{ color: "primary.main" }}><AddIcon fontSize="inherit" /></IconButton>
+          <IconButton size="large" sx={{ color: "primary.main" }} onClick={handleDialogFormOpen}><AddIcon fontSize="inherit" /></IconButton>
         </Grid>
+        <Dialog open={dialogForm} onClose={handleDialogFormClose}>
+          <DialogTitle>Add a Flight</DialogTitle>
+          <DialogContent>
+            <DialogContentText sx={{ color: "text.primary" }}>
+              To add flight, please add following information:
+            </DialogContentText>
+            <FormControl sx={{ minWidth: 100 }}>
+              <DatePicker
+                inputFormat="MM/dd/yyyy"
+                openTo="day"
+                value={arrival}
+                onChange={(newArrival) => {
+                  setArrival(newArrival);
+                }}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    variant="outlined"
+                    placeholder="Departure Date"
+                    sx={{
+                      "& .MuiOutlinedInput-notchedOutline": {
+                        borderColor: "white",
+                      },
+                      "&:hover .MuiOutlinedInput-notchedOutline": {
+                        borderColor: "red",
+                      },
+                      "&.MuiOutlinedInput-notchedOutline.Mui-focused": {
+                        borderColor: "red",
+                      },
+                      "& .MuiButtonBase-root.MuiIconButton-root": {
+                        color: "white",
+                      },
+                    }}
+                  />
+                )}
+              />
+              <FormHelperText sx={{ color: "text.primary" }}>Arrival</FormHelperText>
+            </FormControl>
+            <FormControl sx={{ minWidth: 100 }}>
+              <DatePicker
+                inputFormat="MM/dd/yyyy"
+                openTo="day"
+                value={departure}
+                onChange={(newDeparture) => {
+                  setArrival(departure);
+                }}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    variant="outlined"
+                    placeholder="Departure Date"
+                    sx={{
+                      "& .MuiOutlinedInput-notchedOutline": {
+                        borderColor: "white",
+                      },
+                      "&:hover .MuiOutlinedInput-notchedOutline": {
+                        borderColor: "red",
+                      },
+                      "&.MuiOutlinedInput-notchedOutline.Mui-focused": {
+                        borderColor: "red",
+                      },
+                      "& .MuiButtonBase-root.MuiIconButton-root": {
+                        color: "white",
+                      },
+                    }}
+                  />
+                )}
+              />
+              <FormHelperText sx={{ color: "text.primary" }}>Departure</FormHelperText>
+            </FormControl>
+            <FormControl sx={{ minWidth: 120 }}>
+              <InputLabel sx={{ color: "text.primary" }}>Category</InputLabel>
+              <Select
+                value={category}
+                onChange={handleCategory}
+              >
+                <MenuItem value={"Private"}>Private</MenuItem>
+                <MenuItem value={"Business"}>Business</MenuItem>
+              </Select>
+            </FormControl>
+            <FormControl sx={{ minWidth: 120 }}>
+              <InputLabel sx={{ color: "text.primary" }}>Destination Code</InputLabel>
+              <Select
+                value={destCode}
+                onChange={handleDestCode}
+              >
+                <MenuItem value={"YYG"}>YYG</MenuItem>
+                <MenuItem value={"YXA"}>YXA</MenuItem>
+              </Select>
+            </FormControl>
+            <FormControl sx={{ minWidth: 120 }}>
+              <InputLabel sx={{ color: "text.primary" }}>Plane ID</InputLabel>
+              <Select
+                value={planeID}
+                onChange={handlePlaneID}
+              >
+                <MenuItem value={"000"}>000</MenuItem>
+                <MenuItem value={"111"}>111</MenuItem>
+                <MenuItem value={"111"}>222</MenuItem>
+              </Select>
+            </FormControl>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleDialogFormClose}>Add</Button>
+            <Button onClick={handleDialogFormClose}>Cancel</Button>
+          </DialogActions>
+        </Dialog>
       </Grid>
     </Grid >
   )
