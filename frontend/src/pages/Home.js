@@ -1,15 +1,17 @@
-import Button from "@mui/material/Button";
-
-import Grid from "@mui/material/Grid";
-import TextField from "@mui/material/TextField";
-import Autocomplete from "@mui/material/Autocomplete";
+import {
+  Paper,
+  Grid,
+  Button,
+  TextField,
+  Autocomplete,
+  Typography,
+} from "@mui/material";
 import * as React from "react";
-import Typography from "@mui/material/Typography";
 import DatePicker from "@mui/lab/DatePicker";
 import { useSearchParams } from "react-router-dom";
 
 // state management
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Home = () => {
   // static destinations
@@ -31,6 +33,8 @@ const Home = () => {
     },
   ]);
 
+  // show flights boolean value
+  const [showFlights, setShowFlights] = useState(false);
   // static searched flights data
   const [flights, setFlights] = useState([
     {
@@ -95,6 +99,20 @@ const Home = () => {
 
   // search parameters
   const [searchParams, setSearchParams] = useSearchParams();
+
+  // pull out the current search param
+  const dest_param = searchParams.get("destination");
+  const dep_param = searchParams.get("departure");
+
+  // useEffect hook which will only run when search params change
+  // will fetch from API here
+  useEffect(() => {
+    if (dest_param && dep_param) {
+      setShowFlights(true);
+    } else {
+      setShowFlights(false);
+    }
+  }, [dest_param, dep_param]);
 
   // search
   const search = () => {
@@ -238,9 +256,13 @@ const Home = () => {
           </Button>
         </Grid>
       </Grid>
-      {false && (
+      {showFlights && (
         <Grid item container direction="column" alignItems="center">
-          <p>Search results go here</p>
+          <Grid item>
+            <Paper>
+              hello
+            </Paper>
+          </Grid>
         </Grid>
       )}
     </Grid>
