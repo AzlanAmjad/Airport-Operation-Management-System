@@ -56,8 +56,10 @@ const NavBar = () => {
             alignItems="center"
             justifyContent="space-between"
           >
-            <Grid item ml="10px" mt="15px" mb="10px">
-              <FlightTakeoffIcon fontSize="large"/>
+            <Grid item>
+              <IconButton color="inherit" onClick={() => navigate("/")}>
+                <FlightTakeoffIcon fontSize="large" />
+              </IconButton>
             </Grid>
 
             <Grid item>

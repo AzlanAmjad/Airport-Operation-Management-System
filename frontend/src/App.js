@@ -1,4 +1,3 @@
-import { Counter } from "./features/counter/Counter";
 import { Route, Routes } from "react-router-dom";
 
 // import components
@@ -11,6 +10,8 @@ import Signup from "./pages/Signup";
 import Flight from "./pages/Flight";
 import Store from "./pages/Store";
 import Shop from "./pages/Shop";
+import Cart from "./pages/Cart"
+import Checkout from "./pages/Checkout"
 
 // material UI
 import Grid from "@mui/material/Grid";
@@ -96,7 +97,7 @@ function App() {
               />
 
               <Route path="/shop" element={<Shop />} />
-              <Route path="/:store" element={<Store />} />
+              <Route path="/shop/:store" element={<Store />} />
 
               <Route path="/about" element={<About />} />
               <Route path="/login" element={<Login />} />
@@ -105,6 +106,9 @@ function App() {
                 path="/airline-dashboard/*"
                 element={<AirlineDashboard />}
               />
+
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/checkout" element={<Checkout />} />
             </Routes>
           </Grid>
 
