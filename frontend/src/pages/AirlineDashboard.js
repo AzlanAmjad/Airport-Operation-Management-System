@@ -34,13 +34,13 @@ const AirlineDashboard = () => {
     <Grid
       container
       justifyContent="space-evenly"
-      paddingLeft="40px"
       alignItems="center"
     >
       <Grid
         item
         container
         xs={1}
+        paddingLeft="40px"
       >
         <Tabs
           value={value}
@@ -66,13 +66,19 @@ const AirlineDashboard = () => {
           />
         </Tabs>
       </Grid>
-      <Grid item xs={11} container>
+      <Grid item xs={10} container>
         <Routes>
           <Route path="welcome" element={<p>test</p>} />
           <Route path="flights" element={<Flights />} />
           <Route path="complaints" element={<AirlineComplaints />} />
         </Routes>
       </Grid>
+
+      <Grid
+        item
+        container
+        xs={1}
+      ></Grid>
     </Grid >
   );
 };
