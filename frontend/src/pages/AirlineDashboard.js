@@ -7,6 +7,7 @@ import Tab from "@mui/material/Tab";
 import HomeIcon from "@mui/icons-material/Home";
 import { Route, Routes, useNavigate, useLocation } from "react-router-dom";
 import Flights from "../components/Flights";
+import AirlineComplaints from "./AirlineComplaints";
 
 function LinkTab(props) {
   return (
@@ -32,8 +33,9 @@ const AirlineDashboard = () => {
   return (
     <Grid
       container
-      justifyContent="space-between"
+      justifyContent="space-evenly"
       paddingLeft="40px"
+      alignItems="center"
     >
       <Grid
         item
@@ -68,7 +70,7 @@ const AirlineDashboard = () => {
         <Routes>
           <Route path="welcome" element={<p>test</p>} />
           <Route path="flights" element={<Flights />} />
-          <Route path="complaints" />
+          <Route path="complaints" element={<AirlineComplaints />} />
         </Routes>
       </Grid>
     </Grid >

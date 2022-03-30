@@ -27,6 +27,7 @@ const Flights = () => {
     <Grid
       container
       justifyContent="center"
+
     >
       <Grid item xs={12}>
         <Typography variant="h1" component="div" gutterBottom>
@@ -44,7 +45,8 @@ const Flights = () => {
                     {flight.flight_num}
                   </Typography>
                   <Typography variant="body2" color="text.primary">
-                    Airline: {flight.airline_name} Category: {flight.category}  Departure: {flight.dep_time} Destination: {flight.dest_code}  Plane ID: {flight.plane_id}
+                    Airline: {flight.airline_name} Category: {flight.category}
+                    Departure: {flight.dep_time} Destination: {flight.dest_code}  Plane ID: {flight.plane_id}
                   </Typography>
                   <Typography variant="body2" color="text.primary">
                     Departure: {flight.dep_time} Arrival: {flight.arrival_time}
