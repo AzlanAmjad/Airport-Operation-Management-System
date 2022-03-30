@@ -12,7 +12,9 @@ import Select from '@mui/material/Select';
 import FormHelperText from '@mui/material/FormHelperText';
 import DatePicker from "@mui/lab/DatePicker";
 import TextField from "@mui/material/TextField";
+import IconButton from '@mui/material/IconButton';
 import Button from "@mui/material/Button";
+import AddIcon from '@mui/icons-material/Add';
 
 
 const Flights = () => {
@@ -179,6 +181,9 @@ const Flights = () => {
             </Card>
           </Grid>
         )}
+        <Grid item >
+          <IconButton size="large" sx={{ color: "primary.main" }}><AddIcon fontSize="inherit" /></IconButton>
+        </Grid>
       </Grid>
     </Grid >
   )
