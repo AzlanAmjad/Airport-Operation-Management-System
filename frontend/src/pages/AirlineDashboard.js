@@ -32,16 +32,13 @@ const AirlineDashboard = () => {
   return (
     <Grid
       container
-      justifyContent="flex-start"
-      alignItems="center"
+      justifyContent="space-between"
       paddingLeft="40px"
-      paddingTop="100px"
     >
       <Grid
         item
         container
-        direction="row"
-        height="1000px"
+        xs={1}
       >
         <Tabs
           value={value}
@@ -66,15 +63,15 @@ const AirlineDashboard = () => {
             onClick={() => navigate("complaints")}
           />
         </Tabs>
-        <Grid item>
-          <Routes>
-            <Route path="welcome" element={<p>test</p>} />
-            <Route path="flights" element={<Flights />} />
-            <Route path="complaints" />
-          </Routes>
-        </Grid>
       </Grid>
-    </Grid>
+      <Grid item xs={11} container>
+        <Routes>
+          <Route path="welcome" element={<p>test</p>} />
+          <Route path="flights" element={<Flights />} />
+          <Route path="complaints" />
+        </Routes>
+      </Grid>
+    </Grid >
   );
 };
 

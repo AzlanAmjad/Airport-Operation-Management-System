@@ -26,51 +26,34 @@ const Flights = () => {
 
     <Grid
       container
-      alignItems="center"
       justifyContent="center"
-      spacing={2}
     >
-      <Grid item>
+      <Grid item xs={12}>
         <Typography variant="h1" component="div" gutterBottom>
           {adminAirline} Flights
         </Typography>
       </Grid>
 
-      <Grid item
-        container
-        direction="row"
-        justifyContent="space-evenly"
-      >
+      <Grid item container direction="column" spacing={2} xs={6}>
         {flights.map((flight) =>
-          <Card sx={{ minWidth: 400, backgroundColor: "#ad0000" }}>
-            <CardActionArea>
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="div" >
-                  {flight.flight_num}
-                </Typography>
-                <Typography variant="body2" color="text.primary">
-                  Airline: {flight.airline_name}
-                </Typography>
-                <Typography variant="body2" color="text.primary">
-                  Category: {flight.category}
-                </Typography>
-                <Typography variant="body2" color="text.primary">
-                  Departure: {flight.dep_time}
-                </Typography>
-                <Typography variant="body2" color="text.primary">
-                  Arrival: {flight.arrival_time}
-                </Typography>
-                <Typography variant="body2" color="text.primary">
-                  Destination: {flight.dest_code}
-                </Typography>
-                <Typography variant="body2" color="text.primary">
-                  Plane ID: {flight.plane_id}
-                </Typography>
-              </CardContent>
-            </CardActionArea>
-          </Card>
+          <Grid item>
+            <Card sx={{ minWidth: 100, backgroundColor: "background.paper" }}>
+              <CardActionArea>
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="div" >
+                    {flight.flight_num}
+                  </Typography>
+                  <Typography variant="body2" color="text.primary">
+                    Airline: {flight.airline_name} Category: {flight.category}  Departure: {flight.dep_time} Destination: {flight.dest_code}  Plane ID: {flight.plane_id}
+                  </Typography>
+                  <Typography variant="body2" color="text.primary">
+                    Departure: {flight.dep_time} Arrival: {flight.arrival_time}
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+            </Card>
+          </Grid>
         )}
-
       </Grid>
     </Grid >
   )
