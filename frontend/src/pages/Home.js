@@ -16,7 +16,7 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { useState, useEffect } from "react";
 
 const Home = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   // static destinations
   const [destinations, setDestinations] = useState([
@@ -281,16 +281,45 @@ const Home = () => {
                 key={`${flight.airline_name} - ${flight.flight_num}`}
                 sx={{ width: "80%" }}
               >
-                <Paper elevation={12} sx={{ padding: "50px" }}>
+                <Paper elevation={12} sx={{ padding: "30px" }}>
                   <Grid
                     container
                     direction="row"
                     alignItems="center"
                     justifyContent="space-between"
+                    wrap="nowrap"
                   >
-                    <Grid item>{flight.airline_name}</Grid>
+                    <Grid
+                      item
+                      container
+                      direction="column"
+                      alignItems="flex-start"
+                      justifyContent="space-evenly"
+                      rowSpacing={1}
+                    >
+                      <Grid item>
+                        <Typography>
+                          {flight.dep_time} - {flight.arrival_time}
+                        </Typography>
+                      </Grid>
+                      <Grid item>
+                        <Typography>YYC - {flight.dest_code}</Typography>
+                      </Grid>
+                      <Grid item>
+                        <Typography>{flight.airline_name}</Typography>
+                      </Grid>
+                    </Grid>
                     <Grid item>
-                      <IconButton color="inherit" onClick={() => navigate(`/${flight.airline_name.replace(/\s+/g, '')}/${flight.flight_num}/flight-details`)}>
+                      <IconButton
+                        color="inherit"
+                        onClick={() =>
+                          navigate(
+                            `/${flight.airline_name.replace(/\s+/g, "")}/${
+                              flight.flight_num
+                            }/flight-details`
+                          )
+                        }
+                      >
                         <ChevronRightIcon fontSize="large" />
                       </IconButton>
                     </Grid>
