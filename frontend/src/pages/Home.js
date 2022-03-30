@@ -268,7 +268,7 @@ const Home = () => {
           alignItems="center"
           justifyContent="space-evenly"
           rowSpacing={3}
-          my="60px"
+          my="50px"
         >
           <Grid item>
             <Typography variant="h6">Search Results</Typography>
