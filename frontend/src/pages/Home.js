@@ -197,7 +197,7 @@ const Home = () => {
           <Grid item>
             <DatePicker
               inputFormat="MM/dd/yyyy"
-              openTo="year"
+              openTo="day"
               value={departure}
               onChange={(newDeparture) => {
                 setDeparture(newDeparture);
