@@ -257,9 +257,9 @@ const Home = () => {
         </Grid>
       </Grid>
       {showFlights && (
-        <Grid item container direction="column" alignItems="center">
-          <Grid item>
-            <Paper>
+        <Grid item container direction="column" alignItems="center" mt="120px">
+          <Grid item sx={{width: "80%"}}>
+            <Paper elevation={6}>
               hello
             </Paper>
           </Grid>
