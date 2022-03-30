@@ -257,12 +257,32 @@ const Home = () => {
         </Grid>
       </Grid>
       {showFlights && (
-        <Grid item container direction="column" alignItems="center" mt="120px">
-          <Grid item sx={{width: "80%"}}>
-            <Paper elevation={6}>
-              hello
-            </Paper>
+        <Grid
+          item
+          container
+          direction="column"
+          alignItems="center"
+          justifyContent="space-evenly"
+          rowSpacing={3}
+          mt="60px"
+        >
+          <Grid item>
+            <Typography variant="h6">Search Results</Typography>
           </Grid>
+
+          {flights.map((flight) => {
+            return (
+              <Grid
+                item
+                key={`${flight.airline_name} - ${flight.flight_num}`}
+                sx={{ width: "80%" }}
+              >
+                <Paper elevation={12} sx={{ padding: "50px" }}>
+                  {flight.airline_name}
+                </Paper>
+              </Grid>
+            );
+          })}
         </Grid>
       )}
     </Grid>
