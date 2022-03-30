@@ -5,15 +5,19 @@ import {
   TextField,
   Autocomplete,
   Typography,
+  IconButton,
 } from "@mui/material";
 import * as React from "react";
 import DatePicker from "@mui/lab/DatePicker";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
 // state management
 import { useState, useEffect } from "react";
 
 const Home = () => {
+  const navigate = useNavigate()
+
   // static destinations
   const [destinations, setDestinations] = useState([
     {
@@ -264,7 +268,7 @@ const Home = () => {
           alignItems="center"
           justifyContent="space-evenly"
           rowSpacing={3}
-          mt="60px"
+          my="60px"
         >
           <Grid item>
             <Typography variant="h6">Search Results</Typography>
@@ -278,7 +282,19 @@ const Home = () => {
                 sx={{ width: "80%" }}
               >
                 <Paper elevation={12} sx={{ padding: "50px" }}>
-                  {flight.airline_name}
+                  <Grid
+                    container
+                    direction="row"
+                    alignItems="center"
+                    justifyContent="space-between"
+                  >
+                    <Grid item>{flight.airline_name}</Grid>
+                    <Grid item>
+                      <IconButton color="inherit" onClick={() => navigate(`/${flight.airline_name.replace(/\s+/g, '')}/${flight.flight_num}/flight-details`)}>
+                        <ChevronRightIcon fontSize="large" />
+                      </IconButton>
+                    </Grid>
+                  </Grid>
                 </Paper>
               </Grid>
             );
