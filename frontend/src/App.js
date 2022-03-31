@@ -97,8 +97,8 @@ function App() {
                 element={<Flight />}
               />
 
-              <Route path="/shop" element={<Shop />} />
-              <Route path="/shop/:store" element={<Store />} />
+              <Route path="/reserve" element={<Shop />} />
+              <Route path="/reserve/:hotel" element={<Store />} />
 
               <Route path="/about" element={<About />} />
               <Route path="/login" element={<Login />} />
