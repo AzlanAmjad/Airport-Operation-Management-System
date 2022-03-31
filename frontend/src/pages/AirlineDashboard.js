@@ -8,7 +8,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import { Route, Routes, useNavigate, useLocation } from "react-router-dom";
 import Flights from "../components/Flights";
 import AirlineComplaints from "./AirlineComplaints";
-import Welcome from "./Welcome";
+import WelcomeAirline from "./WelcomeAirline";
 
 function LinkTab(props) {
   return (
@@ -69,7 +69,7 @@ const AirlineDashboard = () => {
       </Grid>
       <Grid item xs={10} container>
         <Routes>
-          <Route path="welcome" element={<Welcome />} />
+          <Route path="welcome" element={<WelcomeAirline />} />
           <Route path="flights" element={<Flights />} />
           <Route path="complaints" element={<AirlineComplaints />} />
         </Routes>

@@ -2,12 +2,11 @@
 import * as React from "react";
 import Grid from "@mui/material/Grid";
 import Typography from '@mui/material/Typography';
-import { useState } from "react";
 
 
-const Welcome = () => {
+const WelcomeAirport = () => {
 
-    const [adminAirline, setAdminAirline] = useState("Air Canada")
+
 
 
     return (
@@ -18,11 +17,11 @@ const Welcome = () => {
         >
             <Grid item xs={12}>
                 <Typography variant="h1" component="div" gutterBottom>
-                    Welcome to {adminAirline}'s Dashboard
+                    Welcome to YYC Internation Airport's Dashboard
                 </Typography>
             </Grid>
         </Grid>
     );
 }
 
-export default Welcome;
+export default WelcomeAirport;
