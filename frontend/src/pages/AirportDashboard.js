@@ -1,6 +1,5 @@
 import Grid from "@mui/material/Grid";
 import * as React from "react";
-import StoreIcon from '@mui/icons-material/Store';
 import ArticleIcon from "@mui/icons-material/Article";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -8,7 +7,8 @@ import HomeIcon from "@mui/icons-material/Home";
 import { Route, Routes, useNavigate, useLocation } from "react-router-dom";
 import AirportComplaints from "./AirportComplaints";
 import WelcomeAirport from "./WelcomeAirport";
-import Shop from "./Reservation";
+import Reservation from "./Reservation";
+import HotelIcon from '@mui/icons-material/Hotel';
 
 function LinkTab(props) {
     return (
@@ -56,9 +56,9 @@ const AirlineDashboard = () => {
                         icon={<HomeIcon />}
                     />
                     <LinkTab
-                        label="Shops"
-                        onClick={() => navigate("store")}
-                        icon={<StoreIcon />}
+                        label="Companies"
+                        onClick={() => navigate("reservation")}
+                        icon={<HotelIcon />}
                     />
                     <LinkTab
                         label="Complaints"
@@ -70,7 +70,7 @@ const AirlineDashboard = () => {
             <Grid item xs={10} container>
                 <Routes>
                     <Route path="welcome" element={<WelcomeAirport />} />
-                    <Route path="store" element={<Shop />} />
+                    <Route path="reservation" element={<Reservation />} />
                     <Route path="complaints" element={<AirportComplaints />} />
                 </Routes>
             </Grid>
