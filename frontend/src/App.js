@@ -12,6 +12,8 @@ import Store from "./pages/Store";
 import Shop from "./pages/Shop";
 import Cart from "./pages/Cart"
 import Checkout from "./pages/Checkout"
+import AirportDashboard from "./pages/AirportDashboard";
+import AirlineDashboard from "./pages/AirlineDashboard";
 
 // material UI
 import Grid from "@mui/material/Grid";
@@ -23,7 +25,6 @@ import CssBaseline from "@mui/material/CssBaseline";
 // Date picker
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
-import AirlineDashboard from "./pages/AirlineDashboard";
 
 const theme = createTheme({
   palette: {
@@ -105,6 +106,10 @@ function App() {
               <Route
                 path="/airline-dashboard/*"
                 element={<AirlineDashboard />}
+              />
+              <Route
+                path="/airport-dashboard/*"
+                element={<AirportDashboard />}
               />
 
               <Route path="/cart" element={<Cart />} />
