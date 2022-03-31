@@ -1,18 +1,24 @@
-import Button from "@mui/material/Button";
-
-import Grid from "@mui/material/Grid";
-import TextField from "@mui/material/TextField";
-import Autocomplete from "@mui/material/Autocomplete";
+import {
+  Paper,
+  Grid,
+  Button,
+  TextField,
+  Autocomplete,
+  Typography,
+  IconButton,
+} from "@mui/material";
 import * as React from "react";
-import Typography from "@mui/material/Typography";
 import DatePicker from "@mui/lab/DatePicker";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
 // state management
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Home = () => {
-  // static destinations
+  const navigate = useNavigate();
+
+  // fetch all destinations from API
   const [destinations, setDestinations] = useState([
     {
       airport_code: "YVR",
@@ -31,12 +37,14 @@ const Home = () => {
     },
   ]);
 
-  // static searched flights data
+  // show flights boolean value
+  const [showFlights, setShowFlights] = useState(false);
+
+  // fetch searched flights from API
   const [flights, setFlights] = useState([
     {
       flight_num: 0,
       airline_name: "Air Canada",
-      category: "Economy",
       dep_time: "1997-12-17 07:37:16-08",
       arrival_time: "1997-12-17 07:37:16-08",
       dest_code: "YYZ",
@@ -45,7 +53,6 @@ const Home = () => {
     {
       flight_num: 1,
       airline_name: "Air Canada",
-      category: "Economy",
       dep_time: "1997-12-17 07:37:16-08",
       arrival_time: "1997-12-17 07:37:16-08",
       dest_code: "YYZ",
@@ -54,7 +61,6 @@ const Home = () => {
     {
       flight_num: 2,
       airline_name: "Air Canada",
-      category: "Economy",
       dep_time: "1997-12-17 07:37:16-08",
       arrival_time: "1997-12-17 07:37:16-08",
       dest_code: "YYZ",
@@ -63,7 +69,6 @@ const Home = () => {
     {
       flight_num: 3,
       airline_name: "Air Canada",
-      category: "Economy",
       dep_time: "1997-12-17 07:37:16-08",
       arrival_time: "1997-12-17 07:37:16-08",
       dest_code: "YYZ",
@@ -72,7 +77,6 @@ const Home = () => {
     {
       flight_num: 4,
       airline_name: "Air Canada",
-      category: "Economy",
       dep_time: "1997-12-17 07:37:16-08",
       arrival_time: "1997-12-17 07:37:16-08",
       dest_code: "YYZ",
@@ -81,7 +85,6 @@ const Home = () => {
     {
       flight_num: 5,
       airline_name: "Air Canada",
-      category: "Economy",
       dep_time: "1997-12-17 07:37:16-08",
       arrival_time: "1997-12-17 07:37:16-08",
       dest_code: "YYZ",
@@ -95,6 +98,20 @@ const Home = () => {
 
   // search parameters
   const [searchParams, setSearchParams] = useSearchParams();
+
+  // pull out the current search param
+  const dest_param = searchParams.get("destination");
+  const dep_param = searchParams.get("departure");
+
+  // useEffect hook which will only run when search params change
+  // will fetch from API here
+  useEffect(() => {
+    if (dest_param && dep_param) {
+      setShowFlights(true);
+    } else {
+      setShowFlights(false);
+    }
+  }, [dest_param, dep_param]);
 
   // search
   const search = () => {
@@ -238,9 +255,72 @@ const Home = () => {
           </Button>
         </Grid>
       </Grid>
-      {false && (
-        <Grid item container direction="column" alignItems="center">
-          <p>Search results go here</p>
+      {showFlights && (
+        <Grid
+          item
+          container
+          direction="column"
+          alignItems="center"
+          justifyContent="space-evenly"
+          rowSpacing={3}
+          my="50px"
+        >
+          <Grid item>
+            <Typography variant="h6">Search Results</Typography>
+          </Grid>
+
+          {flights.map((flight) => {
+            return (
+              <Grid
+                item
+                key={`${flight.airline_name} - ${flight.flight_num}`}
+                sx={{ width: "80%" }}
+              >
+                <Paper elevation={12} sx={{ padding: "30px" }}>
+                  <Grid
+                    container
+                    direction="row"
+                    alignItems="center"
+                    justifyContent="space-between"
+                    wrap="nowrap"
+                  >
+                    <Grid
+                      item
+                      container
+                      direction="column"
+                      alignItems="flex-start"
+                      justifyContent="space-evenly"
+                      rowSpacing={1}
+                    >
+                      <Grid item>
+                        <Typography>
+                          {flight.dep_time} - {flight.arrival_time}
+                        </Typography>
+                      </Grid>
+                      <Grid item>
+                        <Typography>YYC - {flight.dest_code}</Typography>
+                      </Grid>
+                      <Grid item>
+                        <Typography>{flight.airline_name}</Typography>
+                      </Grid>
+                    </Grid>
+                    <Grid item>
+                      <IconButton
+                        color="inherit"
+                        onClick={() =>
+                          navigate(
+                            `/${flight.airline_name.replace(/\s+/g, '+')}/${flight.flight_num}/flight-details`
+                          )
+                        }
+                      >
+                        <ChevronRightIcon fontSize="large" />
+                      </IconButton>
+                    </Grid>
+                  </Grid>
+                </Paper>
+              </Grid>
+            );
+          })}
         </Grid>
       )}
     </Grid>
