@@ -27,8 +27,7 @@ const Flight = () => {
     country: "Canada",
   });
 
-  // fetch fares for this flight from API and aggregate to find number of tickets
-  // for this each fare
+  // fetch fares for this flight from API
   const [fares, setFare] = useState([
     {
       price: "600",
