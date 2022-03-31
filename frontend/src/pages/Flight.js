@@ -28,11 +28,12 @@ const Flight = () => {
       item
       container
       direction="column"
-      alignItems="center"
+      alignItems="flex-start"
       justifyContent="flex-start"
       wrap="nowrap"
       width="70%"
       paddingY="50px"
+      rowSpacing={4}
     >
       <Grid
         item
@@ -40,15 +41,21 @@ const Flight = () => {
         direction="column"
         alignItems="flex-start"
         justifyContent="flex-start"
+        rowSpacing={1}
       >
         <Grid item>
           <Typography variant="h4">Calgary to {destination.city}</Typography>
         </Grid>
         <Grid item>
           <Typography>
-            {flight.airline_name} - {flight.dep_time}
+            {flight.airline_name} - {flight.dep_time.match(/[0-9]{4}-[0-9]{2}-[0-9]{2}/)}
           </Typography>
         </Grid>
+      </Grid>
+      <Grid item>
+        <Typography>
+          {flight.dep_time.match(/[0-9]{2}:[0-9]{2}/)} - {flight.arrival_time.match(/[0-9]{2}:[0-9]{2}/)}
+        </Typography>
       </Grid>
     </Grid>
   );
