@@ -87,7 +87,7 @@ const Flight = () => {
         item
         container
         direction="column"
-        alignItem="center"
+        alignItems="center"
         justifyContent="space-evenly"
         rowSpacing={3}
         my="50px"
