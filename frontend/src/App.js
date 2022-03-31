@@ -38,7 +38,7 @@ const theme = createTheme({
     },
     background: {
       default: "#181818",
-      paper: "#404040",
+      paper: "#292929",
     },
     text: {
       primary: "#ffffff",
@@ -93,7 +93,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route
-                path="/flight-details/:airline/:flight"
+                path="/:airline/:flight_num/flight-details"
                 element={<Flight />}
               />
 

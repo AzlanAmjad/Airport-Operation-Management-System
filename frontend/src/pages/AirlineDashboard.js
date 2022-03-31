@@ -6,7 +6,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import HomeIcon from "@mui/icons-material/Home";
 import { Route, Routes, useNavigate, useLocation } from "react-router-dom";
-import Flights from "../components/Flights";
+import Flights from "./Flights";
 import AirlineComplaints from "./AirlineComplaints";
 import WelcomeAirline from "./WelcomeAirline";
 
@@ -32,17 +32,8 @@ const AirlineDashboard = () => {
   const location = useLocation();
 
   return (
-    <Grid
-      container
-      justifyContent="space-evenly"
-      alignItems="center"
-    >
-      <Grid
-        item
-        container
-        xs={1}
-        paddingLeft="40px"
-      >
+    <Grid container justifyContent="space-evenly" alignItems="center">
+      <Grid item container xs={1} paddingLeft="40px">
         <Tabs
           value={value}
           onChange={handleChange}
@@ -75,12 +66,8 @@ const AirlineDashboard = () => {
         </Routes>
       </Grid>
 
-      <Grid
-        item
-        container
-        xs={1}
-      ></Grid>
-    </Grid >
+      <Grid item container xs={1}></Grid>
+    </Grid>
   );
 };
 
