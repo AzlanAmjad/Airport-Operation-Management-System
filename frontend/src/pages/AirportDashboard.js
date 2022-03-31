@@ -8,7 +8,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import { Route, Routes, useNavigate, useLocation } from "react-router-dom";
 import AirportComplaints from "./AirportComplaints";
 import WelcomeAirport from "./WelcomeAirport";
-import Shop from "./Shop";
+import Shop from "./Reservation";
 
 function LinkTab(props) {
     return (

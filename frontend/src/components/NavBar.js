@@ -18,8 +18,8 @@ const NavBar = () => {
       path: "/",
     },
     {
-      title: "Reserve",
-      path: "/reserve",
+      title: "Reservation",
+      path: "/reservation",
     },
     {
       title: "About",

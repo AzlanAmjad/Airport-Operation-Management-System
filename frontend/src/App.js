@@ -8,8 +8,8 @@ import About from "./pages/About";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Flight from "./pages/Flight";
-import Store from "./pages/Store";
-import Shop from "./pages/Shop";
+import Company from "./pages/Company";
+import Reservation from "./pages/Reservation";
 import Cart from "./pages/Cart"
 import Checkout from "./pages/Checkout"
 import AirportDashboard from "./pages/AirportDashboard";
@@ -97,8 +97,8 @@ function App() {
                 element={<Flight />}
               />
 
-              <Route path="/reserve" element={<Shop />} />
-              <Route path="/reserve/:hotel" element={<Store />} />
+              <Route path="/reservation" element={<Reservation />} />
+              <Route path="/reservation/:company" element={<Company />} />
 
               <Route path="/about" element={<About />} />
               <Route path="/login" element={<Login />} />
