@@ -4,9 +4,14 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import { CardActionArea } from '@mui/material';
+import { Route, Routes, useNavigate, useLocation } from "react-router-dom";
 
 
 const Shop = () => {
+
+
+  const navigate = useNavigate();
+
   return (
     <Grid
       container
@@ -23,7 +28,7 @@ const Shop = () => {
       <Grid item container spacing={3} xs={6} justifyContent="space-around">
         <Grid item xs={5}>
           <Card sx={{ maxWidth: 400 }}>
-            <CardActionArea>
+            <CardActionArea onClick={() => navigate(`/shop/crispers`)}>
               <CardMedia
                 component="img"
                 height="300"
@@ -40,7 +45,7 @@ const Shop = () => {
         </Grid>
         <Grid item xs={5}>
           <Card sx={{ maxWidth: 400 }}>
-            <CardActionArea>
+            <CardActionArea onClick={() => navigate(`/shop/sodies`)}>
               <CardMedia
                 component="img"
                 height="300"
