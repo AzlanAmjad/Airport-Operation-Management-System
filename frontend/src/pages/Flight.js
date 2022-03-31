@@ -124,7 +124,7 @@ const Flight = () => {
                   >
                     <Grid item variant="h5" fontWeight="bold">CA ${fare.price}</Grid>
                     <Grid item>
-                      <Typography>{fare.cabin} class</Typography>
+                      <Typography>{fare.cabin} Class</Typography>
                     </Grid>
                     <Grid item>
                       <Typography>{fare.tickets} Tickets Left</Typography>
