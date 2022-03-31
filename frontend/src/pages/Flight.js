@@ -27,21 +27,26 @@ const Flight = () => {
     country: "Canada",
   });
 
-  // tickets aggregated based on their type for this flight
+  // fetch fares for this flight from API and aggregate to find number of tickets
+  // for this each fare
   const [fares, setFare] = useState([
     {
+      price: "600",
       cabin: "First",
       tickets: 150,
     },
     {
+      price: "500",
       cabin: "Business",
       tickets: 200,
     },
     {
+      price: "400",
       cabin: "Premium Economy",
       tickets: 300,
     },
     {
+      price: "300",
       cabin: "Economy",
       tickets: 600,
     },
@@ -117,8 +122,9 @@ const Flight = () => {
                     justifyContent="space-evenly"
                     rowSpacing={1}
                   >
+                    <Grid item variant="h5" fontWeight="bold">CA ${fare.price}</Grid>
                     <Grid item>
-                      <Typography fontWeight="bold">{fare.cabin}</Typography>
+                      <Typography>{fare.cabin} class</Typography>
                     </Grid>
                     <Grid item>
                       <Typography>{fare.tickets} Tickets Left</Typography>
