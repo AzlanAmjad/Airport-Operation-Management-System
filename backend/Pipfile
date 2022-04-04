@@ -11,6 +11,7 @@ django-cors-headers = "*"
 djangorestframework-simplejwt = "*"
 pillow = "*"
 stripe = "*"
+djoser = "*"
 
 [dev-packages]
 
