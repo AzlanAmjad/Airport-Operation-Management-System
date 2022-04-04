@@ -10,6 +10,7 @@ django-rest-framework = "*"
 django-cors-headers = "*"
 djangorestframework-simplejwt = "*"
 pillow = "*"
+stripe = "*"
 
 [dev-packages]
 
