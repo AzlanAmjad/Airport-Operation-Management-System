@@ -8,6 +8,7 @@ django = "*"
 django-debug-toolbar = "*"
 django-rest-framework = "*"
 django-cors-headers = "*"
+djangorestframework-simplejwt = "*"
 
 [dev-packages]
 
