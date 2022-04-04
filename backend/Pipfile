@@ -9,6 +9,7 @@ django-debug-toolbar = "*"
 django-rest-framework = "*"
 django-cors-headers = "*"
 djangorestframework-simplejwt = "*"
+pillow = "*"
 
 [dev-packages]
 
