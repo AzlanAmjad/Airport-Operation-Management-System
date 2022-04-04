@@ -10,4 +10,4 @@ def getRoutes(request):
         '/token',
         '/token/refresh'
     ]
-    return JsonResponse(routes)
+    return JsonResponse(routes, safe=False)
