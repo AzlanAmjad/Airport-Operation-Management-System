@@ -12,6 +12,7 @@ djangorestframework-simplejwt = "*"
 pillow = "*"
 stripe = "*"
 djoser = "*"
+psycopg2 = "*"
 
 [dev-packages]
 
