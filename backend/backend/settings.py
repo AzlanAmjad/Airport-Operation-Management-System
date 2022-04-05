@@ -39,6 +39,7 @@ INSTALLED_APPS = [
 
     'api',
     'debug_toolbar',
+    
     'rest_framework',
     'rest_framework_simplejwt',
     'corsheaders',
