@@ -30,21 +30,25 @@ const Flight = () => {
   // fetch fares for this flight from API
   const [fares, setFare] = useState([
     {
+      fare_id: 1,
       price: "600",
       cabin: "First",
       tickets: 150,
     },
     {
+      fare_id: 2,
       price: "500",
       cabin: "Business",
       tickets: 200,
     },
     {
+      fare_id: 3,
       price: "400",
       cabin: "Premium Economy",
       tickets: 300,
     },
     {
+      fare_id: 4,
       price: "300",
       cabin: "Economy",
       tickets: 600,
@@ -104,7 +108,7 @@ const Flight = () => {
 
         {fares.map((fare) => {
           return (
-            <Grid item key={`${fare.cabin}`} sx={{ width: "inherit" }}>
+            <Grid item key={`${fare.fare_id}`} sx={{ width: "inherit" }}>
               <Paper elevation={12} sx={{ padding: "30px" }}>
                 <Grid
                   container
@@ -121,7 +125,9 @@ const Flight = () => {
                     justifyContent="space-evenly"
                     rowSpacing={1}
                   >
-                    <Grid item variant="h5" fontWeight="bold">CA ${fare.price}</Grid>
+                    <Grid item variant="h5" fontWeight="bold">
+                      CA ${fare.price}
+                    </Grid>
                     <Grid item>
                       <Typography>{fare.cabin} Class</Typography>
                     </Grid>
