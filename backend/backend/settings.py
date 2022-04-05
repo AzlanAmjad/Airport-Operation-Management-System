@@ -102,7 +102,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'airportdb',
-        'USER': 'aiport-system-api',
+        'USER': 'airport-system-api',
         'PASSWORD': 'cpsc471',
         'HOST': '127.0.0.1',
         'PORT': 5432,
