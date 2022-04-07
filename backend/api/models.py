@@ -1,10 +1,76 @@
+from sys import path_importer_cache
+from turtle import onrelease
 from django.db import models
+from django.contrib.auth.models import AbstractUser, BaseUserManager
 
 # Create your models here.
 
+# User Manager model
+class UserManager(BaseUserManager):
+    use_in_migrations = True
+
+    def create_gen_user(self, email, password, first_name, last_name, **extra_fields):
+        if not email:
+            raise ValueError('email must be set')
+        email = self.normalize_email(email)
+        user = self.model(email=email, first_name=first_name, last_name=last_name, **extra_fields)
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_user(self, email, password, first_name, last_name, **extra_fields):
+        extra_fields.setdefault('is_staff', False)
+        extra_fields.setdefault('is_superuser', False)
+
+        user = self.create_gen_user(email, password, first_name, last_name, **extra_fields)
+        return user
+
+    def create_superuser(self, email, password, first_name, last_name, **extra_fields):
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
+
+        if extra_fields.get('is_staff') is not True:
+            raise ValueError('must be staff')
+        if extra_fields.get('is_superuser') is not True:
+            raise ValueError('must be superuser')
+
+        user = self.create_user(email, password, first_name, last_name, **extra_fields)
+        return user
+
+
+# User model
+class User(AbstractUser):
+    username = None
+    email = models.EmailField(max_length=255, unique=True)
+    # password, first_name, last_name, already part of AbstractUser
+    airport_admin = models.BooleanField(default=False)    
+    passenger = models.BooleanField(default=False)
+    airline_admin = models.BooleanField(default=False)
+    
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['first_name', 'last_name'] # email, password, automatically required
+
+    # user properties
+    @property
+    def is_passenger(self):
+        return self.passenger
+
+    @property
+    def is_airport_admin(self):
+        return self.airport_admin
+
+    @property
+    def is_airline_admin(self):
+        return self.airline_admin
+
+    objects = UserManager()
+
+
 # Passenger model
 class Passenger(models.Model):
-    pass
+    user = models.OneToOneField(User, primary_key=True, on_delete=models.CASCADE)
+    ssn = models.CharField(max_length=255)
+    address = models.CharField(max_length=255)
 
     class Meta:
         db_table = 'passenger'
@@ -12,7 +78,8 @@ class Passenger(models.Model):
 
 # Airport Admin model
 class AirportAdmin(models.Model):
-    pass
+    user = models.OneToOneField(User, primary_key=True, on_delete=models.CASCADE)
+    admin_id = models.PositiveIntegerField(unique=True)
 
     class Meta:
         db_table = 'airport_admin'
@@ -20,7 +87,8 @@ class AirportAdmin(models.Model):
 
 # Airline Admin model
 class AirlineAdmin(models.Model):
-    pass
+    user = models.OneToOneField(User, primary_key=True, on_delete=models.CASCADE)
+    employee_id = models.PositiveIntegerField(unique=True)
 
     class Meta:
         db_table = 'airline_admin'
