@@ -28,11 +28,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
-# User model
-
-AUTH_USER_MODEL = 'api.User'
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -51,7 +46,6 @@ INSTALLED_APPS = [
     'corsheaders',
     'djoser',
 ]
-
 
 # CORS
 
@@ -172,3 +166,5 @@ INTERNAL_IPS = [
     "127.0.0.1",
     # ...
 ]
+
+AUTH_USER_MODEL = 'api.User'

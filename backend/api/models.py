@@ -1,7 +1,9 @@
-from sys import path_importer_cache
-from turtle import onrelease
+from getpass import getuser
+from django.contrib.auth import get_user_model
 from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager
+
+user = get_user_model()
 
 # Create your models here.
 
@@ -41,11 +43,11 @@ class UserManager(BaseUserManager):
 # User model
 class User(AbstractUser):
     username = None
-    email = models.EmailField(max_length=255, unique=True)
+    email = models.EmailField(max_length=255, primary_key=True)
     # password, first_name, last_name, already part of AbstractUser
-    airport_admin = models.BooleanField(default=False)    
-    passenger = models.BooleanField(default=False)
-    airline_admin = models.BooleanField(default=False)
+    is_airport_admin = models.BooleanField(default=False)    
+    is_passenger = models.BooleanField(default=False)
+    is_airline_admin = models.BooleanField(default=False)
     
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name'] # email, password, automatically required
@@ -68,7 +70,7 @@ class User(AbstractUser):
 
 # Passenger model
 class Passenger(models.Model):
-    user = models.OneToOneField(User, primary_key=True, on_delete=models.CASCADE)
+    email = models.OneToOneField(user, on_delete=models.CASCADE)
     ssn = models.CharField(max_length=255)
     address = models.CharField(max_length=255)
 
@@ -78,7 +80,7 @@ class Passenger(models.Model):
 
 # Airport Admin model
 class AirportAdmin(models.Model):
-    user = models.OneToOneField(User, primary_key=True, on_delete=models.CASCADE)
+    email = models.OneToOneField(user, on_delete=models.CASCADE)
     admin_id = models.PositiveIntegerField(unique=True)
 
     class Meta:
@@ -87,7 +89,7 @@ class AirportAdmin(models.Model):
 
 # Airline Admin model
 class AirlineAdmin(models.Model):
-    user = models.OneToOneField(User, primary_key=True, on_delete=models.CASCADE)
+    email = models.OneToOneField(user, on_delete=models.CASCADE)
     employee_id = models.PositiveIntegerField(unique=True)
 
     class Meta:
