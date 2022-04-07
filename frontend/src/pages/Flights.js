@@ -2,8 +2,6 @@
 import Grid from "@mui/material/Grid";
 import * as React from "react";
 import { useState } from "react";
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -20,6 +18,9 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import Paper from '@mui/material/Paper';
+import EditIcon from '@mui/icons-material/Edit';
+import Input from "@mui/material/Input";
 
 
 const Flights = () => {
@@ -37,9 +38,12 @@ const Flights = () => {
   const [departure, setDeparture] = useState(null);
   const [arrival, setArrival] = useState(null);
 
-  const [dialogForm, setDialogForm] = useState(false);
+  const [addDialogForm, setAddDialogForm] = useState(false);
+  const [editDialogForm, setEditDialogForm] = useState(false);
 
   const [adminAirline, setAdminAirline] = useState("Air Canada")
+
+  const [editFlight, setEditFlight] = useState('');
 
   const handleCategory = (event) => {
   };
@@ -48,11 +52,20 @@ const Flights = () => {
   const handlePlaneID = (event) => {
   };
 
-  const handleDialogFormOpen = () => {
-    setDialogForm(true);
+  const handleAddDialogFormOpen = () => {
+    setAddDialogForm(true);
   }
-  const handleDialogFormClose = () => {
-    setDialogForm(false);
+  const handleAddDialogFormClose = () => {
+    setAddDialogForm(false);
+  }
+
+  const handleEditDialogFormOpen = (flightNum) => {
+    setEditFlight(flightNum);
+    setEditDialogForm(true);
+  }
+
+  const handleEditDialogFormClose = () => {
+    setEditDialogForm(false);
   }
 
 
@@ -64,147 +77,74 @@ const Flights = () => {
 
     >
       <Grid item xs={12}>
-        <Typography variant="h1" component="div" gutterBottom>
+        <Typography variant="h2" component="div" gutterBottom>
           {adminAirline} Flights
         </Typography>
       </Grid>
 
+      {/*Displaying Flights*/}
       <Grid item container direction="column" spacing={2} xs={6}>
         {flights.map((flight) =>
-          <Grid item>
-            <Card sx={{ minWidth: 80, backgroundColor: "background.paper" }}>
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="div" >
-                  {flight.flight_num}
-                </Typography>
-                <FormControl sx={{ minWidth: 120 }}>
-                  <InputLabel sx={{ color: "text.primary" }}>{flight.category}</InputLabel>
-                  <Select
-                    value={category}
-                    onChange={handleCategory}
-                  >
-                    <MenuItem value={"Private"}>Private</MenuItem>
-                    <MenuItem value={"Business"}>Business</MenuItem>
-                  </Select>
-                  <FormHelperText sx={{ color: "text.primary" }}>Category</FormHelperText>
-                </FormControl>
-                <FormControl sx={{ minWidth: 120 }}>
-                  <InputLabel sx={{ color: "text.primary" }}>{flight.dest_code}</InputLabel>
-                  <Select
-                    value={destCode}
-                    onChange={handleDestCode}
-                  >
-                    <MenuItem value={"YYG"}>YYG</MenuItem>
-                    <MenuItem value={"YXA"}>YXA</MenuItem>
-                  </Select>
-                  <FormHelperText sx={{ color: "text.primary" }}>Destination</FormHelperText>
-                </FormControl>
-                <FormControl sx={{ minWidth: 120 }}>
-                  <InputLabel sx={{ color: "text.primary" }}>{flight.plane_id}</InputLabel>
-                  <Select
-                    value={planeID}
-                    onChange={handlePlaneID}
-                  >
-                    <MenuItem value={"000"}>000</MenuItem>
-                    <MenuItem value={"111"}>111</MenuItem>
-                    <MenuItem value={"111"}>222</MenuItem>
-                  </Select>
-                  <FormHelperText sx={{ color: "text.primary" }}>Plane ID</FormHelperText>
-                </FormControl>
-                <FormControl sx={{ minWidth: 120 }}>
-                  <DatePicker
-                    inputFormat="MM/dd/yyyy"
-                    openTo="day"
-                    value={departure}
-                    onChange={(newDeparture) => {
-                      setDeparture(newDeparture);
-                    }}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        variant="outlined"
-                        placeholder="Departure Date"
-                        sx={{
-                          "& .MuiOutlinedInput-notchedOutline": {
-                            borderColor: "white",
-                          },
-                          "&:hover .MuiOutlinedInput-notchedOutline": {
-                            borderColor: "red",
-                          },
-                          "&.MuiOutlinedInput-notchedOutline.Mui-focused": {
-                            borderColor: "red",
-                          },
-                          "& .MuiButtonBase-root.MuiIconButton-root": {
-                            color: "white",
-                          },
-                        }}
-                      />
-                    )}
-                  />
-                  <FormHelperText sx={{ color: "text.primary" }}>Departure</FormHelperText>
-                </FormControl>
-                <FormControl sx={{ minWidth: 100 }}>
-                  <DatePicker
-                    inputFormat="MM/dd/yyyy"
-                    openTo="day"
-                    value={arrival}
-                    onChange={(newArrival) => {
-                      setArrival(newArrival);
-                    }}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        variant="outlined"
-                        placeholder="Departure Date"
-                        sx={{
-                          "& .MuiOutlinedInput-notchedOutline": {
-                            borderColor: "white",
-                          },
-                          "&:hover .MuiOutlinedInput-notchedOutline": {
-                            borderColor: "red",
-                          },
-                          "&.MuiOutlinedInput-notchedOutline.Mui-focused": {
-                            borderColor: "red",
-                          },
-                          "& .MuiButtonBase-root.MuiIconButton-root": {
-                            color: "white",
-                          },
-                        }}
-                      />
-                    )}
-                  />
-                  <FormHelperText sx={{ color: "text.primary" }}>Arrival</FormHelperText>
-                </FormControl>
-                <Button
-                  variant="contained"
-                  sx={{ minWidth: "100px" }}
-                  onClick={() => {
-                  }}
+          <Grid
+            item
+            key={`${flight.airline_name} - ${flight.flight_num}`}
+            sx={{ width: "100%" }}
+          >
+            <Paper elevation={12} sx={{ padding: "30px" }}>
+              <Grid
+                container
+                direction="row"
+                alignItems="center"
+                justifyContent="space-between"
+                wrap="nowrap"
+              >
+                <Grid
+                  item
+                  container
+                  direction="column"
+                  alignItems="flex-start"
+                  justifyContent="space-evenly"
+                  rowSpacing={1}
                 >
-                  Update
-                </Button>
-                <Button
-                  variant="contained"
-                  sx={{ minWidth: "100px" }}
-                  onClick={() => {
-                  }}
-                >
-                  Delete
-                </Button>
-              </CardContent>
-            </Card>
+                  <Grid item xs={12}>
+                    <Typography variant="h6" align="center">Flight Number: {flight.flight_num}</Typography>
+                  </Grid>
+                  <Grid item>
+                    <Typography>
+                      {flight.dep_time} - {flight.arrival_time}
+                    </Typography>
+                  </Grid>
+                  <Grid item>
+                    <Typography>Route: YYC - {flight.dest_code}</Typography>
+                  </Grid>
+                  <Grid item>
+                    <Typography>Plane ID: {flight.plane_id}</Typography>
+                  </Grid>
+                </Grid>
+                <Grid item>
+                  <IconButton
+                    color="inherit"
+                    onClick={() => handleEditDialogFormOpen(flight.flight_num)}
+                  >
+                    <EditIcon fontSize="medium" />
+                  </IconButton>
+                </Grid>
+              </Grid>
+            </Paper>
           </Grid>
         )}
+
+        {/*Add Form */}
         <Grid item >
-          <IconButton size="large" sx={{ color: "primary.main" }} onClick={handleDialogFormOpen}><AddIcon fontSize="inherit" /></IconButton>
+          <IconButton size="large" sx={{ color: "white" }} onClick={handleAddDialogFormOpen}><AddIcon fontSize="inherit" /></IconButton>
         </Grid>
-        <Dialog open={dialogForm} onClose={handleDialogFormClose}>
+        <Dialog open={addDialogForm} onClose={handleAddDialogFormClose}>
           <DialogTitle>Add a Flight</DialogTitle>
           <DialogContent>
             <DialogContentText sx={{ color: "text.primary" }}>
               To add flight, please add following information:
             </DialogContentText>
-            <FormControl sx={{ minWidth: 100 }}>
+            <FormControl sx={{ minWidth: 100, padding: "5px" }}>
               <DatePicker
                 inputFormat="MM/dd/yyyy"
                 openTo="day"
@@ -236,7 +176,7 @@ const Flights = () => {
               />
               <FormHelperText sx={{ color: "text.primary" }}>Arrival</FormHelperText>
             </FormControl>
-            <FormControl sx={{ minWidth: 100 }}>
+            <FormControl sx={{ minWidth: 100, padding: "5px" }}>
               <DatePicker
                 inputFormat="MM/dd/yyyy"
                 openTo="day"
@@ -268,17 +208,7 @@ const Flights = () => {
               />
               <FormHelperText sx={{ color: "text.primary" }}>Departure</FormHelperText>
             </FormControl>
-            <FormControl sx={{ minWidth: 120 }}>
-              <InputLabel sx={{ color: "text.primary" }}>Category</InputLabel>
-              <Select
-                value={category}
-                onChange={handleCategory}
-              >
-                <MenuItem value={"Private"}>Private</MenuItem>
-                <MenuItem value={"Business"}>Business</MenuItem>
-              </Select>
-            </FormControl>
-            <FormControl sx={{ minWidth: 120 }}>
+            <FormControl sx={{ minWidth: 120, padding: "5px" }}>
               <InputLabel sx={{ color: "text.primary" }}>Destination Code</InputLabel>
               <Select
                 value={destCode}
@@ -288,7 +218,7 @@ const Flights = () => {
                 <MenuItem value={"YXA"}>YXA</MenuItem>
               </Select>
             </FormControl>
-            <FormControl sx={{ minWidth: 120 }}>
+            <FormControl sx={{ minWidth: 120, padding: "5px" }}>
               <InputLabel sx={{ color: "text.primary" }}>Plane ID</InputLabel>
               <Select
                 value={planeID}
@@ -299,12 +229,100 @@ const Flights = () => {
                 <MenuItem value={"111"}>222</MenuItem>
               </Select>
             </FormControl>
+            <FormControl sx={{ maxWidth: 120, padding: "10px" }}>
+              <Input type="number" inputProps={{ min: 0 }} />
+              <FormHelperText sx={{ color: "text.primary" }}>Business</FormHelperText>
+            </FormControl>
+            <FormControl sx={{ maxWidth: 120, padding: "10px" }}>
+              <Input type="number" inputProps={{ min: 0 }} />
+              <FormHelperText sx={{ color: "text.primary" }}>First Class</FormHelperText>
+            </FormControl>
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleDialogFormClose}>Add</Button>
-            <Button onClick={handleDialogFormClose}>Cancel</Button>
+            <Button onClick={handleAddDialogFormClose}>Add</Button>
+            <Button onClick={handleAddDialogFormClose}>Cancel</Button>
           </DialogActions>
         </Dialog>
+
+        {/*For editing a flight*/}
+        <Dialog open={editDialogForm} onClose={handleEditDialogFormClose}>
+          <DialogTitle>Edit a Flight</DialogTitle>
+          <DialogContent>
+            <DialogContentText sx={{ color: "text.primary" }}>
+              To edit flight timings, please update following information:
+            </DialogContentText>
+            <FormControl sx={{ minWidth: 100, padding: "5px" }}>
+              <DatePicker
+                inputFormat="MM/dd/yyyy"
+                openTo="day"
+                value={arrival}
+                onChange={(newArrival) => {
+                  setArrival(newArrival);
+                }}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    variant="outlined"
+                    placeholder="Departure Date"
+                    sx={{
+                      "& .MuiOutlinedInput-notchedOutline": {
+                        borderColor: "white",
+                      },
+                      "&:hover .MuiOutlinedInput-notchedOutline": {
+                        borderColor: "red",
+                      },
+                      "&.MuiOutlinedInput-notchedOutline.Mui-focused": {
+                        borderColor: "red",
+                      },
+                      "& .MuiButtonBase-root.MuiIconButton-root": {
+                        color: "white",
+                      },
+                    }}
+                  />
+                )}
+              />
+              <FormHelperText sx={{ color: "text.primary" }}>Arrival</FormHelperText>
+            </FormControl>
+            <FormControl sx={{ minWidth: 100, padding: "5px" }}>
+              <DatePicker
+                inputFormat="MM/dd/yyyy"
+                openTo="day"
+                value={departure}
+                onChange={(newDeparture) => {
+                  setArrival(departure);
+                }}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    variant="outlined"
+                    placeholder="Departure Date"
+                    sx={{
+                      "& .MuiOutlinedInput-notchedOutline": {
+                        borderColor: "white",
+                      },
+                      "&:hover .MuiOutlinedInput-notchedOutline": {
+                        borderColor: "red",
+                      },
+                      "&.MuiOutlinedInput-notchedOutline.Mui-focused": {
+                        borderColor: "red",
+                      },
+                      "& .MuiButtonBase-root.MuiIconButton-root": {
+                        color: "white",
+                      },
+                    }}
+                  />
+                )}
+              />
+              <FormHelperText sx={{ color: "text.primary" }}>Departure</FormHelperText>
+            </FormControl>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleEditDialogFormClose}>Save</Button>
+            <Button onClick={handleEditDialogFormClose}>Cancel</Button>
+          </DialogActions>
+        </Dialog>
+
+
       </Grid>
     </Grid >
   )
