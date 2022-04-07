@@ -1,3 +1,5 @@
+from ast import Pass
+from doctest import debug_script
 from django.db import models
 
 # Create your models here.
@@ -48,7 +50,7 @@ class Hotel(models.Model):
 
 # Transaction model
 class Transaction(models.Model):
-    transac_id = models.PositiveBigIntegerField(primary_key=True)
+    transac_id = models.PositiveIntegerField(primary_key=True)
     p_email = models.ForeignKey(Passenger, on_delete=models.CASCADE)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     type = models.CharField(max_length=255)
@@ -60,7 +62,12 @@ class Transaction(models.Model):
 
 # Stay model
 class Stay(models.Model):
-    pass
+    id = models.PositiveIntegerField(primary_key=True)
+    name = models.CharField(max_length=255)
+    price = models.PositiveIntegerField()
+    description = models.TextField()
+    hotel_id = models.ForeignKey(Hotel, on_delete=models.CASCADE)
+    transac_id = models.ForeignKey(Transaction, on_delete=models.SET_NULL, null=True)
 
     class Meta:
         db_table = 'stay'
@@ -68,31 +75,46 @@ class Stay(models.Model):
 
 # Airport Complaint model
 class AirportComplaint(models.Model):
-    pass
+    complaint_id = models.PositiveIntegerField(primary_key=True)
+    description = models.TextField()
+    a_email = models.ForeignKey(AirportAdmin, on_delete=models.SET_NULL, null=True)
+    p_email = models.ForeignKey(Passenger, on_delete=models.CASCADE)
 
     class Meta:
         db_table = 'airport_complaint'
 
 
-# Airline Complaint model
-class AirlineComplaint(models.Model):
-    pass
-
-    class Meta:
-        db_table = 'airline_complaint'
-
-
 # Airline model
 class Airline(models.Model):
-    pass
+    name = models.CharField(max_length=255, primary_key=True)
+    location = models.CharField(max_length=255)
 
     class Meta:
         db_table = 'airline'
 
 
+# Airline Complaint model
+class AirlineComplaint(models.Model):
+    complaint_id = models.PositiveIntegerField(primary_key=True)
+    description = models.TextField()
+    a_email = models.ForeignKey(AirlineAdmin, on_delete=models.SET_NULL, null=True)
+    p_email = models.ForeignKey(Passenger, on_delete=models.CASCADE)
+    airline_name = models.ForeignKey(Airline, on_delete=models.CASCADE)
+
+    class Meta:
+        db_table = 'airline_complaint'
+
+
 # Airplane model
 class Airplane(models.Model):
-    pass
+    pid = models.PositiveIntegerField(primary_key=True)
+    model = models.CharField(max_length=255)
+    manufacturer = models.CharField(max_length=255)
+    economy_seats = models.PositiveIntegerField()
+    premium_economy_seats = models.PositiveIntegerField()
+    business_seats = models.PositiveIntegerField()
+    first_seats = models.PositiveIntegerField()
+    airline_name = models.ForeignKey(Airline, on_delete=models.CASCADE)
 
     class Meta:
         db_table = 'airplane'
