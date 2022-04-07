@@ -130,20 +130,15 @@ class Destination(models.Model):
 
 # Flight model
 class Flight(models.Model):
-    # auto generated primary key since django does not support composite primary keys
-    # flight_num, airline_name will be unique together (UniqueConstraint)
-    flight_num = models.PositiveIntegerField()
+    flight_num = models.PositiveIntegerField(primary_key=True)
     airline_name = models.ForeignKey(Airline, on_delete=models.CASCADE)
     dep_time = models.DateTimeField()
     arrival_time = models.DateTimeField()
-    dest_code = models.ForeignKey(Destination, on_delete=models.CASCADE)
+    dest_code = models.ForeignKey(Destination, on_delete=models.SET_NULL, null=True)
     plane_id = models.ForeignKey(Airplane, on_delete=models.SET_NULL, null=True)
 
     class Meta:
         db_table = 'flight'
-        constraints = [
-            models.UniqueConstraint(fields=['flight_num', 'airline_name'], name='unique_flight'),
-        ]
 
 
 # Fare model
@@ -151,8 +146,7 @@ class Fare(models.Model):
     fare_id = models.PositiveIntegerField(primary_key=True)
     price = models.PositiveIntegerField()
     cabin = models.CharField(max_length=255)
-    airline_name = models.ForeignKey(Flight, to_field='airline_name', on_delete=models.CASCADE)
-    flight_num = models.ForeignKey(Flight, to_field='flight_num', on_delete=models.CASCADE)
+    flight_num = models.ForeignKey(Flight, on_delete=models.CASCADE)
     tickets = models.PositiveIntegerField()
 
     class Meta:
