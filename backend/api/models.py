@@ -42,8 +42,8 @@ class User(AbstractUser):
     username = None
     email = models.EmailField(max_length=255, primary_key=True)
     # password, first_name, last_name, already part of AbstractUser
-    is_airport_admin = models.BooleanField(default=False)    
     is_passenger = models.BooleanField(default=False)
+    is_airport_admin = models.BooleanField(default=False)    
     is_airline_admin = models.BooleanField(default=False)
     
     USERNAME_FIELD = 'email'
