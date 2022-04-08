@@ -41,9 +41,9 @@ class User(AbstractUser):
     username = None
     email = models.EmailField(max_length=255, primary_key=True)
     # password, first_name, last_name, already part of AbstractUser
-    bool_passenger = models.BooleanField(default=False, help_text='Determines whether the user is a passenger', verbose_name='passenger status')
-    bool_airport_admin = models.BooleanField(default=False, help_text='Determines whether the user is an airport admin', verbose_name='airport admin status')    
-    bool_airline_admin = models.BooleanField(default=False, help_text='Determines whether the user is an airline admin', verbose_name='airline admin status')
+    a_passenger = models.BooleanField(default=False, help_text='Determines whether the user is a passenger', verbose_name='passenger status')
+    an_airport_admin = models.BooleanField(default=False, help_text='Determines whether the user is an airport admin', verbose_name='airport admin status')    
+    an_airline_admin = models.BooleanField(default=False, help_text='Determines whether the user is an airline admin', verbose_name='airline admin status')
     
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name'] # email, password, automatically required
