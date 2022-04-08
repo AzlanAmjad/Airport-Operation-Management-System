@@ -167,4 +167,4 @@ INTERNAL_IPS = [
     # ...
 ]
 
-# AUTH_USER_MODEL = 'api.User'
+AUTH_USER_MODEL = 'api.User'
