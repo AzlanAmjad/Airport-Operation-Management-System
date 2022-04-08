@@ -23,9 +23,9 @@ class UserManager(BaseUserManager):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
         extra_fields.setdefault('is_active', True)
-        extra_fields.setdefault('is_passenger', False)
-        extra_fields.setdefault('is_airport_admin', False)
-        extra_fields.setdefault('is_airline_admin', False)
+        extra_fields.setdefault('a_passenger', False)
+        extra_fields.setdefault('an_airport_admin', False)
+        extra_fields.setdefault('an_airline_admin', False)
 
         if extra_fields.get('is_staff') is not True:
             raise ValueError('Superuser must have is_staff=True.')
