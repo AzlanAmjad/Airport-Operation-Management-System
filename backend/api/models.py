@@ -357,7 +357,7 @@ class Fare(models.Model):
     price = models.DecimalField(max_digits=6, decimal_places=2)
     cabin = models.CharField(max_length=255)
     flight = models.ForeignKey(Flight, on_delete=models.CASCADE, related_name='fares')
-    tickets = models.PositiveIntegerField()
+    tickets_quantity = models.PositiveIntegerField()
 
     class Meta:
         db_table = 'fare'
