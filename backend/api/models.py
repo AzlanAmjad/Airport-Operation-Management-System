@@ -8,7 +8,7 @@ from django.contrib.auth import get_user_model
 class UserManager(BaseUserManager):
     use_in_migrations = True
 
-    def create_gen_user(self, email, password, first_name, last_name, **extra_fields):
+    def create_user(self, email, password, first_name, last_name, **extra_fields):
         if not email:
             raise ValueError('email must be set')
         email = self.normalize_email(email)
@@ -17,21 +17,15 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_user(self, email, password, first_name, last_name, **extra_fields):
-        extra_fields.setdefault('is_staff', False)
-        extra_fields.setdefault('is_superuser', False)
-
-        user = self.create_gen_user(email, password, first_name, last_name, **extra_fields)
-        return user
-
     def create_superuser(self, email, password, first_name, last_name, **extra_fields):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
+        extra_fields.setdefault('is_active', True)
 
         if extra_fields.get('is_staff') is not True:
-            raise ValueError('must be staff')
+            raise ValueError(_('Superuser must have is_staff=True.'))
         if extra_fields.get('is_superuser') is not True:
-            raise ValueError('must be superuser')
+            raise ValueError(_('Superuser must have is_superuser=True.'))
 
         user = self.create_user(email, password, first_name, last_name, **extra_fields)
         return user
@@ -47,7 +41,7 @@ class User(AbstractUser):
     is_airline_admin = models.BooleanField(default=False)
     
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['first_name', 'last_name'] # email, password, automatically required
+    REQUIRED_FIELDS = ['first_name', 'last_name', 'is_passenger', 'is_airport_admin', 'is_airline_admin'] # email, password, automatically required
 
     # user properties
     @property
