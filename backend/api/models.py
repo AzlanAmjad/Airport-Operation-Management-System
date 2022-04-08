@@ -1,8 +1,10 @@
-from tabnanny import verbose
-from unittest.main import MAIN_EXAMPLES
 from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.contrib.auth import get_user_model
+
+from io import BytesIO
+from PIL import Image
+from django.core.files import File
 
 # Create your models here.
 
@@ -69,7 +71,7 @@ user = get_user_model()
 
 # Passenger model
 class Passenger(models.Model):
-    email = models.OneToOneField(user, on_delete=models.CASCADE)
+    email = models.OneToOneField(user, on_delete=models.CASCADE, related_name='passenger')
     ssn = models.CharField(max_length=255)
     address = models.CharField(max_length=255)
 
@@ -79,7 +81,7 @@ class Passenger(models.Model):
 
 # Airport Admin model
 class AirportAdmin(models.Model):
-    email = models.OneToOneField(user, on_delete=models.CASCADE)
+    email = models.OneToOneField(user, on_delete=models.CASCADE, related_name='airport_admin')
     admin_id = models.PositiveIntegerField(unique=True)
 
     class Meta:
@@ -88,7 +90,7 @@ class AirportAdmin(models.Model):
 
 # Airline Admin model
 class AirlineAdmin(models.Model):
-    email = models.OneToOneField(user, on_delete=models.CASCADE)
+    email = models.OneToOneField(user, on_delete=models.CASCADE, related_name='airline_admin')
     employee_id = models.PositiveIntegerField(unique=True)
 
     class Meta:
@@ -98,7 +100,7 @@ class AirlineAdmin(models.Model):
 # Company model
 class Company(models.Model):
     name = models.CharField(max_length=255, primary_key=True)
-    admin = models.ForeignKey(AirportAdmin, on_delete=models.SET_NULL, null=True)
+    admin = models.ForeignKey(AirportAdmin, on_delete=models.SET_NULL, null=True, related_name='companies')
 
     class Meta:
         db_table = 'company'
@@ -109,7 +111,7 @@ class Hotel(models.Model):
     id = models.PositiveIntegerField(primary_key=True)
     name = models.CharField(max_length=255)
     location = models.CharField(max_length=255)
-    company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    company = models.ForeignKey(Company, on_delete=models.CASCADE, related_name='hotels')
 
     class Meta:
         db_table = 'hotel'
@@ -118,8 +120,8 @@ class Hotel(models.Model):
 # Transaction model
 class Transaction(models.Model):
     transac_id = models.PositiveIntegerField(primary_key=True)
-    passenger = models.ForeignKey(Passenger, on_delete=models.CASCADE)
-    company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    passenger = models.ForeignKey(Passenger, on_delete=models.CASCADE, related_name='transactions')
+    company = models.ForeignKey(Company, on_delete=models.CASCADE, related_name='transactions')
     type = models.CharField(max_length=255)
     date = models.DateField(auto_now_add=True)
 
@@ -133,8 +135,8 @@ class Stay(models.Model):
     name = models.CharField(max_length=255)
     price = models.PositiveIntegerField()
     description = models.TextField()
-    hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE)
-    transac = models.ForeignKey(Transaction, on_delete=models.SET_NULL, null=True)
+    hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE, related_name='stays')
+    transac = models.ForeignKey(Transaction, on_delete=models.SET_NULL, null=True, related_name='stays')
 
     class Meta:
         db_table = 'stay'
@@ -144,8 +146,8 @@ class Stay(models.Model):
 class AirportComplaint(models.Model):
     complaint_id = models.PositiveIntegerField(primary_key=True)
     description = models.TextField()
-    admin = models.ForeignKey(AirportAdmin, on_delete=models.SET_NULL, null=True)
-    passenger = models.ForeignKey(Passenger, on_delete=models.CASCADE)
+    admin = models.ForeignKey(AirportAdmin, on_delete=models.SET_NULL, null=True, related_name='airport_complaints')
+    passenger = models.ForeignKey(Passenger, on_delete=models.CASCADE, related_name='airport_complaints')
 
     class Meta:
         db_table = 'airport_complaint'
@@ -164,9 +166,9 @@ class Airline(models.Model):
 class AirlineComplaint(models.Model):
     complaint_id = models.PositiveIntegerField(primary_key=True)
     description = models.TextField()
-    admin = models.ForeignKey(AirlineAdmin, on_delete=models.SET_NULL, null=True)
-    passenger = models.ForeignKey(Passenger, on_delete=models.CASCADE)
-    airline = models.ForeignKey(Airline, on_delete=models.CASCADE)
+    admin = models.ForeignKey(AirlineAdmin, on_delete=models.SET_NULL, null=True, related_name='airline_complaints')
+    passenger = models.ForeignKey(Passenger, on_delete=models.CASCADE, related_name='airline_complaints')
+    airline = models.ForeignKey(Airline, on_delete=models.CASCADE, related_name='airline_complaints')
 
     class Meta:
         db_table = 'airline_complaint'
@@ -181,7 +183,7 @@ class Airplane(models.Model):
     premium_economy_seats = models.PositiveIntegerField()
     business_seats = models.PositiveIntegerField()
     first_seats = models.PositiveIntegerField()
-    airline = models.ForeignKey(Airline, on_delete=models.CASCADE)
+    airline = models.ForeignKey(Airline, on_delete=models.CASCADE, related_name='airplanes')
 
     class Meta:
         db_table = 'airplane'
@@ -203,8 +205,8 @@ class Flight(models.Model):
     airline = models.ForeignKey(Airline, on_delete=models.CASCADE)
     dep_time = models.DateTimeField()
     arrival_time = models.DateTimeField()
-    dest = models.ForeignKey(Destination, on_delete=models.SET_NULL, null=True)
-    plane = models.ForeignKey(Airplane, on_delete=models.SET_NULL, null=True)
+    dest = models.ForeignKey(Destination, on_delete=models.SET_NULL, null=True, related_name='flights')
+    plane = models.ForeignKey(Airplane, on_delete=models.SET_NULL, null=True, related_name='flights')
 
     class Meta:
         db_table = 'flight'
@@ -215,7 +217,7 @@ class Fare(models.Model):
     fare_id = models.PositiveIntegerField(primary_key=True)
     price = models.PositiveIntegerField()
     cabin = models.CharField(max_length=255)
-    flight = models.ForeignKey(Flight, on_delete=models.CASCADE)
+    flight = models.ForeignKey(Flight, on_delete=models.CASCADE, related_name='fares')
     tickets = models.PositiveIntegerField()
 
     class Meta:
@@ -226,8 +228,8 @@ class Fare(models.Model):
 class Ticket(models.Model):
     ticket_id = models.PositiveIntegerField(primary_key=True)
     seat_pos = models.CharField(max_length=255)
-    passenger = models.ForeignKey(Passenger, on_delete=models.SET_NULL, null=True)
-    fare = models.ForeignKey(Fare, on_delete=models.CASCADE)
+    passenger = models.ForeignKey(Passenger, on_delete=models.SET_NULL, null=True, related_name='tickets')
+    fare = models.ForeignKey(Fare, on_delete=models.CASCADE, related_name='tickets')
 
     class Meta:
         db_table = 'ticket'
