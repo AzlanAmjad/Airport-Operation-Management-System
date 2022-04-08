@@ -1,3 +1,5 @@
+from tabnanny import verbose
+from unittest.main import MAIN_EXAMPLES
 from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.contrib.auth import get_user_model
@@ -21,6 +23,9 @@ class UserManager(BaseUserManager):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
         extra_fields.setdefault('is_active', True)
+        extra_fields.setdefault('is_passenger', False)
+        extra_fields.setdefault('is_airport_admin', False)
+        extra_fields.setdefault('is_airline_admin', False)
 
         if extra_fields.get('is_staff') is not True:
             raise ValueError('Superuser must have is_staff=True.')
@@ -36,12 +41,12 @@ class User(AbstractUser):
     username = None
     email = models.EmailField(max_length=255, primary_key=True)
     # password, first_name, last_name, already part of AbstractUser
-    is_passenger = models.BooleanField(default=False)
-    is_airport_admin = models.BooleanField(default=False)    
-    is_airline_admin = models.BooleanField(default=False)
+    bool_passenger = models.BooleanField(default=False, help_text='Determines whether the user is a passenger', verbose_name='passenger status')
+    bool_airport_admin = models.BooleanField(default=False, help_text='Determines whether the user is an airport admin', verbose_name='airport admin status')    
+    bool_airline_admin = models.BooleanField(default=False, help_text='Determines whether the user is an airline admin', verbose_name='airline admin status')
     
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['first_name', 'last_name', 'is_passenger', 'is_airport_admin', 'is_airline_admin'] # email, password, automatically required
+    REQUIRED_FIELDS = ['first_name', 'last_name'] # email, password, automatically required
 
     # user properties
     @property
