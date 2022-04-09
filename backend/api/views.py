@@ -29,3 +29,9 @@ class OneDestination(APIView):
         destination = models.Destination.objects.get(pk=airport_code)
         serializer = serializers.DestinationSerializer(destination)
         return Response(serializer.data)
+
+class FlightFares(APIView):
+    def get(self, request, flight_num, format=None):
+        fares = models.Fare.objects.filter(flight=flight_num)
+        serializer = serializers.FareSerializer(fares, many=True)
+        return Response(serializer.data)

@@ -327,7 +327,7 @@ class Fare(models.Model):
         db_table = 'fare'
 
     def __str__(self):
-        return f'{self.fare_id} - {self.flight}'
+        return f'{self.fare_id} - {self.cabin} - {self.flight}'
 
 
 # Ticket model
