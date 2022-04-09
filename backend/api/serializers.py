@@ -1,5 +1,4 @@
 from rest_framework import serializers
-
 from .models import User, Passenger, AirportAdmin, AirlineAdmin, Company, Hotel, Transaction, Stay, AirportComplaint, Airline, AirlineComplaint, Airplane, Destination, Flight, Fare, Ticket
 
 class UserSerializer(serializers.ModelSerializer):
