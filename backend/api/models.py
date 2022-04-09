@@ -137,7 +137,7 @@ class Hotel(models.Model):
         db_table = 'hotel'
 
     def __str__(self):
-        return self.name
+        return f'{self.id} - {self.name}'
 
     def get_image(self):
         if self.image:
@@ -197,7 +197,7 @@ class Stay(models.Model):
         db_table = 'stay'
 
     def __str__(self):
-        return self.name
+        return f'{self.id} - {self.name}'
 
     def get_image(self):
         if self.image:
@@ -283,7 +283,7 @@ class Airplane(models.Model):
         db_table = 'airplane'
 
     def __str__(self):
-        return f'{self.airline} - {self.manufacturer} {self.model}'
+        return f'{self.pid} - {self.airline} - {self.manufacturer} {self.model}'
 
 
 # Destination model
@@ -312,7 +312,7 @@ class Flight(models.Model):
         db_table = 'flight'
 
     def __str__(self):
-        return f'{self.airline} - {self.flight_num}'
+        return f'{self.flight_num} - {self.airline}'
 
 
 # Fare model
@@ -327,7 +327,7 @@ class Fare(models.Model):
         db_table = 'fare'
 
     def __str__(self):
-        return f'{self.flight} - {self.fare_id}'
+        return f'{self.fare_id} - {self.flight}'
 
 
 # Ticket model

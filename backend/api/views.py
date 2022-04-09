@@ -17,3 +17,7 @@ class SearchFlights(APIView):
         flights = models.Flight.objects.filter(destination=destination).filter(dep_time__date=date)
         serializer = serializers.FlightSerializer(flights, many=True)
         return Response(serializer.data)
+
+class OneFlight(APIView):
+    def get(self, request, flight_num, format=None):
+        pass
