@@ -20,4 +20,6 @@ class SearchFlights(APIView):
 
 class OneFlight(APIView):
     def get(self, request, flight_num, format=None):
-        pass
+        flight = models.Flight.objects.filter(flight_num=flight_num)
+        serializer = serializers.FlightSerializer(flight, many=True)
+        return Response(serializer.data)
