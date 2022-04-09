@@ -15,8 +15,7 @@ class PassengerSerializer(serializers.ModelSerializer):
             "id",
             "email",
             "ssn",
-            "address",
-            "get_absolute_url"
+            "address"
         )
 
 class AirportAdminSerializer(serializers.ModelSerializer):
@@ -25,8 +24,7 @@ class AirportAdminSerializer(serializers.ModelSerializer):
         fields = (
             "id",
             "email",
-            "admin_id",
-            "get_absolute_url"
+            "admin_id"
         )
 
 class AirlineAdminSerializer(serializers.ModelSerializer):
@@ -35,8 +33,7 @@ class AirlineAdminSerializer(serializers.ModelSerializer):
         fields = (
             "id",
             "email",
-            "employee_id",
-            "get_absolute_url"
+            "employee_id"
         )
 
 class CompanySerializer(serializers.ModelSerializer):
@@ -44,8 +41,7 @@ class CompanySerializer(serializers.ModelSerializer):
         model = Company
         fields = (
             "name",
-            "admin",
-            "get_absolute_url"
+            "admin"
         )
 
 class HotelSerializer(serializers.ModelSerializer):
@@ -57,8 +53,7 @@ class HotelSerializer(serializers.ModelSerializer):
             "location",
             "company",
             "get_image",
-            "get_thumbnail",
-            "get_absolute_url"
+            "get_thumbnail"
         )
 
 class TransactionSerializer(serializers.ModelSerializer):
@@ -69,8 +64,7 @@ class TransactionSerializer(serializers.ModelSerializer):
             "passenger",
             "company",
             "type",
-            "date",
-            "get_absolute_url"
+            "date"
         )
 
 class StaySerializer(serializers.ModelSerializer):
@@ -84,8 +78,7 @@ class StaySerializer(serializers.ModelSerializer):
             "hotel",
             "transac",
             "get_image",
-            "get_thumbnail",
-            "get_absolute_url"
+            "get_thumbnail"
         )
 
 class AirportComplaintSerializer(serializers.ModelSerializer):
@@ -95,8 +88,7 @@ class AirportComplaintSerializer(serializers.ModelSerializer):
             "complaint_id",
             "description",
             "admin",
-            "passenger",
-            "get_absolute_url"
+            "passenger"
         )
 
 class AirlineSerializer(serializers.ModelSerializer):
@@ -104,8 +96,7 @@ class AirlineSerializer(serializers.ModelSerializer):
         model = Airline
         fields = (
             "name",
-            "location",
-            "get_absolute_url"
+            "location"
         )
 
 class AirlineComplaintSerializer(serializers.ModelSerializer):
@@ -116,8 +107,7 @@ class AirlineComplaintSerializer(serializers.ModelSerializer):
             "description",
             "admin",
             "passenger",
-            "airline",
-            "get_absolute_url"
+            "airline"
         )
 
 class AirplaneSerializer(serializers.ModelSerializer):
@@ -131,8 +121,7 @@ class AirplaneSerializer(serializers.ModelSerializer):
             "premium_economy_seats",
             "business_seats",
             "first_seats",
-            "airline",
-            "get_absolute_url"
+            "airline"
         )
 
 class DestinationSerializer(serializers.ModelSerializer):
@@ -141,8 +130,7 @@ class DestinationSerializer(serializers.ModelSerializer):
         fields = (
             "airport_code",
             "city",
-            "country",
-            "get_absolute_url"
+            "country"
         )
 
 class FlightSerializer(serializers.ModelSerializer):
@@ -154,8 +142,7 @@ class FlightSerializer(serializers.ModelSerializer):
             "dep_time",
             "arrival_time",
             "dest",
-            "plane",
-            "get_absolute_url"
+            "plane"
         )
 
 class FareSerializer(serializers.ModelSerializer):
@@ -166,8 +153,7 @@ class FareSerializer(serializers.ModelSerializer):
             "price",
             "cabin",
             "flight",
-            "tickets_quantity",
-            "get_absolute_url"
+            "tickets_quantity"
         )
 
 class TicketSerializer(serializers.ModelSerializer):
@@ -177,7 +163,6 @@ class TicketSerializer(serializers.ModelSerializer):
             "ticket_id",
             "seat_pos",
             "passenger",
-            "fare",
-            "get_absolute_url"
+            "fare"
         )
 

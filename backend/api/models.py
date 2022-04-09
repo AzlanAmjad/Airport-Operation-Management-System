@@ -87,9 +87,6 @@ class Passenger(models.Model):
     def __str__(self):
         return f'{self.email}'
 
-    def get_absolute_url(self):
-        return f'/{self.email}/'
-
 
 # Airport Admin model
 class AirportAdmin(models.Model):
@@ -101,9 +98,6 @@ class AirportAdmin(models.Model):
 
     def __str__(self):
         return f'{self.email}'
-
-    def get_absolute_url(self):
-        return f'/{self.email}/'
 
 
 # Airline Admin model
@@ -117,9 +111,6 @@ class AirlineAdmin(models.Model):
     def __str__(self):
         return f'{self.email}'
 
-    def get_absolute_url(self):
-        return f'/{self.email}/'
-
 
 # Company model
 class Company(models.Model):
@@ -131,9 +122,6 @@ class Company(models.Model):
 
     def __str__(self):
         return self.name
-
-    def get_absolute_url(self):
-        return f'/{self.name}/'
 
 
 # Hotel model
@@ -150,9 +138,6 @@ class Hotel(models.Model):
 
     def __str__(self):
         return self.name
-
-    def get_absolute_url(self):
-        return f'/{self.id}/'
 
     def get_image(self):
         if self.image:
@@ -196,9 +181,6 @@ class Transaction(models.Model):
     def __str__(self):
         return f'transaction {self.transac_id} by {self.passenger}'
 
-    def get_absolute_url(self):
-        return f'transaction/{self.transac_id}/'
-
 
 # Stay model
 class Stay(models.Model):
@@ -216,9 +198,6 @@ class Stay(models.Model):
 
     def __str__(self):
         return self.name
-
-    def get_absolute_url(self):
-        return f'/{self.hotel.id}/{self.id}/'
 
     def get_image(self):
         if self.image:
@@ -261,9 +240,6 @@ class AirportComplaint(models.Model):
     def __str__(self):
         return f'complaint {self.complaint_id} by {self.passenger}, resolved by {self.admin}'
 
-    def get_absolute_url(self):
-        return f'airport-complaint/{self.complaint_id}/'
-
 
 # Airline model
 class Airline(models.Model):
@@ -275,9 +251,6 @@ class Airline(models.Model):
 
     def __str__(self):
         return self.name
-
-    def get_absolute_url(self):
-        return f'/{self.name}/'
 
 
 # Airline Complaint model
@@ -293,9 +266,6 @@ class AirlineComplaint(models.Model):
 
     def __str__(self):
         return f'complaint {self.complaint_id} by {self.passenger}, resolved by {self.admin}'
-
-    def get_absolute_url(self):
-        return f'airline-complaint/{self.complaint_id}/'
 
 
 # Airplane model
@@ -315,9 +285,6 @@ class Airplane(models.Model):
     def __str__(self):
         return f'{self.airline} - {self.pid}'
 
-    def get_absolute_url(self):
-        return f'airplane/{self.pid}/'
-
 
 # Destination model
 class Destination(models.Model):
@@ -330,9 +297,6 @@ class Destination(models.Model):
 
     def __str__(self):
         return self.airport_code
-
-    def get_absolute_url(self):
-        return f'/{self.airport_code}/'
 
 
 # Flight model
@@ -350,9 +314,6 @@ class Flight(models.Model):
     def __str__(self):
         return f'{self.airline} - {self.flight_num}'
 
-    def get_absolute_url(self):
-        return f'/{self.flight_num}/'
-
 
 # Fare model
 class Fare(models.Model):
@@ -368,9 +329,6 @@ class Fare(models.Model):
     def __str__(self):
         return f'{self.flight} - {self.fare_id}'
 
-    def get_absolute_url(self):
-        return f'/{self.flight}/{self.fare_id}/'
-
 
 # Ticket model
 class Ticket(models.Model):
@@ -384,7 +342,4 @@ class Ticket(models.Model):
 
     def __str__(self):
         return f'{self.ticket_id}'
-
-    def get_absolute_url(self):
-        return f'/{self.fare}/{self.ticket_id}/'
 
