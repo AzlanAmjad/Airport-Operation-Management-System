@@ -197,7 +197,7 @@ class Transaction(models.Model):
         return f'transaction {self.transac_id} by {self.passenger}'
 
     def get_absolute_url(self):
-        return f'/{self.transac_id}/'
+        return f'transaction/{self.transac_id}/'
 
 
 # Stay model
@@ -262,7 +262,7 @@ class AirportComplaint(models.Model):
         return f'complaint {self.complaint_id} by {self.passenger}, resolved by {self.admin}'
 
     def get_absolute_url(self):
-        return f'/{self.complaint_id}/'
+        return f'airport-complaint/{self.complaint_id}/'
 
 
 # Airline model
@@ -295,7 +295,7 @@ class AirlineComplaint(models.Model):
         return f'complaint {self.complaint_id} by {self.passenger}, resolved by {self.admin}'
 
     def get_absolute_url(self):
-        return f'/{self.complaint_id}/'
+        return f'airline-complaint/{self.complaint_id}/'
 
 
 # Airplane model
@@ -316,7 +316,7 @@ class Airplane(models.Model):
         return f'{self.airline} - {self.pid}'
 
     def get_absolute_url(self):
-        return f'/{self.pid}/'
+        return f'airplane/{self.pid}/'
 
 
 # Destination model
