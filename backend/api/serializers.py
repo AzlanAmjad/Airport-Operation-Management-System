@@ -1,16 +1,16 @@
 from rest_framework import serializers
-from .models import User, Passenger, AirportAdmin, AirlineAdmin, Company, Hotel, Transaction, Stay, AirportComplaint, Airline, AirlineComplaint, Airplane, Destination, Flight, Fare, Ticket
+from . import models
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
+        model = models.User
         fields = (
             
         )
 
 class PassengerSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Passenger
+        model = models.Passenger
         fields = (
             "id",
             "email",
@@ -20,7 +20,7 @@ class PassengerSerializer(serializers.ModelSerializer):
 
 class AirportAdminSerializer(serializers.ModelSerializer):
     class Meta:
-        model = AirportAdmin
+        model = models.AirportAdmin
         fields = (
             "id",
             "email",
@@ -29,7 +29,7 @@ class AirportAdminSerializer(serializers.ModelSerializer):
 
 class AirlineAdminSerializer(serializers.ModelSerializer):
     class Meta:
-        model = AirlineAdmin
+        model = models.AirlineAdmin
         fields = (
             "id",
             "email",
@@ -38,7 +38,7 @@ class AirlineAdminSerializer(serializers.ModelSerializer):
 
 class CompanySerializer(serializers.ModelSerializer):
     class Meta:
-        model = Company
+        model = models.Company
         fields = (
             "name",
             "admin"
@@ -46,7 +46,7 @@ class CompanySerializer(serializers.ModelSerializer):
 
 class HotelSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Hotel
+        model = models.Hotel
         fields = (
             "id",
             "name",
@@ -58,7 +58,7 @@ class HotelSerializer(serializers.ModelSerializer):
 
 class TransactionSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Transaction
+        model = models.Transaction
         fields = (
             "transac_id",
             "passenger",
@@ -69,7 +69,7 @@ class TransactionSerializer(serializers.ModelSerializer):
 
 class StaySerializer(serializers.ModelSerializer):
     class Meta:
-        model = Stay
+        model = models.Stay
         fields = (
             "id",
             "name",
@@ -83,7 +83,7 @@ class StaySerializer(serializers.ModelSerializer):
 
 class AirportComplaintSerializer(serializers.ModelSerializer):
     class Meta:
-        model = AirportComplaint
+        model = models.AirportComplaint
         fields = (
             "complaint_id",
             "description",
@@ -93,7 +93,7 @@ class AirportComplaintSerializer(serializers.ModelSerializer):
 
 class AirlineSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Airline
+        model = models.Airline
         fields = (
             "name",
             "location"
@@ -101,7 +101,7 @@ class AirlineSerializer(serializers.ModelSerializer):
 
 class AirlineComplaintSerializer(serializers.ModelSerializer):
     class Meta:
-        model = AirlineComplaint
+        model = models.AirlineComplaint
         fields = (
             "complaint_id",
             "description",
@@ -112,7 +112,7 @@ class AirlineComplaintSerializer(serializers.ModelSerializer):
 
 class AirplaneSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Airplane
+        model = models.Airplane
         fields = (
             "pid",
             "model",
@@ -126,7 +126,7 @@ class AirplaneSerializer(serializers.ModelSerializer):
 
 class DestinationSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Destination
+        model = models.Destination
         fields = (
             "airport_code",
             "city",
@@ -135,7 +135,7 @@ class DestinationSerializer(serializers.ModelSerializer):
 
 class FlightSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Flight
+        model = models.Flight
         fields = (
             "flight_num",
             "airline",
@@ -147,7 +147,7 @@ class FlightSerializer(serializers.ModelSerializer):
 
 class FareSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Fare
+        model = models.Fare
         fields = (
             "fare_id",
             "price",
@@ -158,7 +158,7 @@ class FareSerializer(serializers.ModelSerializer):
 
 class TicketSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Ticket
+        model = models.Ticket
         fields = (
             "ticket_id",
             "seat_pos",

@@ -1,9 +1,12 @@
-from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
-from .models import User, Passenger, AirportAdmin, AirlineAdmin, Company, Hotel, Transaction, Stay, AirportComplaint, Airline, AirlineComplaint, Airplane, Destination, Flight, Fare, Ticket
-from .serializers import UserSerializer, PassengerSerializer, AirportAdminSerializer, AirlineAdminSerializer, CompanySerializer, HotelSerializer, TransactionSerializer, StaySerializer, AirportComplaintSerializer, AirlineSerializer, AirlineComplaintSerializer, AirplaneSerializer, DestinationSerializer, FlightSerializer, FareSerializer, TicketSerializer 
+from . import models
+from . import serializers
 
-# Create your views here.
+class AllDestinations(APIView):
+    def get(self, request, format=None):
+        destinations = models.Destination.objects.all()
+        serializer = serializers.DestinationSerializer(destinations, many=True)
+        return Response(serializer.data)
 
