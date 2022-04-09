@@ -283,7 +283,7 @@ class Airplane(models.Model):
         db_table = 'airplane'
 
     def __str__(self):
-        return f'{self.airline} - {self.pid}'
+        return f'{self.airline} - {self.manufacturer} {self.model}'
 
 
 # Destination model
