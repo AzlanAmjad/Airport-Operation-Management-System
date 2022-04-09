@@ -60,7 +60,7 @@ class TransactionSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Transaction
         fields = (
-            "transac_id",
+            "id",
             "passenger",
             "company",
             "type",
@@ -85,7 +85,7 @@ class AirportComplaintSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.AirportComplaint
         fields = (
-            "complaint_id",
+            "id",
             "description",
             "admin",
             "passenger"
@@ -103,7 +103,7 @@ class AirlineComplaintSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.AirlineComplaint
         fields = (
-            "complaint_id",
+            "id",
             "description",
             "admin",
             "passenger",
@@ -114,7 +114,7 @@ class AirplaneSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Airplane
         fields = (
-            "pid",
+            "id",
             "model",
             "manufacturer",
             "economy_seats",
@@ -149,7 +149,7 @@ class FareSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Fare
         fields = (
-            "fare_id",
+            "id",
             "price",
             "cabin",
             "flight",
@@ -160,7 +160,7 @@ class TicketSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Ticket
         fields = (
-            "ticket_id",
+            "id",
             "seat_pos",
             "passenger",
             "fare"

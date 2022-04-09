@@ -126,7 +126,6 @@ class Company(models.Model):
 
 # Hotel model
 class Hotel(models.Model):
-    id = models.PositiveIntegerField(primary_key=True)
     name = models.CharField(max_length=255)
     location = models.CharField(max_length=255)
     company = models.ForeignKey(Company, on_delete=models.CASCADE, related_name='hotels')
@@ -169,7 +168,6 @@ class Hotel(models.Model):
 
 # Transaction model
 class Transaction(models.Model):
-    transac_id = models.PositiveIntegerField(primary_key=True)
     passenger = models.ForeignKey(Passenger, on_delete=models.CASCADE, related_name='transactions')
     company = models.ForeignKey(Company, on_delete=models.CASCADE, related_name='transactions')
     type = models.CharField(max_length=255)
@@ -179,12 +177,11 @@ class Transaction(models.Model):
         db_table = 'transaction'
 
     def __str__(self):
-        return f'transaction {self.transac_id} by {self.passenger}'
+        return f'{self.id} by {self.passenger}'
 
 
 # Stay model
 class Stay(models.Model):
-    id = models.PositiveIntegerField(primary_key=True)
     name = models.CharField(max_length=255)
     price = models.DecimalField(max_digits=6, decimal_places=2)
     description = models.TextField()
@@ -229,7 +226,6 @@ class Stay(models.Model):
 
 # Airport Complaint model
 class AirportComplaint(models.Model):
-    complaint_id = models.PositiveIntegerField(primary_key=True)
     description = models.TextField()
     admin = models.ForeignKey(AirportAdmin, on_delete=models.SET_NULL, null=True, related_name='airport_complaints')
     passenger = models.ForeignKey(Passenger, on_delete=models.CASCADE, related_name='airport_complaints')
@@ -238,7 +234,7 @@ class AirportComplaint(models.Model):
         db_table = 'airport_complaint'
 
     def __str__(self):
-        return f'complaint {self.complaint_id} by {self.passenger}, resolved by {self.admin}'
+        return f'{self.id} by {self.passenger}, resolved by {self.admin}'
 
 
 # Airline model
@@ -250,12 +246,11 @@ class Airline(models.Model):
         db_table = 'airline'
 
     def __str__(self):
-        return self.name
+        return f'{self.id} - {self.name}'
 
 
 # Airline Complaint model
 class AirlineComplaint(models.Model):
-    complaint_id = models.PositiveIntegerField(primary_key=True)
     description = models.TextField()
     admin = models.ForeignKey(AirlineAdmin, on_delete=models.SET_NULL, null=True, related_name='airline_complaints')
     passenger = models.ForeignKey(Passenger, on_delete=models.CASCADE, related_name='airline_complaints')
@@ -265,12 +260,11 @@ class AirlineComplaint(models.Model):
         db_table = 'airline_complaint'
 
     def __str__(self):
-        return f'complaint {self.complaint_id} by {self.passenger}, resolved by {self.admin}'
+        return f'{self.id} by {self.passenger}, resolved by {self.admin}'
 
 
 # Airplane model
 class Airplane(models.Model):
-    pid = models.PositiveIntegerField(primary_key=True)
     model = models.CharField(max_length=255)
     manufacturer = models.CharField(max_length=255)
     economy_seats = models.PositiveIntegerField()
@@ -283,7 +277,7 @@ class Airplane(models.Model):
         db_table = 'airplane'
 
     def __str__(self):
-        return f'{self.pid} - {self.airline} - {self.manufacturer} {self.model}'
+        return f'{self.id} - {self.airline} - {self.manufacturer} {self.model}'
 
 
 # Destination model
@@ -317,7 +311,6 @@ class Flight(models.Model):
 
 # Fare model
 class Fare(models.Model):
-    fare_id = models.PositiveIntegerField(primary_key=True)
     price = models.DecimalField(max_digits=6, decimal_places=2)
     cabin = models.CharField(max_length=255)
     flight = models.ForeignKey(Flight, on_delete=models.CASCADE, related_name='fares')
@@ -327,12 +320,11 @@ class Fare(models.Model):
         db_table = 'fare'
 
     def __str__(self):
-        return f'{self.fare_id} - {self.cabin} - {self.flight}'
+        return f'{self.id} - {self.flight} - {self.cabin}'
 
 
 # Ticket model
 class Ticket(models.Model):
-    ticket_id = models.PositiveIntegerField(primary_key=True)
     seat_pos = models.CharField(max_length=255)
     passenger = models.ForeignKey(Passenger, on_delete=models.SET_NULL, null=True, related_name='tickets')
     fare = models.ForeignKey(Fare, on_delete=models.CASCADE, related_name='tickets')
@@ -341,5 +333,5 @@ class Ticket(models.Model):
         db_table = 'ticket'
 
     def __str__(self):
-        return f'{self.ticket_id}'
+        return f'{self.id}'
 
