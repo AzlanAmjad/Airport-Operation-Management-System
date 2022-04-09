@@ -141,7 +141,7 @@ class FlightSerializer(serializers.ModelSerializer):
             "airline",
             "dep_time",
             "arrival_time",
-            "dest",
+            "destination",
             "plane"
         )
 

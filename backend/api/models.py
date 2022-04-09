@@ -305,7 +305,7 @@ class Flight(models.Model):
     airline = models.ForeignKey(Airline, on_delete=models.CASCADE)
     dep_time = models.DateTimeField()
     arrival_time = models.DateTimeField()
-    dest = models.ForeignKey(Destination, on_delete=models.SET_NULL, null=True, related_name='flights')
+    destination = models.ForeignKey(Destination, on_delete=models.SET_NULL, null=True, related_name='flights')
     plane = models.ForeignKey(Airplane, on_delete=models.SET_NULL, null=True, related_name='flights')
 
     class Meta:
