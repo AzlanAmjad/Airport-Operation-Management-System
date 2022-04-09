@@ -68,6 +68,9 @@ class User(AbstractUser):
 
     objects = UserManager()
 
+    class Meta:
+        db_table = 'user'
+
 
 user = get_user_model()
 
