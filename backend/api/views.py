@@ -10,3 +10,6 @@ class AllDestinations(APIView):
         serializer = serializers.DestinationSerializer(destinations, many=True)
         return Response(serializer.data)
 
+class SearchFlights(APIView):
+    def get(self, request, destination, departure):
+        pass
