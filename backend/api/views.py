@@ -63,6 +63,13 @@ class Destinations(APIView):
 
 
 # BOOKS
+class Books(APIView):
+    def post(self, request, format=None):
+        serializer = serializers.BooksSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 # TRANSACTION
@@ -229,7 +236,7 @@ class SearchFlights(APIView):
 
 class FlightFares(APIView):
     def get(self, request, flight, format=None):
-        fares = models.Fare.objects.filter(flight=flight)
+        fares = models.Fare.objects.filter(flight=flight).exclude(tickets_quantity=0)
         serializer = serializers.FareSerializer(fares, many=True)
         return Response(serializer.data)
 
