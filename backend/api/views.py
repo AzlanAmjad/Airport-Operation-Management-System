@@ -35,3 +35,21 @@ class FlightFares(APIView):
         fares = models.Fare.objects.filter(flight=flight)
         serializer = serializers.FareSerializer(fares, many=True)
         return Response(serializer.data)
+
+class AllCompanies(APIView):
+    def get(self, request, format=None):
+        companies = models.Company.objects.all()
+        serializer = serializers.CompanySerializer(companies, many=True)
+        return Response(serializer.data)
+
+class CompanyHotels(APIView):
+    def get(self, request, company, format=None):
+        hotels = models.Hotel.objects.filter(company=company)
+        serializer = serializers.HotelSerializer(hotels, many=True)
+        return Response(serializer.data)
+
+class HotelStays(APIView):
+    def get(self, request, hotel, format=None):
+        stays = models.Stay.objects.filter(hotel=hotel)
+        serializer = serializers.StaySerializer(stays, many=True)
+        return Response(serializer.data)
