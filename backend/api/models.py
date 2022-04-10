@@ -43,7 +43,7 @@ class UserManager(BaseUserManager):
 # User model
 class User(AbstractUser):
     username = None
-    email = models.EmailField(max_length=255, primary_key=True)
+    email = models.EmailField(max_length=255, unique=True)
     # password, first_name, last_name, already part of AbstractUser
     a_passenger = models.BooleanField(default=False, help_text='Determines whether the user is a passenger', verbose_name='passenger status')
     an_airport_admin = models.BooleanField(default=False, help_text='Determines whether the user is an airport admin', verbose_name='airport admin status')    
@@ -76,7 +76,7 @@ user = get_user_model()
 
 # Passenger model
 class Passenger(models.Model):
-    email = models.OneToOneField(user, on_delete=models.CASCADE, related_name='passenger')
+    email = models.OneToOneField(user, on_delete=models.CASCADE, related_name='passenger', to_field='email')
     ssn = models.CharField(max_length=255, unique=True)
     address = models.CharField(max_length=255)
 
@@ -89,7 +89,7 @@ class Passenger(models.Model):
 
 # Airport Admin model
 class AirportAdmin(models.Model):
-    email = models.OneToOneField(user, on_delete=models.CASCADE, related_name='airport_admin')
+    email = models.OneToOneField(user, on_delete=models.CASCADE, related_name='airport_admin', to_field='email')
     admin_id = models.PositiveIntegerField(unique=True)
 
     class Meta:
@@ -101,7 +101,7 @@ class AirportAdmin(models.Model):
 
 # Airline Admin model
 class AirlineAdmin(models.Model):
-    email = models.OneToOneField(user, on_delete=models.CASCADE, related_name='airline_admin')
+    email = models.OneToOneField(user, on_delete=models.CASCADE, related_name='airline_admin', to_field='email')
     employee_id = models.PositiveIntegerField(unique=True)
 
     class Meta:
