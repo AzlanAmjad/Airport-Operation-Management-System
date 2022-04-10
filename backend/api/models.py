@@ -77,7 +77,7 @@ user = get_user_model()
 # Passenger model
 class Passenger(models.Model):
     email = models.OneToOneField(user, on_delete=models.CASCADE, related_name='passenger')
-    ssn = models.CharField(max_length=255)
+    ssn = models.CharField(max_length=255, unique=True)
     address = models.CharField(max_length=255)
 
     class Meta:
@@ -113,7 +113,7 @@ class AirlineAdmin(models.Model):
 
 # Company model
 class Company(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, unique=True)
     admin = models.ForeignKey(AirportAdmin, on_delete=models.SET_NULL, null=True, related_name='companies')
 
     class Meta:
@@ -125,7 +125,7 @@ class Company(models.Model):
 
 # Hotel model
 class Hotel(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, unique=True)
     location = models.CharField(max_length=255)
     company = models.ForeignKey(Company, on_delete=models.CASCADE, related_name='hotels')
     image = models.ImageField(upload_to='hotel_images/', blank=True, null=True)
@@ -181,7 +181,7 @@ class Transaction(models.Model):
 
 # Stay model
 class Stay(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, unique=True)
     price = models.DecimalField(max_digits=6, decimal_places=2)
     description = models.TextField()
     hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE, related_name='stays')
@@ -238,7 +238,7 @@ class AirportComplaint(models.Model):
 
 # Airline model
 class Airline(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, unique=True)
     location = models.CharField(max_length=255)
 
     class Meta:
