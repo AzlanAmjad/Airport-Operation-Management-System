@@ -329,10 +329,10 @@ class Fare(models.Model):
         return f'({self.id}) {self.flight} - {self.cabin}'
 
 
-# Ticket model
-class Ticket(models.Model):
-    passenger = models.ForeignKey(Passenger, on_delete=models.SET_NULL, null=True, related_name='tickets')
-    fare = models.ForeignKey(Fare, on_delete=models.CASCADE, related_name='tickets')
+# Books model
+class Books(models.Model):
+    passenger = models.ForeignKey(Passenger, on_delete=models.CASCADE, related_name='bookings')
+    fare = models.ForeignKey(Fare, on_delete=models.CASCADE, related_name='bookings')
 
     class Meta:
         db_table = 'ticket'

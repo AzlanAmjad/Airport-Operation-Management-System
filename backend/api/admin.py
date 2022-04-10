@@ -34,5 +34,5 @@ admin.site.register(models.Airplane)
 admin.site.register(models.Destination)
 admin.site.register(models.Flight)
 admin.site.register(models.Fare)
-admin.site.register(models.Ticket)
+admin.site.register(models.Books)
 

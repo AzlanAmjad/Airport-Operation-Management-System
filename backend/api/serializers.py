@@ -1,6 +1,3 @@
-import email
-from pyexpat import model
-from pkg_resources import require
 from rest_framework import serializers
 from . import models
 
@@ -115,9 +112,9 @@ class FareSerializer(serializers.ModelSerializer):
         model = models.Fare
         fields = '__all__'
 
-# TICKET
-class TicketSerializer(serializers.ModelSerializer):
+# BOOKS
+class BooksSerializer(serializers.ModelSerializer):
     class Meta:
-        model = models.Ticket
+        model = models.Books
         fields = '__all__'
 

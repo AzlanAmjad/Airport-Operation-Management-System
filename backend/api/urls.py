@@ -25,9 +25,7 @@ urlpatterns = [
     # get all destinations
     path('destinations/', views.Destinations.as_view()),
 
-    # TICKET
-    # put ticket
-    path('ticket/<int:ticket>/', views.Ticket.as_view()),
+    # BOOKS
 
     # TRANSACTION
     # post transaction
@@ -74,7 +72,6 @@ urlpatterns = [
     # AIRLINE ADMIN
     # AIRLINE
     # AIRPLANE
-    
 
     # FARE
     # post fare
