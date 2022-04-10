@@ -1,15 +1,17 @@
 from django.urls import path
+
+from api.models import AirportComplaint
 from . import views
 
 urlpatterns = [
     # get all destinations
-    path('destinations/', views.AllDestinations.as_view()),
+    path('destinations/', views.Destinations.as_view()),
     # get searched flights
     path('flights/<slug:destination>/<slug:departure>/', views.SearchFlights.as_view()),
-    # get one flight
-    path('flight/<int:flight>/', views.OneFlight.as_view()),
-    # get one destination
-    path('destination/<slug:destination>/', views.OneDestination.as_view()),
+    # get flight, # put flight, # delete flight
+    path('flight/<int:flight>/', views.Flight.as_view()),
+    # get destination
+    path('destination/<slug:destination>/', views.Destination.as_view()),
     # get flight fares
     path('fares/<int:flight>/', views.FlightFares.as_view()),
     # get all companies
@@ -25,7 +27,21 @@ urlpatterns = [
     # post transaction
     path('transaction/', views.Transaction.as_view()),
     # put stay
-    path('stay/<int:stay>', views.Stay.as_view()),
+    path('stay/<int:stay>/', views.Stay.as_view()),
     # get airline flights
-    path('flights/<int:airline>', views.AirlineFlights.as_view())
+    path('flights/<int:airline>/', views.AirlineFlights.as_view()),
+    # post flight
+    path('flight/', views.Flight.as_view()),
+    # post airline complaint
+    path('airline-complaint/', views.AirlineComplaint.as_view()),
+    # put airline complaint, delete airline complaint
+    path('airline-complaint/<int:complaint>/', views.AirlineComplaint.as_view()),
+    # get airline complaints
+    path('airline-complaints/<int:airline>/', views.AirlineComplaints.as_view()),
+    # post airport complaint
+    path('airport-complaint/', views.AirportComplaint.as_view()),
+    # put airport complaint, delete airport complaint
+    path('airport-complaint/<int:complaint>/', views.AirportComplaint.as_view()),
+    # get airport complaints
+    path('airport-complaints/', views.AirportComplaints.as_view()),
 ]
