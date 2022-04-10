@@ -69,6 +69,9 @@ class Ticket(APIView):
         serializer = serializers.TicketSerializer(_ticket, data=request.data)
         if serializer.is_valid():
             serializer.save()
+
+            # decrement tickets quantity in fare
+
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -217,6 +220,13 @@ class Hotel(APIView):
 # AIRPLANE
 
 # FARE
+class Fare(APIView):
+    def post(self, request, format=None):
+        serializer = serializers.FareSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 # MORE COMPLICATED VIEWS

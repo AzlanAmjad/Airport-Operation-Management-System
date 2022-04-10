@@ -74,7 +74,10 @@ urlpatterns = [
     # AIRLINE ADMIN
     # AIRLINE
     # AIRPLANE
+
     # FARE
+    # post fare
+    path('fare/', views.Fare.as_view()),
 
     # MORE COMPLICATED END-POINTS
     # get searched flights

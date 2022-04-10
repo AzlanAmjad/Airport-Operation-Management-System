@@ -329,7 +329,6 @@ class Fare(models.Model):
 
 # Ticket model
 class Ticket(models.Model):
-    seat_pos = models.CharField(max_length=255)
     passenger = models.ForeignKey(Passenger, on_delete=models.SET_NULL, null=True, related_name='tickets')
     fare = models.ForeignKey(Fare, on_delete=models.CASCADE, related_name='tickets')
 
