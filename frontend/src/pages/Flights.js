@@ -231,7 +231,15 @@ const Flights = () => {
             </FormControl>
             <FormControl sx={{ maxWidth: 120, padding: "10px" }}>
               <Input type="number" inputProps={{ min: 0 }} />
-              <FormHelperText sx={{ color: "text.primary" }}>Business</FormHelperText>
+              <FormHelperText sx={{ color: "text.primary" }}>Economy Class</FormHelperText>
+            </FormControl>
+            <FormControl sx={{ maxWidth: 120, padding: "10px" }}>
+              <Input type="number" inputProps={{ min: 0 }} />
+              <FormHelperText sx={{ color: "text.primary" }}>Premium Economy Class</FormHelperText>
+            </FormControl>
+            <FormControl sx={{ maxWidth: 120, padding: "10px" }}>
+              <Input type="number" inputProps={{ min: 0 }} />
+              <FormHelperText sx={{ color: "text.primary" }}>Business Class</FormHelperText>
             </FormControl>
             <FormControl sx={{ maxWidth: 120, padding: "10px" }}>
               <Input type="number" inputProps={{ min: 0 }} />

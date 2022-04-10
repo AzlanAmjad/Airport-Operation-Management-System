@@ -14,6 +14,8 @@ import Cart from "./pages/Cart"
 import Checkout from "./pages/Checkout"
 import AirportDashboard from "./pages/AirportDashboard";
 import AirlineDashboard from "./pages/AirlineDashboard";
+import PassengerDashboard from "./pages/PassengerDashboard";
+import Hotel from "./pages/Hotel";
 
 // material UI
 import Grid from "@mui/material/Grid";
@@ -99,6 +101,7 @@ function App() {
 
               <Route path="/reservation" element={<Reservation />} />
               <Route path="/reservation/:company" element={<Company />} />
+              <Route path="/reservation/:company/:hotel" element={<Hotel />} />
 
               <Route path="/about" element={<About />} />
               <Route path="/login" element={<Login />} />
@@ -111,6 +114,8 @@ function App() {
                 path="/airport-dashboard/*"
                 element={<AirportDashboard />}
               />
+
+              <Route path="/passenger-dashboard/*" element={<PassengerDashboard />} />
 
               <Route path="/cart" element={<Cart />} />
               <Route path="/checkout" element={<Checkout />} />

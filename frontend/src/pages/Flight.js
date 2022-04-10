@@ -1,5 +1,5 @@
 import { Grid, Typography, Paper, IconButton } from "@mui/material";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
@@ -136,8 +136,8 @@ const Flight = () => {
                     </Grid>
                   </Grid>
                   <Grid item>
-                    <IconButton color="inherit" onClick={() => {}}>
-                      <ChevronRightIcon fontSize="large" />
+                    <IconButton color="inherit" onClick={() => { }}>
+                      <ShoppingCartIcon fontSize="large" />
                     </IconButton>
                   </Grid>
                 </Grid>
