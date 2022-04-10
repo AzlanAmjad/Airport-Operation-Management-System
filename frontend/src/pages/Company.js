@@ -6,6 +6,8 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
 import CardMedia from "@mui/material/CardMedia";
+import { CardActionArea } from "@mui/material";
+import { Route, Routes, useNavigate, useLocation } from "react-router-dom";
 
 const Company = () => {
   const [companyName, setCompanyName] = useState("Company Name");
@@ -37,6 +39,8 @@ const Company = () => {
     },
   ]);
 
+  const navigate = useNavigate();
+
   return (
     <Grid container justifyContent="center">
       <Grid item xs={12}>
@@ -56,10 +60,12 @@ const Company = () => {
                   backgroundColor: "background.paper",
                 }}
               >
-                <CardContent>
-                  <Typography gutterBottom variant="h2">{hotel.name}</Typography>
-                  <Typography gutterBottom variant="h6">{hotel.location}</Typography>
-                </CardContent>
+                <CardActionArea onClick={() => navigate(`/reservation/${companyName}/${hotel.name}`)}>
+                  <CardContent>
+                    <Typography gutterBottom variant="h2">{hotel.name}</Typography>
+                    <Typography gutterBottom variant="h6">{hotel.location}</Typography>
+                  </CardContent>
+                </CardActionArea>
               </Card>
             </Grid>
           );
