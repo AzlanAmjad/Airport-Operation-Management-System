@@ -26,7 +26,12 @@ class RegisterPassengerSerializer(serializers.ModelSerializer):
         )
 
     def create(self, validated_data):
-        pass
+        user = models.User.objects.create_user(validated_data['user']['email'], validated_data['user']['password'], 
+            validated_data['user']['first_name'], validated_data['user']['last_name'])
+        user.a_passenger = True
+        user.save()
+        passenger = models.Passenger.objects.create(email=user, ssn=validated_data.pop('ssn'), address=validated_data.pop('address'))
+        return passenger
 
 class PassengerSerializer(serializers.ModelSerializer):
     class Meta:
