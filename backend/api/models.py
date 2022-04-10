@@ -246,7 +246,7 @@ class Airline(models.Model):
         db_table = 'airline'
 
     def __str__(self):
-        return f'{self.id} - {self.name}'
+        return f'{self.name}'
 
 
 # Airline Complaint model
