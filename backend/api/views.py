@@ -26,9 +26,9 @@ class OneFlight(APIView):
         return Response(serializer.data)
 
 class OneDestination(APIView):
-    def get(self, request, airport_code, format=None):
-        destination = models.Destination.objects.get(pk=airport_code)
-        serializer = serializers.DestinationSerializer(destination)
+    def get(self, request, destination, format=None):
+        oneDestination = models.Destination.objects.get(pk=destination)
+        serializer = serializers.DestinationSerializer(oneDestination)
         return Response(serializer.data)
 
 class FlightFares(APIView):
@@ -88,5 +88,7 @@ class Stay(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class AirlineFlights(APIView):
-    def get(self, request, airline_name, format=None):
-        pass
+    def get(self, request, airline, format=None):
+        flights = models.Flight.objects.filter(airline=airline)
+        serializer = serializers.FlightSerializer(flights, many=True)
+        return Response(serializer.data)

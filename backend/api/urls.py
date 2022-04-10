@@ -9,13 +9,13 @@ urlpatterns = [
     # get one flight
     path('flight/<int:flight>/', views.OneFlight.as_view()),
     # get one destination
-    path('destination/<slug:airport_code>/', views.OneDestination.as_view()),
+    path('destination/<slug:destination>/', views.OneDestination.as_view()),
     # get flight fares
     path('fares/<int:flight>/', views.FlightFares.as_view()),
     # get all companies
     path('companies/', views.AllCompanies.as_view()),
     # get company hotels
-    path('hotels/<slug:company>/', views.CompanyHotels.as_view()),
+    path('hotels/<int:company>/', views.CompanyHotels.as_view()),
     # get hotel stays
     path('stays/<int:hotel>/', views.HotelStays.as_view()),
     # get any fare ticket
@@ -27,5 +27,5 @@ urlpatterns = [
     # put stay
     path('stay/<int:stay>', views.Stay.as_view()),
     # get airline flights
-    path('flights/<slug:airline-name>', views.AirlineFlights.as_view())
+    path('flights/<int:airline>', views.AirlineFlights.as_view())
 ]

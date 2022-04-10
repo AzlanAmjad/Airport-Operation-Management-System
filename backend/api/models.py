@@ -113,8 +113,7 @@ class AirlineAdmin(models.Model):
 
 # Company model
 class Company(models.Model):
-    name = models.CharField(max_length=255, primary_key=True)
-    slug = models.SlugField(max_length=255, unique=True)
+    name = models.CharField(max_length=255)
     admin = models.ForeignKey(AirportAdmin, on_delete=models.SET_NULL, null=True, related_name='companies')
 
     class Meta:
@@ -122,10 +121,6 @@ class Company(models.Model):
 
     def __str__(self):
         return self.name
-
-    def save(self, *args, **kwargs):
-        self.slug = slugify(self.name)
-        super(Company, self).save(*args, **kwargs)
 
 
 # Hotel model
@@ -243,8 +238,7 @@ class AirportComplaint(models.Model):
 
 # Airline model
 class Airline(models.Model):
-    name = models.CharField(max_length=255, primary_key=True)
-    slug = models.SlugField(max_length=255, unique=True)
+    name = models.CharField(max_length=255)
     location = models.CharField(max_length=255)
 
     class Meta:
@@ -252,10 +246,6 @@ class Airline(models.Model):
 
     def __str__(self):
         return f'{self.name}'
-
-    def save(self, *args, **kwargs):
-        self.slug = slugify(self.name)
-        super(Airline, self).save(*args, **kwargs)
 
 
 # Airline Complaint model
