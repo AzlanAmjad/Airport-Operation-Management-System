@@ -19,5 +19,13 @@ urlpatterns = [
     # get hotel stays
     path('stays/<int:hotel>/', views.HotelStays.as_view()),
     # get any fare ticket
-    path('ticket/<int:fare>/', views.FareTicket.as_view()),
+    path('fare/ticket/<int:fare>/', views.FareTicket.as_view()),
+    # put ticket
+    path('ticket/<int:ticket>/', views.Ticket.as_view()),
+    # post transaction
+    path('transaction/', views.Transaction.as_view()),
+    # put stay
+    path('stay/<int:stay>', views.Stay.as_view()),
+    # get airline flights
+    path('flights/<slug:airline-name>', views.AirlineFlights.as_view())
 ]

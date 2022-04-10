@@ -1,4 +1,5 @@
 import datetime
+from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
@@ -56,6 +57,36 @@ class HotelStays(APIView):
 
 class FareTicket(APIView):
     def get(self, request, fare, format=None):
-        ticket = models.Ticket.objects.filter(fare=fare).filter(passenger=None)[0:1]
+        ticket = models.Ticket.objects.filter(fare=fare).filter(passenger=None).first()
         serializer = serializers.TicketSerializer(ticket)
         return Response(serializer.data)
+
+class Ticket(APIView):
+    def put(self, request, ticket, format=None):
+        ticket = models.Ticket.objects.get(pk=ticket)
+        serializer = serializers.TicketSerializer(ticket, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class Transaction(APIView):
+    def post(self, request, format=None):
+        serializer = serializers.TicketSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class Stay(APIView):
+    def put(self, request, stay, format=None):
+        stay = models.Stay.objects.get(pk=stay)
+        serializer = serializers.StaySerializer(stay, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class AirlineFlights(APIView):
+    def get(self, request, airline_name, format=None):
+        pass
