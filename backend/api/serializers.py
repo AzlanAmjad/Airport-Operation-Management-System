@@ -41,6 +41,7 @@ class CompanySerializer(serializers.ModelSerializer):
         model = models.Company
         fields = (
             "name",
+            "slug",
             "admin"
         )
 
@@ -96,6 +97,7 @@ class AirlineSerializer(serializers.ModelSerializer):
         model = models.Airline
         fields = (
             "name",
+            "slug",
             "location"
         )
 

@@ -1,6 +1,3 @@
-from ctypes.wintypes import RGB
-from statistics import quantiles
-from unicodedata import name
 from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.contrib.auth import get_user_model
@@ -8,6 +5,8 @@ from django.contrib.auth import get_user_model
 from io import BytesIO
 from PIL import Image
 from django.core.files import File
+
+from django.utils.text import slugify 
 
 # Create your models here.
 
@@ -115,6 +114,7 @@ class AirlineAdmin(models.Model):
 # Company model
 class Company(models.Model):
     name = models.CharField(max_length=255, primary_key=True)
+    slug = models.SlugField(max_length=255, unique=True)
     admin = models.ForeignKey(AirportAdmin, on_delete=models.SET_NULL, null=True, related_name='companies')
 
     class Meta:
@@ -122,6 +122,10 @@ class Company(models.Model):
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Company, self).save(*args, **kwargs)
 
 
 # Hotel model
@@ -240,6 +244,7 @@ class AirportComplaint(models.Model):
 # Airline model
 class Airline(models.Model):
     name = models.CharField(max_length=255, primary_key=True)
+    slug = models.SlugField(max_length=255, unique=True)
     location = models.CharField(max_length=255)
 
     class Meta:
@@ -247,6 +252,10 @@ class Airline(models.Model):
 
     def __str__(self):
         return f'{self.name}'
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Airline, self).save(*args, **kwargs)
 
 
 # Airline Complaint model
