@@ -74,6 +74,7 @@ urlpatterns = [
     # AIRLINE ADMIN
     # AIRLINE
     # AIRPLANE
+    
 
     # FARE
     # post fare
@@ -92,4 +93,6 @@ urlpatterns = [
     path('fare/ticket/<int:fare>/', views.FareTicket.as_view()),
     # get airline flights
     path('flights/<int:airline>/', views.AirlineFlights.as_view()),
+    # get airline airplanes
+    path('airplanes/<int:airline>/', )
 ]

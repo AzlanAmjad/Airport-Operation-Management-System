@@ -1,3 +1,4 @@
+from tkinter import CASCADE
 from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.contrib.auth import get_user_model
@@ -105,10 +106,23 @@ class AirportAdmin(models.Model):
         return f'({self.id}) {self.email}'
 
 
+# Airline model
+class Airline(models.Model):
+    name = models.CharField(max_length=255, unique=True)
+    location = models.CharField(max_length=255)
+
+    class Meta:
+        db_table = 'airline'
+
+    def __str__(self):
+        return f'({self.id}) {self.name}'
+
+
 # Airline Admin model
 class AirlineAdmin(models.Model):
     email = models.OneToOneField(user, on_delete=models.CASCADE, related_name='airline_admin', to_field='email', primary_key=True)
     employee_id = models.PositiveIntegerField(unique=True)
+    airline = models.OneToOneField(Airline, on_delete=models.SET_NULL, null=True)
 
     class Meta:
         db_table = 'airline_admin'
@@ -240,18 +254,6 @@ class AirportComplaint(models.Model):
 
     def __str__(self):
         return f'{self.id} by {self.passenger}, resolved by {self.admin}'
-
-
-# Airline model
-class Airline(models.Model):
-    name = models.CharField(max_length=255, unique=True)
-    location = models.CharField(max_length=255)
-
-    class Meta:
-        db_table = 'airline'
-
-    def __str__(self):
-        return f'({self.id}) {self.name}'
 
 
 # Airline Complaint model

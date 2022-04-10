@@ -219,12 +219,16 @@ class Hotel(APIView):
 
 # AIRPLANE
 
+
 # FARE
 class Fare(APIView):
     def post(self, request, format=None):
         serializer = serializers.FareSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
+
+            # create tickets quantity number of tickets
+            
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -265,4 +269,10 @@ class AirlineFlights(APIView):
     def get(self, request, airline, format=None):
         flights = models.Flight.objects.filter(airline=airline)
         serializer = serializers.FlightSerializer(flights, many=True)
+        return Response(serializer.data)
+
+class AirlineAirplanes(APIView):
+    def get(self, request, airline, format=None):
+        airplanes = models.Airplane.objects.filter(airline=airline)
+        serializer = serializers.AirplaneSerializer(airplanes, many=True)
         return Response(serializer.data)
