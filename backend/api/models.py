@@ -84,7 +84,7 @@ class Passenger(models.Model):
         db_table = 'passenger'
 
     def __str__(self):
-        return f'{self.email}'
+        return f'({self.id}) {self.email}'
 
 
 # Airport Admin model
@@ -96,7 +96,7 @@ class AirportAdmin(models.Model):
         db_table = 'airport_admin'
 
     def __str__(self):
-        return f'{self.email}'
+        return f'({self.id}) {self.email}'
 
 
 # Airline Admin model
@@ -108,7 +108,7 @@ class AirlineAdmin(models.Model):
         db_table = 'airline_admin'
 
     def __str__(self):
-        return f'{self.email}'
+        return f'({self.id}) {self.email}'
 
 
 # Company model
@@ -120,7 +120,7 @@ class Company(models.Model):
         db_table = 'company'
 
     def __str__(self):
-        return self.name
+        return f'({self.id}) {self.name}'
 
 
 # Hotel model
@@ -135,7 +135,7 @@ class Hotel(models.Model):
         db_table = 'hotel'
 
     def __str__(self):
-        return f'{self.id} - {self.name}'
+        return f'({self.id}) {self.name}'
 
     def get_image(self):
         if self.image:
@@ -193,7 +193,7 @@ class Stay(models.Model):
         db_table = 'stay'
 
     def __str__(self):
-        return f'{self.id} - {self.name}'
+        return f'({self.id}) {self.name}'
 
     def get_image(self):
         if self.image:
@@ -245,7 +245,7 @@ class Airline(models.Model):
         db_table = 'airline'
 
     def __str__(self):
-        return f'{self.name}'
+        return f'({self.id}) {self.name}'
 
 
 # Airline Complaint model
@@ -276,7 +276,7 @@ class Airplane(models.Model):
         db_table = 'airplane'
 
     def __str__(self):
-        return f'{self.id} - {self.airline} - {self.manufacturer} {self.model}'
+        return f'({self.id}) {self.airline} - {self.manufacturer} {self.model}'
 
 
 # Destination model
@@ -304,7 +304,7 @@ class Flight(models.Model):
         db_table = 'flight'
 
     def __str__(self):
-        return f'{self.id} - {self.airline}'
+        return f'({self.id}) {self.airline}'
 
 
 # Fare model
@@ -318,7 +318,7 @@ class Fare(models.Model):
         db_table = 'fare'
 
     def __str__(self):
-        return f'{self.id} - {self.flight} - {self.cabin}'
+        return f'({self.id}) {self.flight} - {self.cabin}'
 
 
 # Ticket model
