@@ -18,4 +18,6 @@ urlpatterns = [
     path('hotels/<slug:company>/', views.CompanyHotels.as_view()),
     # get hotel stays
     path('stays/<int:hotel>/', views.HotelStays.as_view()),
+    # get any fare ticket
+    
 ]
