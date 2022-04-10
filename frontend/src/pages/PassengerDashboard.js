@@ -7,7 +7,6 @@ import Tab from "@mui/material/Tab";
 import HomeIcon from "@mui/icons-material/Home";
 import { Route, Routes, useNavigate, useLocation } from "react-router-dom";
 import WelcomePassenger from "./WelcomePassenger";
-import Typography from '@mui/material/Typography';
 import FileComplaint from "./FileComplaint";
 import MyComplaints from "./MyComplaints";
 
