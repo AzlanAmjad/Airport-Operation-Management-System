@@ -1,3 +1,6 @@
+import email
+from pyexpat import model
+from pkg_resources import require
 from rest_framework import serializers
 from . import models
 
@@ -5,14 +8,30 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.User
         fields = (
-            
+            'email',
+            'password',
+            'first_name',
+            'last_name'
         )
+
+class RegisterPassengerSerializer(serializers.ModelSerializer):
+    user = UserSerializer(required=True)
+
+    class Meta:
+        model = models.Passenger
+        fields = (
+            "email",
+            "ssn",
+            "address"
+        )
+
+    def create(self, validated_data):
+        pass
 
 class PassengerSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Passenger
         fields = (
-            "id",
             "email",
             "ssn",
             "address"
@@ -22,7 +41,6 @@ class AirportAdminSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.AirportAdmin
         fields = (
-            "id",
             "email",
             "admin_id"
         )
@@ -31,7 +49,6 @@ class AirlineAdminSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.AirlineAdmin
         fields = (
-            "id",
             "email",
             "employee_id"
         )

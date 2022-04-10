@@ -26,10 +26,6 @@ class UserManager(BaseUserManager):
     def create_user(self, email, password, first_name, last_name, **extra_fields):
         extra_fields.setdefault('is_staff', False)
         extra_fields.setdefault('is_superuser', False)
-        extra_fields.setdefault('is_active', True)
-        extra_fields.setdefault('a_passenger', True)
-        extra_fields.setdefault('an_airport_admin', False)
-        extra_fields.setdefault('an_airline_admin', False)
 
         return self._create_user(email, password, first_name, last_name, **extra_fields)
 
@@ -75,10 +71,10 @@ class User(AbstractUser):
     def is_airline_admin(self):
         return self.airline_admin
 
-    objects = UserManager()
-
     class Meta:
         db_table = 'user'
+    
+    objects = UserManager()
 
 
 user = get_user_model()

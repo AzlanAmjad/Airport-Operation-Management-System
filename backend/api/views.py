@@ -1,4 +1,5 @@
 import datetime
+import json
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -8,7 +9,7 @@ from . import models
 from . import serializers
 
 # REGISTRATION, AUTHENTICATION, AND AUTHORIZATION
-class PassengerUserCreate(APIView):
+class PassengerCreate(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request):
