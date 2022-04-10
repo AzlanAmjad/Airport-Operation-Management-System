@@ -60,6 +60,13 @@ urlpatterns = [
     # put hotel
     path('hotel/<int:hotel>', views.Hotel.as_view()),
 
+    # PASSENGER
+    # AIRPORT ADMIN
+    # AIRLINE ADMIN
+    # AIRLINE
+    # AIRPLANE
+    # FARE
+
     # MORE COMPLICATED END-POINTS
     # get searched flights
     path('flights/<slug:destination>/<slug:departure>/', views.SearchFlights.as_view()),

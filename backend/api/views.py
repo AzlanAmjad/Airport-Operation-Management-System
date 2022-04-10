@@ -192,6 +192,19 @@ class Hotel(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+# PASSENGER
+
+# AIRPORT ADMIN
+
+# AIRLINE ADMIN
+
+# AIRLINE
+
+# AIRPLANE
+
+# FARE
+
+
 # MORE COMPLICATED VIEWS
 class SearchFlights(APIView):
     def get(self, request, destination, departure, format=None):
