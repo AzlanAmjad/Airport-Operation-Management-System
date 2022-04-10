@@ -14,7 +14,7 @@ from django.utils.text import slugify
 class UserManager(BaseUserManager):
     use_in_migrations = True
 
-    def create_user(self, email, password, first_name, last_name, **extra_fields):
+    def _create_user(self, email, password, first_name, last_name, **extra_fields):
         if not email:
             raise ValueError('email must be set')
         email = self.normalize_email(email)
@@ -22,6 +22,16 @@ class UserManager(BaseUserManager):
         user.set_password(password)
         user.save(using=self._db)
         return user
+
+    def create_user(self, email, password, first_name, last_name, **extra_fields):
+        extra_fields.setdefault('is_staff', False)
+        extra_fields.setdefault('is_superuser', False)
+        extra_fields.setdefault('is_active', True)
+        extra_fields.setdefault('a_passenger', True)
+        extra_fields.setdefault('an_airport_admin', False)
+        extra_fields.setdefault('an_airline_admin', False)
+
+        return self._create_user(email, password, first_name, last_name, **extra_fields)
 
     def create_superuser(self, email, password, first_name, last_name, **extra_fields):
         extra_fields.setdefault('is_staff', True)
@@ -36,7 +46,7 @@ class UserManager(BaseUserManager):
         if extra_fields.get('is_superuser') is not True:
             raise ValueError('Superuser must have is_superuser=True.')
 
-        user = self.create_user(email, password, first_name, last_name, **extra_fields)
+        user = self._create_user(email, password, first_name, last_name, **extra_fields)
         return user
 
 
@@ -76,7 +86,7 @@ user = get_user_model()
 
 # Passenger model
 class Passenger(models.Model):
-    email = models.OneToOneField(user, on_delete=models.CASCADE, related_name='passenger', to_field='email')
+    email = models.OneToOneField(user, on_delete=models.CASCADE, related_name='passenger', to_field='email', primary_key=True)
     ssn = models.CharField(max_length=255, unique=True)
     address = models.CharField(max_length=255)
 
@@ -89,7 +99,7 @@ class Passenger(models.Model):
 
 # Airport Admin model
 class AirportAdmin(models.Model):
-    email = models.OneToOneField(user, on_delete=models.CASCADE, related_name='airport_admin', to_field='email')
+    email = models.OneToOneField(user, on_delete=models.CASCADE, related_name='airport_admin', to_field='email', primary_key=True)
     admin_id = models.PositiveIntegerField(unique=True)
 
     class Meta:
@@ -101,7 +111,7 @@ class AirportAdmin(models.Model):
 
 # Airline Admin model
 class AirlineAdmin(models.Model):
-    email = models.OneToOneField(user, on_delete=models.CASCADE, related_name='airline_admin', to_field='email')
+    email = models.OneToOneField(user, on_delete=models.CASCADE, related_name='airline_admin', to_field='email', primary_key=True)
     employee_id = models.PositiveIntegerField(unique=True)
 
     class Meta:
