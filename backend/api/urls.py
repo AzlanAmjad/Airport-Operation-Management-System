@@ -7,8 +7,11 @@ from rest_framework_simplejwt.views import (
 
 urlpatterns = [
     # REGISTRATION, AUTHENTICATION, AND AUTHORIZATION
+    # JWT tokens
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    # post passenger
+    path('register/', views.PassengerCreate.as_view()),
 
     # FLIGHT
     # post flight

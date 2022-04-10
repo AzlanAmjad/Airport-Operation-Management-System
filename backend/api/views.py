@@ -13,7 +13,11 @@ class PassengerCreate(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request):
-        pass
+        serializer = serializers.RegisterPassengerSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 # FLIGHT

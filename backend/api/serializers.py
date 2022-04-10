@@ -4,6 +4,7 @@ from pkg_resources import require
 from rest_framework import serializers
 from . import models
 
+# USER
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.User
@@ -14,16 +15,13 @@ class UserSerializer(serializers.ModelSerializer):
             'last_name'
         )
 
+# PASSENGER REGISTRATION
 class RegisterPassengerSerializer(serializers.ModelSerializer):
     user = UserSerializer(required=True)
 
     class Meta:
         model = models.Passenger
-        fields = (
-            "email",
-            "ssn",
-            "address"
-        )
+        fields = '__all__'
 
     def create(self, validated_data):
         user = models.User.objects.create_user(validated_data['user']['email'], validated_data['user']['password'], 
@@ -33,160 +31,93 @@ class RegisterPassengerSerializer(serializers.ModelSerializer):
         passenger = models.Passenger.objects.create(email=user, ssn=validated_data.pop('ssn'), address=validated_data.pop('address'))
         return passenger
 
+# PASSENGER
 class PassengerSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Passenger
-        fields = (
-            "email",
-            "ssn",
-            "address"
-        )
+        fields = '__all__'
 
+# AIRPORT ADMIN
 class AirportAdminSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.AirportAdmin
-        fields = (
-            "email",
-            "admin_id"
-        )
+        fields = '__all__'
 
+# AIRLINE ADMIN
 class AirlineAdminSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.AirlineAdmin
-        fields = (
-            "email",
-            "employee_id"
-        )
+        fields = '__all__'
 
+# COMPANY
 class CompanySerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Company
-        fields = (
-            "id",
-            "name",
-            "admin"
-        )
+        fields = '__all__'
 
+# HOTEL
 class HotelSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Hotel
-        fields = (
-            "id",
-            "name",
-            "location",
-            "company",
-            "get_image",
-            "get_thumbnail"
-        )
+        fields = '__all__'
 
+# TRANSACTION
 class TransactionSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Transaction
-        fields = (
-            "id",
-            "passenger",
-            "company",
-            "type",
-            "date"
-        )
+        fields = '__all__'
 
+# STAY
 class StaySerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Stay
-        fields = (
-            "id",
-            "name",
-            "price",
-            "description",
-            "hotel",
-            "transac",
-            "get_image",
-            "get_thumbnail"
-        )
+        fields = '__all__'
 
+# AIRPORT COMPLAINT
 class AirportComplaintSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.AirportComplaint
-        fields = (
-            "id",
-            "description",
-            "admin",
-            "passenger"
-        )
+        fields = '__all__'
 
+# AIRLINE
 class AirlineSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Airline
-        fields = (
-            "id",
-            "name",
-            "location"
-        )
+        fields = '__all__'
 
+# AIRLINE COMPLAINT
 class AirlineComplaintSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.AirlineComplaint
-        fields = (
-            "id",
-            "description",
-            "admin",
-            "passenger",
-            "airline"
-        )
+        fields = '__all__'
 
+# AIRPLANE
 class AirplaneSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Airplane
-        fields = (
-            "id",
-            "model",
-            "manufacturer",
-            "economy_seats",
-            "premium_economy_seats",
-            "business_seats",
-            "first_seats",
-            "airline"
-        )
+        fields = '__all__'
 
+# DESTINATION
 class DestinationSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Destination
-        fields = (
-            "airport_code",
-            "city",
-            "country"
-        )
+        fields = '__all__'
 
+# FLIGHT
 class FlightSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Flight
-        fields = (
-            "id",
-            "airline",
-            "dep_time",
-            "arrival_time",
-            "destination",
-            "plane"
-        )
+        fields = '__all__'
 
+# FARE
 class FareSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Fare
-        fields = (
-            "id",
-            "price",
-            "cabin",
-            "flight",
-            "tickets_quantity"
-        )
+        fields = '__all__'
 
+# TICKET
 class TicketSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Ticket
-        fields = (
-            "id",
-            "seat_pos",
-            "passenger",
-            "fare"
-        )
+        fields = '__all__'
 
