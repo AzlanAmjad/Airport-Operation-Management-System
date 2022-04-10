@@ -4,7 +4,7 @@ from . import models
 
 class CustomUserAdmin(UserAdmin):
     model = models.User
-    list_display = ('email', 'is_staff', 'is_active',)
+    list_display = ('id', 'email', 'is_staff', 'is_active', 'a_passenger', 'an_airport_admin', 'an_airline_admin',)
     list_filter = ('email', 'is_staff', 'is_active',)
     fieldsets = (
         (None, {'fields': ('email', 'password', 'a_passenger', 'an_airport_admin', 'an_airline_admin',)}),
