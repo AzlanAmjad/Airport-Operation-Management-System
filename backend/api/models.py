@@ -295,7 +295,6 @@ class Destination(models.Model):
 
 # Flight model
 class Flight(models.Model):
-    flight_num = models.PositiveIntegerField(primary_key=True)
     airline = models.ForeignKey(Airline, on_delete=models.CASCADE)
     dep_time = models.DateTimeField()
     arrival_time = models.DateTimeField()
@@ -306,7 +305,7 @@ class Flight(models.Model):
         db_table = 'flight'
 
     def __str__(self):
-        return f'{self.flight_num} - {self.airline}'
+        return f'{self.id} - {self.airline}'
 
 
 # Fare model

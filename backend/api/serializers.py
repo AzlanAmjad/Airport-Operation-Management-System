@@ -137,7 +137,7 @@ class FlightSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Flight
         fields = (
-            "flight_num",
+            "id",
             "airline",
             "dep_time",
             "arrival_time",
