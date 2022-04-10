@@ -19,5 +19,5 @@ urlpatterns = [
     # get hotel stays
     path('stays/<int:hotel>/', views.HotelStays.as_view()),
     # get any fare ticket
-    
+    path('ticket/<int:fare>/', views.FareTicket.as_view()),
 ]

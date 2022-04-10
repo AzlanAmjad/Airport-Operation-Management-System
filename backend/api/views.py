@@ -53,3 +53,9 @@ class HotelStays(APIView):
         stays = models.Stay.objects.filter(hotel=hotel)
         serializer = serializers.StaySerializer(stays, many=True)
         return Response(serializer.data)
+
+class FareTicket(APIView):
+    def get(self, request, fare, format=None):
+        ticket = models.Ticket.objects.filter(fare=fare).filter(passenger=None)[0:1]
+        serializer = serializers.TicketSerializer(ticket)
+        return Response(serializer.data)
