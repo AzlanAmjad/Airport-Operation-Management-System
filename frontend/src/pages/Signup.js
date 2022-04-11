@@ -2,6 +2,7 @@ import { Button, Typography, Grid, TextField, Paper } from "@mui/material";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import axiosInstance from "../components/Axios";
 
 const Signup = () => {
   const hStyle = {
@@ -47,8 +48,6 @@ const Signup = () => {
   // on click try and sign up
   const sign_up = () => {
     console.log("signing up !");
-
-
   };
 
   return (
