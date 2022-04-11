@@ -36,9 +36,9 @@ const Signup = () => {
   };
 
   return (
-    <Grid item container py="20px" width="500px">
-      <Paper elevation={12}>
-        <Grid item container direction="column" rowSpacing={4} padding="35px">
+    <Grid item container direction="column" alignItems="center" py="20px" width="500px">
+      <Paper elevation={12} style={{width: "100%"}}>
+        <Grid item container direction="column" rowSpacing={4} padding="35px" >
           <Grid item container direction="column" alignItems="center">
             <Grid item>
               <PersonAddIcon fontSize="large" />
@@ -111,7 +111,7 @@ const Signup = () => {
             <Grid item xs={12} md={6}>
               <Typography>
                 <Link to="/login" style={{ color: "white" }}>
-                  Log in
+                  Log In
                 </Link>
               </Typography>
             </Grid>

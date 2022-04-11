@@ -1,142 +1,124 @@
-import { Button } from "@mui/material";
-import { Typography } from "@mui/material";
-import { Grid } from "@mui/material";
-import { Box } from "@mui/material";
-import { Avatar } from "@mui/material";
-import { TextField } from "@mui/material";
-import { Link } from "@mui/material";
-import { Paper } from "@mui/material";
-import { Checkbox } from "@mui/material";
-import { pink } from '@mui/material/colors';
-import {FormControl,FormLabel,FormControlLabel,RadioGroup,Radio} from "@mui/material";
+import {
+  Button,
+  Typography,
+  TextField,
+  Grid,
+  Paper,
+  FormControl,
+  FormControlLabel,
+  RadioGroup,
+  Radio,
+} from "@mui/material";
+import PersonIcon from '@mui/icons-material/Person';
+import { Link } from "react-router-dom";
 
 const Login = () => {
-  const tStyle = { MuiRadio:{
-    root:{
-        padding: 8
-    }
-  } };
- 
-    const stylePaper = {
-      padding: 20,
-      height: "70vh",
-      maxWidth: 450,
-      margin: "60px",
-    };
-  const hStyle = { "& .MuiInputBase-root": {
-    color: "black"
-  },
-        backgroundColor : "whitesmoke",
-
-        "& label.Mui-focused":{
-          color: "black"
-        }, 
-        "& .MuiOutlinedInput-root": {
-          "&.Mui-focused fieldset": {
-            borderColor: "black"
-          }
-        }
-};
-  const lStyle = { color: "#000000" };
-  const rBStyle = { 
-    color: pink[800] 
-    
+  const hStyle = {
+    svg: "white",
+    input: "white",
+    label: "white",
+    "& .MuiOutlinedInput-notchedOutline": {
+      borderColor: "white",
+    },
+    "&:hover .MuiOutlinedInput-notchedOutline": {
+      borderColor: "red",
+    },
+    "&.MuiOutlinedInput-notchedOutline.Mui-focused": {
+      borderColor: "red",
+    },
+    "& .MuiButtonBase-root.MuiAutocomplete-clearIndicator": {
+      color: "red",
+    },
+    "& .MuiButtonBase-root.MuiAutocomplete-popupIndicator": {
+      color: "white",
+    },
+    "& input[type=number]": {
+      "-moz-appearance": "textfield",
+    },
+    "& input[type=number]::-webkit-outer-spin-button": {
+      "-webkit-appearance": "none",
+      margin: 0,
+    },
+    "& input[type=number]::-webkit-inner-spin-button": {
+      "-webkit-appearance": "none",
+      margin: 0,
+    },
   };
-  const btnstyle = { margin: "20px 0", height: "5vh" };
-  return (
-    <Grid>
-      <Paper elevation={12} style={stylePaper}>
-      <Grid 
-      container
-      direction= "column" 
-      alignItems="center"
-      >
-        <Avatar src="/login.png" />
-        <h2>Login</h2>
-      </Grid>
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
-          <TextField
-              sx={{...hStyle}}
-              label="Email"
-              placeholder="Enter email"
-              fullWidth
-              required
-            />
-          </Grid>
-          <Grid item xs={12}>
-          <TextField
-              sx={{...hStyle,
-              "& .MuiOutlinedInput-root:focus":{
-                  "& > fieldset":{
-                    borderColor: "black"
-                  }
-                }
-              }}
-              label="Password"
-              placeholder="Enter password"
-              type="password"
-              fullWidth
-              required
-            />
-          </Grid>
-        </Grid>
-        <Button
-          type="submit"
-          color="primary"
-          variant="contained"
-          style={btnstyle}
-        >
-          Sign In
-        </Button>
 
-        <Grid 
-        container 
-        spacing={2}
-        direction = "column"
-        alignItems = "center"
-        >
-          
-          <Grid item xs={12} md={6}>
-          <Typography >
-          
-          Don't have an account?
-          
-        </Typography>
-        <Link href="#">Create account</Link>
+  <Grid item>
+    <FormControl>
+      <RadioGroup row>
+        <FormControlLabel
+          value="passenger"
+          control={<Radio size="small" />}
+          label="Passenger"
+        />
+        <FormControlLabel
+          value="airport admin"
+          control={<Radio size="small" />}
+          label="Airport Admin"
+        />
+        <FormControlLabel
+          value="airline admin"
+          control={<Radio size="small" />}
+          label="Airline Admin"
+        />
+      </RadioGroup>
+    </FormControl>
+  </Grid>;
+
+  return (
+    <Grid item container direction="column" alignItems="center" py="20px" width="400px">
+      <Paper elevation={12} style={{width: "100%"}}>
+        <Grid item container direction="column" rowSpacing={4} padding="35px" >
+          <Grid item container direction="column" alignItems="center">
+            <Grid item>
+              <PersonIcon fontSize="large" />
+            </Grid>
+            <Grid item>
+              <Typography variant="h3">Log In</Typography>
+            </Grid>
           </Grid>
-          <Grid container direction="column" alignItems = "center">
-            <Grid item >
-          <FormControl >
-          <RadioGroup 
-           row>
-            <FormControlLabel 
-              sx = {{...rBStyle}}
-              value="passenger"
-              control={<Radio  style={rBStyle} size ="small"  />}
-              label="Passenger"
-            />
-            <FormControlLabel
-              style={rBStyle}
-              value="port admin"
-              control={<Radio style={rBStyle} size ="small" />}
-              label="Airport Admin"
-            />
-            <FormControlLabel
-              style={rBStyle}
-              value="line admin"
-              control={<Radio style={rBStyle} size ="small" />}
-              label="Airline Admin"
-            />
-          </RadioGroup>
-        </FormControl>
-        </Grid>
-        </Grid>
+          <Grid item container direction="column" rowSpacing={3}>
+            <Grid item>
+              <TextField
+                sx={{ ...hStyle }}
+                placeholder="Email"
+                fullWidth
+                required
+              />
+            </Grid>
+            <Grid item>
+              <TextField
+                sx={{ ...hStyle }}
+                placeholder="Password"
+                type="password"
+                fullWidth
+                required
+              />
+            </Grid>
+          </Grid>
+          <Grid item>
+            <Button variant="contained" sx={{ minWidth: "150px" }}>
+              Log In
+            </Button>
+          </Grid>
+          <Grid item container direction="column" alignItems="center">
+            <Grid item xs={12} md={6}>
+              <Typography>Don't have an account yet?</Typography>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <Typography>
+                <Link to="/signup" style={{ color: "white" }}>
+                  Sign Up
+                </Link>
+              </Typography>
+            </Grid>
+          </Grid>
         </Grid>
       </Paper>
     </Grid>
   );
 };
-
 
 export default Login;
