@@ -2,9 +2,12 @@ import { Button, Typography, Grid, TextField, Paper } from "@mui/material";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axiosInstance from "../components/Axios";
 
 const Signup = () => {
+  const navigate = useNavigate();
+
   const hStyle = {
     svg: "white",
     input: "white",
@@ -46,8 +49,25 @@ const Signup = () => {
   const [password, setPassword] = useState("");
 
   // on click try and sign up
-  const sign_up = () => {
-    console.log("signing up !");
+  const sign_up = async () => {
+    try {
+      // make post
+      const result = await axiosInstance.post("register/", {
+        email: {
+          email: email,
+          password: password,
+          first_name: firstName,
+          last_name: lastName,
+        },
+        ssn: SSN,
+        address: address,
+      });
+      navigate('/login')
+      console.log(result.data);
+    } catch (err) {
+      // handle error
+      console.log(err);
+    }
   };
 
   return (
