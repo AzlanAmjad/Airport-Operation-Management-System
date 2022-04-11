@@ -1,6 +1,7 @@
 import { Button, Typography, Grid, TextField, Paper } from "@mui/material";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 const Signup = () => {
   const hStyle = {
@@ -23,22 +24,42 @@ const Signup = () => {
       color: "white",
     },
     "& input[type=number]": {
-      "-moz-appearance": "textfield",
+      MozAppearance: "textfield",
     },
     "& input[type=number]::-webkit-outer-spin-button": {
-      "-webkit-appearance": "none",
+      WebkitAppearance: "none",
       margin: 0,
     },
     "& input[type=number]::-webkit-inner-spin-button": {
-      "-webkit-appearance": "none",
+      WebkitAppearance: "none",
       margin: 0,
     },
   };
 
+  // input states
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [SSN, setSSN] = useState("");
+  const [address, setAddress] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  // on click try and sign up
+  const sign_up = () => {
+    console.log("signing up !");
+  };
+
   return (
-    <Grid item container direction="column" alignItems="center" py="20px" width="500px">
-      <Paper elevation={12} style={{width: "100%"}}>
-        <Grid item container direction="column" rowSpacing={4} padding="35px" >
+    <Grid
+      item
+      container
+      direction="column"
+      alignItems="center"
+      py="20px"
+      width="500px"
+    >
+      <Paper elevation={12} style={{ width: "100%" }}>
+        <Grid item container direction="column" rowSpacing={4} padding="35px">
           <Grid item container direction="column" alignItems="center">
             <Grid item>
               <PersonAddIcon fontSize="large" />
@@ -50,6 +71,10 @@ const Signup = () => {
           <Grid item container direction="row" spacing={3}>
             <Grid item xs={6}>
               <TextField
+                value={firstName}
+                onChange={(event) => {
+                  setFirstName(event.target.value);
+                }}
                 sx={{ ...hStyle }}
                 placeholder="First Name"
                 fullWidth
@@ -58,6 +83,10 @@ const Signup = () => {
             </Grid>
             <Grid item xs={6}>
               <TextField
+                value={lastName}
+                onChange={(event) => {
+                  setLastName(event.target.value);
+                }}
                 sx={{ ...hStyle }}
                 placeholder="Last Name"
                 fullWidth
@@ -66,6 +95,10 @@ const Signup = () => {
             </Grid>
             <Grid item xs={6}>
               <TextField
+                value={SSN}
+                onChange={(event) => {
+                  setSSN(event.target.value);
+                }}
                 sx={{ ...hStyle }}
                 placeholder="SSN"
                 type="number"
@@ -75,6 +108,10 @@ const Signup = () => {
             </Grid>
             <Grid item xs={6}>
               <TextField
+                value={address}
+                onChange={(event) => {
+                  setAddress(event.target.value);
+                }}
                 sx={{ ...hStyle }}
                 placeholder="Address"
                 fullWidth
@@ -83,6 +120,10 @@ const Signup = () => {
             </Grid>
             <Grid item xs={12}>
               <TextField
+                value={email}
+                onChange={(event) => {
+                  setEmail(event.target.value);
+                }}
                 sx={{ ...hStyle }}
                 placeholder="Email"
                 fullWidth
@@ -91,6 +132,10 @@ const Signup = () => {
             </Grid>
             <Grid item xs={12}>
               <TextField
+                value={password}
+                onChange={(event) => {
+                  setPassword(event.target.value);
+                }}
                 sx={{ ...hStyle }}
                 placeholder="Password"
                 type="password"
@@ -100,7 +145,13 @@ const Signup = () => {
             </Grid>
           </Grid>
           <Grid item>
-            <Button variant="contained" sx={{ minWidth: "200px" }}>
+            <Button
+              variant="contained"
+              sx={{ minWidth: "200px" }}
+              onClick={() => {
+                sign_up();
+              }}
+            >
               Create Account
             </Button>
           </Grid>
