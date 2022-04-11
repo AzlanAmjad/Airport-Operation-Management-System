@@ -1,4 +1,3 @@
-from tkinter import CASCADE
 from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.contrib.auth import get_user_model
@@ -7,7 +6,7 @@ from io import BytesIO
 from PIL import Image
 from django.core.files import File
 
-from django.utils.text import slugify 
+from django.db.models import UniqueConstraint
 
 # Create your models here.
 
@@ -335,7 +334,10 @@ class Books(models.Model):
     fare = models.ForeignKey(Fare, on_delete=models.CASCADE, related_name='bookings')
 
     class Meta:
-        db_table = 'ticket'
+        db_table = 'books'
+        constraints = [
+            UniqueConstraint(fields=['passenger', 'fare'], name='unique_booking'),
+        ]
 
     def __str__(self):
         return f'{self.id}'
