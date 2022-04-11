@@ -47,6 +47,8 @@ const Signup = () => {
   // on click try and sign up
   const sign_up = () => {
     console.log("signing up !");
+
+
   };
 
   return (
