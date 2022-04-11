@@ -51,7 +51,7 @@ const Signup = () => {
   // on click sign up
   const sign_up = async () => {
     try {
-      // make post
+      // post
       const result = await axiosInstance.post("register/", {
         email: {
           email: email,
@@ -62,8 +62,8 @@ const Signup = () => {
         ssn: SSN,
         address: address,
       });
-      navigate('/login')
       console.log(result.data);
+      navigate("/login");
     } catch (err) {
       // handle error
       console.log(err);

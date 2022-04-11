@@ -3,6 +3,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import axiosInstance from "../components/Axios";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -46,8 +47,24 @@ const Login = () => {
   // on click log in
   const log_in = async () => {
     try {
-      console.log("logging in!");
-    } catch (err) {}
+      // post
+      const result = await axiosInstance.post("token/", {
+        email: email,
+        password: password,
+      });
+
+      // set jwt in local storage
+      localStorage.setItem("access_token", result.data.access);
+      localStorage.setItem("refresh_token", result.data.refresh);
+      axiosInstance.defaults.headers["Authorization"] =
+        "JWT " + localStorage.getItem("access_token");
+
+      console.log(result.data);
+      navigate("/");
+    } catch (err) {
+      // handle error
+      console.log(err);
+    }
   };
 
   return (
@@ -97,7 +114,13 @@ const Login = () => {
             </Grid>
           </Grid>
           <Grid item>
-            <Button variant="contained" sx={{ minWidth: "150px" }}>
+            <Button
+              variant="contained"
+              sx={{ minWidth: "150px" }}
+              onClick={() => {
+                log_in();
+              }}
+            >
               Log In
             </Button>
           </Grid>
