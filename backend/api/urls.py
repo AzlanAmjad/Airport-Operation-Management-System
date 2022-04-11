@@ -25,9 +25,9 @@ urlpatterns = [
     # get all destinations
     path('destinations/', views.Destinations.as_view()),
 
-    # TICKET
-    # put ticket
-    path('ticket/<int:ticket>/', views.Ticket.as_view()),
+    # BOOKS
+    # post books
+    path('books/', views.Books.as_view()),
 
     # TRANSACTION
     # post transaction
@@ -82,14 +82,14 @@ urlpatterns = [
     # MORE COMPLICATED END-POINTS
     # get searched flights
     path('flights/<slug:destination>/<slug:departure>/', views.SearchFlights.as_view()),
-    # get flight fares
+    # get available flight fares
     path('fares/<int:flight>/', views.FlightFares.as_view()),
     # get company hotels
     path('hotels/<int:company>/', views.CompanyHotels.as_view()),
     # get hotel stays
     path('stays/<int:hotel>/', views.HotelStays.as_view()),
-    # get any fare ticket
-    path('fare/ticket/<int:fare>/', views.FareTicket.as_view()),
     # get airline flights
     path('flights/<int:airline>/', views.AirlineFlights.as_view()),
+    # get airline airplanes
+    path('airplanes/<int:airline>/', views.AirlineAirplanes.as_view()),
 ]

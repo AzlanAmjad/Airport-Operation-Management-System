@@ -6,7 +6,7 @@ from io import BytesIO
 from PIL import Image
 from django.core.files import File
 
-from django.utils.text import slugify 
+from django.db.models import UniqueConstraint
 
 # Create your models here.
 
@@ -105,10 +105,23 @@ class AirportAdmin(models.Model):
         return f'({self.id}) {self.email}'
 
 
+# Airline model
+class Airline(models.Model):
+    name = models.CharField(max_length=255, unique=True)
+    location = models.CharField(max_length=255)
+
+    class Meta:
+        db_table = 'airline'
+
+    def __str__(self):
+        return f'({self.id}) {self.name}'
+
+
 # Airline Admin model
 class AirlineAdmin(models.Model):
     email = models.OneToOneField(user, on_delete=models.CASCADE, related_name='airline_admin', to_field='email', primary_key=True)
     employee_id = models.PositiveIntegerField(unique=True)
+    airline = models.ForeignKey(Airline, on_delete=models.SET_NULL, null=True, related_name='admins')
 
     class Meta:
         db_table = 'airline_admin'
@@ -242,18 +255,6 @@ class AirportComplaint(models.Model):
         return f'{self.id} by {self.passenger}, resolved by {self.admin}'
 
 
-# Airline model
-class Airline(models.Model):
-    name = models.CharField(max_length=255, unique=True)
-    location = models.CharField(max_length=255)
-
-    class Meta:
-        db_table = 'airline'
-
-    def __str__(self):
-        return f'({self.id}) {self.name}'
-
-
 # Airline Complaint model
 class AirlineComplaint(models.Model):
     description = models.TextField()
@@ -327,13 +328,16 @@ class Fare(models.Model):
         return f'({self.id}) {self.flight} - {self.cabin}'
 
 
-# Ticket model
-class Ticket(models.Model):
-    passenger = models.ForeignKey(Passenger, on_delete=models.SET_NULL, null=True, related_name='tickets')
-    fare = models.ForeignKey(Fare, on_delete=models.CASCADE, related_name='tickets')
+# Books model
+class Books(models.Model):
+    passenger = models.ForeignKey(Passenger, on_delete=models.SET_NULL, null=True, related_name='bookings')
+    fare = models.ForeignKey(Fare, on_delete=models.CASCADE, related_name='bookings')
 
     class Meta:
-        db_table = 'ticket'
+        db_table = 'books'
+        constraints = [
+            UniqueConstraint(fields=['passenger', 'fare'], name='unique_booking'),
+        ]
 
     def __str__(self):
         return f'{self.id}'

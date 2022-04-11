@@ -1,80 +1,106 @@
-import { Button } from "@mui/material";
-import { Typography } from "@mui/material";
-import { Grid } from "@mui/material";
-import { Box } from "@mui/material";
-import { Avatar } from "@mui/material";
-import { TextField } from "@mui/material";
-import { Link } from "@mui/material";
-import {FormControl,FormLabel,FormControlLabel,RadioGroup,Radio} from "@mui/material";
+import {
+  Button,
+  Typography,
+  TextField,
+  Grid,
+  Paper,
+} from "@mui/material";
+import PersonIcon from "@mui/icons-material/Person";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const hStyle = { color: "#f50057" };
-  const lStyle = { color: "#000000" };
-  const tStyle = { color: "rgb(11 0 249)" };
-  const btnstyle = { margin: "20px 0", height: "5vh" };
+  const navigate = useNavigate();
+
+  const hStyle = {
+    svg: "white",
+    input: "white",
+    label: "white",
+    "& .MuiOutlinedInput-notchedOutline": {
+      borderColor: "white",
+    },
+    "&:hover .MuiOutlinedInput-notchedOutline": {
+      borderColor: "red",
+    },
+    "&.MuiOutlinedInput-notchedOutline.Mui-focused": {
+      borderColor: "red",
+    },
+    "& .MuiButtonBase-root.MuiAutocomplete-clearIndicator": {
+      color: "red",
+    },
+    "& .MuiButtonBase-root.MuiAutocomplete-popupIndicator": {
+      color: "white",
+    },
+    "& input[type=number]": {
+      MozAppearance: "textfield",
+    },
+    "& input[type=number]::-webkit-outer-spin-button": {
+      WebkitAppearance: "none",
+      margin: 0,
+    },
+    "& input[type=number]::-webkit-inner-spin-button": {
+      WebkitAppearance: "none",
+      margin: 0,
+    },
+  };
+
   return (
-    <Grid>
-      <Box p={1} bgcolor="white" width={350} height={500} marginTop={2}>
-        <Grid align="center">
-          <Avatar src="/Login logo.png" />
-          <h2 style={hStyle}>Login</h2>
-        </Grid>
-        <Grid container spacing={5}>
+    <Grid
+      item
+      container
+      direction="column"
+      alignItems="center"
+      py="20px"
+      width="400px"
+    >
+      <Paper elevation={12} style={{ width: "100%" }}>
+        <Grid item container direction="column" rowSpacing={4} padding="35px">
+          <Grid item container direction="column" alignItems="center">
+            <Grid item>
+              <PersonIcon fontSize="large" />
+            </Grid>
+            <Grid item>
+              <Typography variant="h3">Log In</Typography>
+            </Grid>
+          </Grid>
+          <Grid item container direction="column" rowSpacing={3}>
+            <Grid item>
+              <TextField
+                sx={{ ...hStyle }}
+                placeholder="Email"
+                fullWidth
+                required
+              />
+            </Grid>
+            <Grid item>
+              <TextField
+                sx={{ ...hStyle }}
+                placeholder="Password"
+                type="password"
+                fullWidth
+                required
+              />
+            </Grid>
+          </Grid>
           <Grid item>
-            <TextField
-              label="Email"
-              placeholder="Enter email"
-              fullWidth
-              required
-            />
-            <TextField
-              label="Password"
-              placeholder="Enter password"
-              type="password"
-              fullWidth
-              required
-            />
+            <Button variant="contained" sx={{ minWidth: "150px" }}>
+              Log In
+            </Button>
+          </Grid>
+          <Grid item container direction="column" alignItems="center">
+            <Grid item xs={12} md={6}>
+              <Typography>Don't have an account yet?</Typography>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <Typography>
+                <Link to="/signup" style={{ color: "white" }}>
+                  Sign Up
+                </Link>
+              </Typography>
+            </Grid>
           </Grid>
         </Grid>
-        <Button
-          type="submit"
-          color="primary"
-          variant="contained"
-          style={btnstyle}
-        >
-          Sign In
-        </Button>
-        <Typography>
-          <Link href="#">Forgot password ?</Link>
-        </Typography>
-        <Typography style={tStyle}>
-          {" "}
-          Don't have an account?
-          <Link href="#">Create account</Link>
-        </Typography>
-        <FormControl>
-          <RadioGroup>
-            <FormControlLabel
-              style={lStyle}
-              value="passenger"
-              control={<Radio />}
-              label="Passenger"
-            />
-            <FormControlLabel
-              style={lStyle}
-              value="port admin"
-              control={<Radio />}
-              label="Airport Admin"
-            />
-            <FormControlLabel
-              style={lStyle}
-              value="line admin"
-              control={<Radio />}
-              label="Airline Admin"
-            />
-          </RadioGroup>
-        </FormControl>
-      </Box>
+      </Paper>
     </Grid>
   );
 };

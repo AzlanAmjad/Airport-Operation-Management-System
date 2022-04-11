@@ -1,5 +1,4 @@
 import datetime
-import json
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -62,24 +61,36 @@ class Destinations(APIView):
         return Response(serializer.data)
 
 
-# TICKET
-class Ticket(APIView):
-    def put(self, request, ticket, format=None):
-        _ticket = models.Ticket.objects.get(pk=ticket)
-        serializer = serializers.TicketSerializer(_ticket, data=request.data)
+# BOOKS
+class Books(APIView):
+    def post(self, request, format=None):
+        serializer = serializers.BooksSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
 
-            # decrement tickets quantity in fare
-
-            return Response(serializer.data)
+            # decrement the tickets count in fare
+            fare = models.Fare.objects.get(pk=serializer.get_attribute('fare'))
+            # can decrement
+            if fare.tickets_quantity > 0:
+                data = serializers.FareSerializer(fare).data
+                data["tickets_quantity"] -= 1
+                fare_serializer = serializers.FareSerializer(fare, data=data)
+                if fare_serializer.is_valid():
+                    fare_serializer.save()
+                else:
+                    return Response(fare_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            # can not decrement
+            else:
+                return Response(status=status.HTTP_400_BAD_REQUEST)
+            
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 # TRANSACTION
 class Transaction(APIView):
     def post(self, request, format=None):
-        serializer = serializers.TicketSerializer(data=request.data)
+        serializer = serializers.TransactionSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -219,12 +230,13 @@ class Hotel(APIView):
 
 # AIRPLANE
 
+
 # FARE
 class Fare(APIView):
     def post(self, request, format=None):
         serializer = serializers.FareSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
+            serializer.save()            
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -239,7 +251,7 @@ class SearchFlights(APIView):
 
 class FlightFares(APIView):
     def get(self, request, flight, format=None):
-        fares = models.Fare.objects.filter(flight=flight)
+        fares = models.Fare.objects.filter(flight=flight).exclude(tickets_quantity=0)
         serializer = serializers.FareSerializer(fares, many=True)
         return Response(serializer.data)
 
@@ -251,18 +263,18 @@ class CompanyHotels(APIView):
 
 class HotelStays(APIView):
     def get(self, request, hotel, format=None):
-        stays = models.Stay.objects.filter(hotel=hotel)
+        stays = models.Stay.objects.filter(hotel=hotel).filter(transac=None)
         serializer = serializers.StaySerializer(stays, many=True)
-        return Response(serializer.data)
-
-class FareTicket(APIView):
-    def get(self, request, fare, format=None):
-        ticket = models.Ticket.objects.filter(fare=fare).filter(passenger=None).first()
-        serializer = serializers.TicketSerializer(ticket)
         return Response(serializer.data)
 
 class AirlineFlights(APIView):
     def get(self, request, airline, format=None):
         flights = models.Flight.objects.filter(airline=airline)
         serializer = serializers.FlightSerializer(flights, many=True)
+        return Response(serializer.data)
+
+class AirlineAirplanes(APIView):
+    def get(self, request, airline, format=None):
+        airplanes = models.Airplane.objects.filter(airline=airline)
+        serializer = serializers.AirplaneSerializer(airplanes, many=True)
         return Response(serializer.data)
