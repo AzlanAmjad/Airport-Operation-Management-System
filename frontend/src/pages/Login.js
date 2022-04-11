@@ -1,13 +1,9 @@
-import {
-  Button,
-  Typography,
-  TextField,
-  Grid,
-  Paper,
-} from "@mui/material";
+import { Button, Typography, TextField, Grid, Paper } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import axiosInstance from "../components/Axios";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -44,6 +40,33 @@ const Login = () => {
     },
   };
 
+  // input states
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  // on click log in
+  const log_in = async () => {
+    try {
+      // post
+      const result = await axiosInstance.post("token/", {
+        email: email,
+        password: password,
+      });
+
+      // set jwt in local storage
+      localStorage.setItem("access_token", result.data.access);
+      localStorage.setItem("refresh_token", result.data.refresh);
+      axiosInstance.defaults.headers["Authorization"] =
+        "JWT " + localStorage.getItem("access_token");
+
+      console.log(result.data);
+      navigate("/");
+    } catch (err) {
+      // handle error
+      console.log(err);
+    }
+  };
+
   return (
     <Grid
       item
@@ -66,6 +89,10 @@ const Login = () => {
           <Grid item container direction="column" rowSpacing={3}>
             <Grid item>
               <TextField
+                value={email}
+                onChange={(event) => {
+                  setEmail(event.target.value);
+                }}
                 sx={{ ...hStyle }}
                 placeholder="Email"
                 fullWidth
@@ -74,6 +101,10 @@ const Login = () => {
             </Grid>
             <Grid item>
               <TextField
+                value={password}
+                onChange={(event) => {
+                  setPassword(event.target.value);
+                }}
                 sx={{ ...hStyle }}
                 placeholder="Password"
                 type="password"
@@ -83,7 +114,13 @@ const Login = () => {
             </Grid>
           </Grid>
           <Grid item>
-            <Button variant="contained" sx={{ minWidth: "150px" }}>
+            <Button
+              variant="contained"
+              sx={{ minWidth: "150px" }}
+              onClick={() => {
+                log_in();
+              }}
+            >
               Log In
             </Button>
           </Grid>
