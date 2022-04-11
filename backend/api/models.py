@@ -121,7 +121,7 @@ class Airline(models.Model):
 class AirlineAdmin(models.Model):
     user = models.OneToOneField(user, on_delete=models.CASCADE, related_name='airline_admin', to_field='email', primary_key=True)
     employee_id = models.PositiveIntegerField(unique=True)
-    airline = models.OneToOneField(Airline, on_delete=models.SET_NULL, null=True)
+    airline = models.ForeignKey(Airline, on_delete=models.SET_NULL, null=True, related_name='admins')
 
     class Meta:
         db_table = 'airline_admin'
