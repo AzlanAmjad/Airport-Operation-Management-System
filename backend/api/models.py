@@ -330,7 +330,7 @@ class Fare(models.Model):
 
 # Books model
 class Books(models.Model):
-    passenger = models.ForeignKey(Passenger, on_delete=models.CASCADE, related_name='bookings')
+    passenger = models.ForeignKey(Passenger, on_delete=models.SET_NULL, null=True, related_name='bookings')
     fare = models.ForeignKey(Fare, on_delete=models.CASCADE, related_name='bookings')
 
     class Meta:

@@ -68,6 +68,22 @@ class Books(APIView):
         serializer = serializers.BooksSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
+
+            # decrement the tickets count in fare
+            fare = models.Fare.objects.get(pk=serializer.get_attribute('fare'))
+            # can decrement
+            if fare.tickets_quantity > 0:
+                data = serializers.FareSerializer(fare).data
+                data["tickets_quantity"] -= 1
+                fare_serializer = serializers.FareSerializer(fare, data=data)
+                if fare_serializer.is_valid():
+                    fare_serializer.save()
+                else:
+                    return Response(fare_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            # can not decrement
+            else:
+                return Response(status=status.HTTP_400_BAD_REQUEST)
+            
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -75,7 +91,7 @@ class Books(APIView):
 # TRANSACTION
 class Transaction(APIView):
     def post(self, request, format=None):
-        serializer = serializers.TicketSerializer(data=request.data)
+        serializer = serializers.TransactionSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -250,12 +266,6 @@ class HotelStays(APIView):
     def get(self, request, hotel, format=None):
         stays = models.Stay.objects.filter(hotel=hotel)
         serializer = serializers.StaySerializer(stays, many=True)
-        return Response(serializer.data)
-
-class FareTicket(APIView):
-    def get(self, request, fare, format=None):
-        ticket = models.Ticket.objects.filter(fare=fare).filter(passenger=None).first()
-        serializer = serializers.TicketSerializer(ticket)
         return Response(serializer.data)
 
 class AirlineFlights(APIView):

@@ -88,8 +88,6 @@ urlpatterns = [
     path('hotels/<int:company>/', views.CompanyHotels.as_view()),
     # get hotel stays
     path('stays/<int:hotel>/', views.HotelStays.as_view()),
-    # get any fare ticket
-    path('fare/ticket/<int:fare>/', views.FareTicket.as_view()),
     # get airline flights
     path('flights/<int:airline>/', views.AirlineFlights.as_view()),
     # get airline airplanes
