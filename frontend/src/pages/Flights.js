@@ -66,7 +66,7 @@ const Flights = () => {
   const handleAddFlight = async () => {
     try {
 
-      axios.get(`flights/`, null, {
+      axios.get("flights/", null, {
         params: {
           adminAirline
         }
