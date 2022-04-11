@@ -1,7 +1,7 @@
 
 import Grid from "@mui/material/Grid";
 import * as React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Typography from '@mui/material/Typography';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -21,6 +21,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Paper from '@mui/material/Paper';
 import EditIcon from '@mui/icons-material/Edit';
 import Input from "@mui/material/Input";
+import axios from "axios";
 
 
 const Flights = () => {
@@ -32,16 +33,19 @@ const Flights = () => {
 
   ]);
 
-  const [category, setCategory] = useState('');
   const [destCode, setDestCode] = useState('');
   const [planeID, setPlaneID] = useState('');
   const [departure, setDeparture] = useState(null);
   const [arrival, setArrival] = useState(null);
+  const [econ, setEcon] = useState('');
+  const [premEcon, setPremEcon] = useState('');
+  const [business, setBusiness] = useState('');
+  const [firstClass, setFirstClass] = useState('');
 
   const [addDialogForm, setAddDialogForm] = useState(false);
   const [editDialogForm, setEditDialogForm] = useState(false);
 
-  const [adminAirline, setAdminAirline] = useState("Air Canada")
+  const [adminAirline, setAdminAirline] = useState(1);
 
   const [editFlight, setEditFlight] = useState('');
 
@@ -59,6 +63,28 @@ const Flights = () => {
     setAddDialogForm(false);
   }
 
+  const handleAddFlight = async () => {
+    try {
+
+      axios.get(`flights/`, null, {
+        params: {
+          adminAirline
+        }
+      })
+        .then(response => { console.log(response) })
+        .catch(error => {
+          console.log(error)
+        });
+
+
+      setAddDialogForm(false);
+    } catch (err) {
+
+    }
+
+
+  };
+
   const handleEditDialogFormOpen = (flightNum) => {
     setEditFlight(flightNum);
     setEditDialogForm(true);
@@ -67,6 +93,28 @@ const Flights = () => {
   const handleEditDialogFormClose = () => {
     setEditDialogForm(false);
   }
+
+  useEffect(() => {
+
+    async function fetchData() {
+      try {
+
+
+
+
+
+      } catch (e) {
+        console.error(e);
+      }
+    };
+    fetchData();
+
+
+
+
+
+
+  }, []);
 
 
   return (
@@ -182,7 +230,7 @@ const Flights = () => {
                 openTo="day"
                 value={departure}
                 onChange={(newDeparture) => {
-                  setArrival(departure);
+                  setDeparture(departure);
                 }}
                 renderInput={(params) => (
                   <TextField
@@ -212,7 +260,9 @@ const Flights = () => {
               <InputLabel sx={{ color: "text.primary" }}>Destination Code</InputLabel>
               <Select
                 value={destCode}
-                onChange={handleDestCode}
+                onChange={(event) => {
+                  setDestCode(event.target.value);
+                }}
               >
                 <MenuItem value={"YYG"}>YYG</MenuItem>
                 <MenuItem value={"YXA"}>YXA</MenuItem>
@@ -222,7 +272,9 @@ const Flights = () => {
               <InputLabel sx={{ color: "text.primary" }}>Plane ID</InputLabel>
               <Select
                 value={planeID}
-                onChange={handlePlaneID}
+                onChange={(event) => {
+                  setPlaneID(event.target.value);
+                }}
               >
                 <MenuItem value={"000"}>000</MenuItem>
                 <MenuItem value={"111"}>111</MenuItem>
@@ -230,24 +282,24 @@ const Flights = () => {
               </Select>
             </FormControl>
             <FormControl sx={{ maxWidth: 120, padding: "10px" }}>
-              <Input type="number" inputProps={{ min: 0 }} />
+              <Input type="number" inputProps={{ min: 0 }} onChange={(event) => { setEcon(event.target.value) }} />
               <FormHelperText sx={{ color: "text.primary" }}>Economy Class</FormHelperText>
             </FormControl>
             <FormControl sx={{ maxWidth: 120, padding: "10px" }}>
-              <Input type="number" inputProps={{ min: 0 }} />
+              <Input type="number" inputProps={{ min: 0 }} onChange={(event) => { setPremEcon(event.target.value) }} />
               <FormHelperText sx={{ color: "text.primary" }}>Premium Economy Class</FormHelperText>
             </FormControl>
             <FormControl sx={{ maxWidth: 120, padding: "10px" }}>
-              <Input type="number" inputProps={{ min: 0 }} />
+              <Input type="number" inputProps={{ min: 0 }} onChange={(event) => { setBusiness(event.target.value) }} />
               <FormHelperText sx={{ color: "text.primary" }}>Business Class</FormHelperText>
             </FormControl>
             <FormControl sx={{ maxWidth: 120, padding: "10px" }}>
-              <Input type="number" inputProps={{ min: 0 }} />
+              <Input type="number" inputProps={{ min: 0 }} onChange={(event) => { setFirstClass(event.target.value) }} />
               <FormHelperText sx={{ color: "text.primary" }}>First Class</FormHelperText>
             </FormControl>
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleAddDialogFormClose}>Add</Button>
+            <Button onClick={handleAddFlight}>Add</Button>
             <Button onClick={handleAddDialogFormClose}>Cancel</Button>
           </DialogActions>
         </Dialog>
