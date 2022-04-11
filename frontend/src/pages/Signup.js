@@ -168,12 +168,12 @@ const Signup = () => {
           <Grid item>
             <Button
               variant="contained"
-              sx={{ minWidth: "200px" }}
+              sx={{ minWidth: "150px" }}
               onClick={() => {
                 sign_up();
               }}
             >
-              Create Account
+              Sign Up
             </Button>
           </Grid>
           <Grid item container direction="column" alignItems="center">
