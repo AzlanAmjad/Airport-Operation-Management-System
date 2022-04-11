@@ -14,17 +14,17 @@ class UserSerializer(serializers.ModelSerializer):
 
 # PASSENGER REGISTRATION
 class RegisterPassengerSerializer(serializers.ModelSerializer):
-    email = UserSerializer(required=True)
+    user = UserSerializer(required=True)
 
     class Meta:
         model = models.Passenger
         fields = '__all__'
 
     def create(self, validated_data):
-        email = models.User.objects.create_user(validated_data['email']['email'], validated_data['email']['password'], 
-            validated_data['email']['first_name'], validated_data['email']['last_name'])
-        email.a_passenger = True
-        email.save()
+        user = models.User.objects.create_user(validated_data['user']['email'], validated_data['user']['password'], 
+            validated_data['user']['first_name'], validated_data['user']['last_name'])
+        user.a_passenger = True
+        user.save()
         passenger = models.Passenger.objects.create(email=email, ssn=validated_data.pop('ssn'), address=validated_data.pop('address'))
         return passenger
 

@@ -82,7 +82,7 @@ user = get_user_model()
 
 # Passenger model
 class Passenger(models.Model):
-    email = models.OneToOneField(user, on_delete=models.CASCADE, related_name='passenger', to_field='email', primary_key=True)
+    user = models.OneToOneField(user, on_delete=models.CASCADE, related_name='passenger', to_field='email', primary_key=True)
     ssn = models.CharField(max_length=255, unique=True)
     address = models.CharField(max_length=255)
 
@@ -95,7 +95,7 @@ class Passenger(models.Model):
 
 # Airport Admin model
 class AirportAdmin(models.Model):
-    email = models.OneToOneField(user, on_delete=models.CASCADE, related_name='airport_admin', to_field='email', primary_key=True)
+    user = models.OneToOneField(user, on_delete=models.CASCADE, related_name='airport_admin', to_field='email', primary_key=True)
     admin_id = models.PositiveIntegerField(unique=True)
 
     class Meta:
@@ -119,7 +119,7 @@ class Airline(models.Model):
 
 # Airline Admin model
 class AirlineAdmin(models.Model):
-    email = models.OneToOneField(user, on_delete=models.CASCADE, related_name='airline_admin', to_field='email', primary_key=True)
+    user = models.OneToOneField(user, on_delete=models.CASCADE, related_name='airline_admin', to_field='email', primary_key=True)
     employee_id = models.PositiveIntegerField(unique=True)
     airline = models.OneToOneField(Airline, on_delete=models.SET_NULL, null=True)
 
