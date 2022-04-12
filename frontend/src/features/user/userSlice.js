@@ -52,7 +52,7 @@ export const userSlice = createSlice({
 });
 
 // actions
-export const {} = userSlice.actions;
+export const { logout } = userSlice.actions;
 
 // reducer
 export default userSlice.reducer;
