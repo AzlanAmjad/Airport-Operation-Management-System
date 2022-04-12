@@ -7,9 +7,6 @@ const initialState = access
   ? { isLoggedIn: true}
   : { isLoggedIn: false};
 
-// async signup action
-export const signup = createAsyncThunk("user/signup", async () => {});
-
 // async login action
 export const login = createAsyncThunk(
   "user/login",
