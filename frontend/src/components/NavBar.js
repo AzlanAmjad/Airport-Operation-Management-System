@@ -51,7 +51,7 @@ const NavBar = () => {
       path: "/",
     },
     {
-      title: "Reservation",
+      title: "Reserve",
       path: "/reservation",
     },
     {
@@ -75,7 +75,7 @@ const NavBar = () => {
       path: "/",
     },
     {
-      title: "Reservation",
+      title: "Reserve",
       path: "/reservation",
     },
     {
@@ -87,6 +87,10 @@ const NavBar = () => {
   // state for menu
   const [airportAdminMenu, setAirportAdminMenu] = useState([
     {
+      title: "Home",
+      path: "/",
+    },
+    {
       title: "About",
       path: "/about",
     },
@@ -97,10 +101,6 @@ const NavBar = () => {
     {
       title: "Home",
       path: "/",
-    },
-    {
-      title: "Reservation",
-      path: "/reservation",
     },
     {
       title: "About",
@@ -284,6 +284,46 @@ const NavBar = () => {
                       </Grid>
                     );
                   })}
+                  <Grid item>
+                    <IconButton
+                      size="large"
+                      edge="start"
+                      color="inherit"
+                      aria-label="menu"
+                      sx={{ mr: 2, ml: 0.5 }}
+                      onClick={handleMenu}
+                      aria-controls="menu-appbar"
+                      aria-haspopup="true"
+                    >
+                      <AccountCircle sx={{ fontSize: 30 }} />
+                    </IconButton>
+                    <Menu
+                      id="menu-appbar"
+                      anchorEl={anchorEl}
+                      anchorOrigin={{
+                        vertical: "top",
+                        horizontal: "right",
+                      }}
+                      keepMounted
+                      transformOrigin={{
+                        vertical: "top",
+                        horizontal: "right",
+                      }}
+                      open={Boolean(anchorEl)}
+                      onClose={() => setAnchorEl(null)}
+                    >
+                      <MenuItem
+                        onClick={() =>
+                          handleMenuClick(`/airport-dashboard/welcome`)
+                        }
+                      >
+                        Dashboard
+                      </MenuItem>
+                      <MenuItem onClick={() => handleMenuClick(`/logout`)}>
+                        Logout
+                      </MenuItem>
+                    </Menu>
+                  </Grid>
                 </Grid>
               )}
               {isLoggedIn && airline_admin && (
@@ -307,6 +347,46 @@ const NavBar = () => {
                       </Grid>
                     );
                   })}
+                  <Grid item>
+                    <IconButton
+                      size="large"
+                      edge="start"
+                      color="inherit"
+                      aria-label="menu"
+                      sx={{ mr: 2, ml: 0.5 }}
+                      onClick={handleMenu}
+                      aria-controls="menu-appbar"
+                      aria-haspopup="true"
+                    >
+                      <AccountCircle sx={{ fontSize: 30 }} />
+                    </IconButton>
+                    <Menu
+                      id="menu-appbar"
+                      anchorEl={anchorEl}
+                      anchorOrigin={{
+                        vertical: "top",
+                        horizontal: "right",
+                      }}
+                      keepMounted
+                      transformOrigin={{
+                        vertical: "top",
+                        horizontal: "right",
+                      }}
+                      open={Boolean(anchorEl)}
+                      onClose={() => setAnchorEl(null)}
+                    >
+                      <MenuItem
+                        onClick={() =>
+                          handleMenuClick(`/airline-dashboard/welcome`)
+                        }
+                      >
+                        Dashboard
+                      </MenuItem>
+                      <MenuItem onClick={() => handleMenuClick(`/logout`)}>
+                        Logout
+                      </MenuItem>
+                    </Menu>
+                  </Grid>
                 </Grid>
               )}
             </Grid>
