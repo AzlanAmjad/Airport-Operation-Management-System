@@ -93,9 +93,11 @@ class StaySerializer(serializers.ModelSerializer):
 
 
 class AirportComplaintSerializer(serializers.ModelSerializer):
+    passenger_email = serializers.EmailField(source='passenger.email')
+
     class Meta:
         model = models.AirportComplaint
-        fields = '__all__'
+        fields = ('pk', 'description', 'admin', 'passenger_email')
 
 # AIRLINE
 

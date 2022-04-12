@@ -1,9 +1,10 @@
 
 
+
 import Grid from "@mui/material/Grid";
 import * as React from "react";
 import Typography from '@mui/material/Typography';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -12,28 +13,61 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Button from "@mui/material/Button";
+import axiosInstance from "../components/Axios";
 
-function createData(id, email, description) {
-    return { id, email, description };
-}
 
-const rows = [
-    createData(0, 'passenger1@email.com', 'worst experience in my life'),
-    createData(1, 'passenger1@email.com', 'worst experience in my life'),
-    createData(2, 'passenger1@email.com', 'worst experience in my life'),
-    createData(3, 'passenger1@email.com', 'worst experience in my life'),
-    createData(4, 'passenger1@email.com', 'worst experience in my life'),
-];
 
 const AirportComplaints = () => {
 
 
 
-    const resolveButton = (
+    const [rows, setRows] = useState([
+        { pk: null, description: null, admin: null, passenger_email: null }
+    ]);
 
-        <Button variant="contained">Resolve</Button>
+    const resolveComplaint = async (pk, desc, email) => {
+        try {
+            const result = await axiosInstance.put(`airport-complaint/${pk}/`, {
+                description: desc,
+                passenger_emai: email
+            });
 
-    );
+            console.log(result);
+
+            this.forceUpdate();
+
+        } catch (err) {
+
+            console.log(err);
+
+        }
+
+
+    };
+
+
+
+    useEffect(() => {
+
+        async function fetchData() {
+            try {
+
+
+                const allComplaints = await axiosInstance.get(`airport-complaints/`, {
+
+                })
+                    .then((response) => {
+                        setRows(response.data);
+                    });
+
+
+
+            } catch (e) {
+                console.error(e);
+            }
+        };
+        fetchData();
+    }, []);
 
 
     return (
@@ -63,15 +97,17 @@ const AirportComplaints = () => {
                         <TableBody>
                             {rows.map((row) => (
                                 <TableRow
-                                    key={row.id}
+                                    key={row.pk}
                                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                 >
-                                    <TableCell >
-                                        {row.id}
+                                    <TableCell align="center" >
+                                        {row.pk}
                                     </TableCell>
-                                    <TableCell align="center">{row.email}</TableCell>
-                                    <TableCell align="center">{row.description}</TableCell>
-                                    <TableCell align="right">{resolveButton}</TableCell>
+                                    <TableCell align="left">{row.passenger_email}</TableCell>
+                                    <TableCell align="left">{row.description}</TableCell>
+                                    <TableCell align="right">
+                                        <Button variant="contained" onClick={() => resolveComplaint(row.pk, row.description, row.passenger_email)} >Resolve</Button>
+                                    </TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>

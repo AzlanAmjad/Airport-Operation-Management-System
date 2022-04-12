@@ -22,17 +22,37 @@ import axiosInstance from "../components/Axios";
 const AirlineComplaints = () => {
 
     const [adminAirline, setAdminAirline] = useState("Air Canada")
+    const [adminEmail, setAdminEmail] = useState("man@hotmail.com");
 
 
-    const resolveButton = (
 
-        <Button variant="contained">Resolve</Button>
-
-    );
 
     const [rows, setRows] = useState([
         { pk: null, description: null, passenger_email: null, admin: null }
     ]);
+
+    const resolveComplaint = async (pk, desc, email) => {
+        try {
+            const result = await axiosInstance.put(`airline-complaint/${pk}/`, {
+                description: desc,
+                admin: adminEmail,
+                passenger_emai: email
+            });
+
+            console.log(result);
+
+            this.forceUpdate();
+
+        } catch (err) {
+
+            console.log(err);
+
+        }
+
+
+    };
+
+
 
     useEffect(() => {
 
@@ -93,13 +113,15 @@ const AirlineComplaints = () => {
                                     </TableCell>
                                     <TableCell align="left">{row.passenger_email}</TableCell>
                                     <TableCell align="left">{row.description}</TableCell>
-                                    <TableCell align="right">{resolveButton}</TableCell>
+                                    <TableCell align="right">
+                                        <Button variant="contained" onClick={() => resolveComplaint(row.pk, row.description, row.passenger_email)} >Resolve</Button>
+                                    </TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
                     </Table>
                 </TableContainer>
-            </Grid>
+            </Grid >
 
         </Grid >
     );
