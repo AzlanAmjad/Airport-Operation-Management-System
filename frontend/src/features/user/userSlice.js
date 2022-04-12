@@ -3,9 +3,7 @@ import axiosInstance from "../../components/Axios";
 
 const access = localStorage.getItem("access_token");
 
-const initialState = access
-  ? { isLoggedIn: true}
-  : { isLoggedIn: false};
+const initialState = access ? { isLoggedIn: true } : { isLoggedIn: false };
 
 // async login action
 export const login = createAsyncThunk(
@@ -21,7 +19,9 @@ export const login = createAsyncThunk(
       localStorage.setItem("refresh_token", result.data.refresh);
       axiosInstance.defaults.headers["Authorization"] =
         "JWT " + localStorage.getItem("access_token");
+
       console.log(result.data);
+
       return result.data;
     } catch (err) {
       console.log(err);
