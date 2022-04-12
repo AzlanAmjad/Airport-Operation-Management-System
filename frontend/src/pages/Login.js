@@ -3,10 +3,12 @@ import PersonIcon from "@mui/icons-material/Person";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import axiosInstance from "../components/Axios";
+import { useDispatch } from "react-redux";
+import { login } from "../features/user/userSlice";
 
 const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const hStyle = {
     svg: "white",
@@ -46,24 +48,8 @@ const Login = () => {
 
   // on click log in
   const log_in = async () => {
-    try {
-      const result = await axiosInstance.post("token/", {
-        email: email,
-        password: password,
-      });
-
-      // set jwt in local storage
-      localStorage.setItem("access_token", result.data.access);
-      localStorage.setItem("refresh_token", result.data.refresh);
-      axiosInstance.defaults.headers["Authorization"] =
-        "JWT " + localStorage.getItem("access_token");
-
-      console.log(result.data)
-
-      navigate("/");
-    } catch (err) {
-      console.log(err);
-    }
+    dispatch(login({email, password}))
+    navigate("/")
   };
 
   return (
