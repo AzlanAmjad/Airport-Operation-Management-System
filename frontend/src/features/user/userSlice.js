@@ -30,17 +30,21 @@ export const login = createAsyncThunk(
   }
 );
 
+// async logout action
+export const logout = createAsyncThunk("user/logout", async () => {
+  const result = axiosInstance.post("logout/blacklist/", {
+    refresh_token: localStorage.getItem("refresh_token"),
+  });
+  localStorage.removeItem("access_token");
+  localStorage.removeItem("refresh_token");
+  axiosInstance.defaults.headers["Authorization"] = null;
+});
+
 // user slice of state
 export const userSlice = createSlice({
   name: "user",
   initialState,
-  reducers: {
-    logout(state, action) {
-      localStorage.removeItem("access_token");
-      localStorage.removeItem("access_token");
-      state.isLoggedIn = false;
-    },
-  },
+  reducers: {},
   extraReducers: {
     [login.fulfilled]: (state, action) => {
       state.isLoggedIn = true;
@@ -48,11 +52,14 @@ export const userSlice = createSlice({
     [login.rejected]: (state, action) => {
       state.isLoggedIn = false;
     },
+    [logout.fulfilled]: (state, action) => {
+      state.isLoggedIn = false;
+    }
   },
 });
 
 // actions
-export const { logout } = userSlice.actions;
+export const {} = userSlice.actions;
 
 // reducer
 export default userSlice.reducer;
