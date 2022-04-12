@@ -56,6 +56,7 @@ export const logout = createAsyncThunk("user/logout", async () => {
   const result = axiosInstance.post("logout/blacklist/", {
     refresh_token: localStorage.getItem("refresh_token"),
   });
+  console.log(result.data)
   localStorage.removeItem("access_token");
   localStorage.removeItem("refresh_token");
   localStorage.removeItem("email");

@@ -8,9 +8,12 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { useNavigate } from "react-router-dom";
 import { Box } from "@mui/system";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../features/user/userSlice";
 
 const NavBar = () => {
+  const dispatch = useDispatch();
+
   // anchor for mobile menu
   const [mobileAnchorEl, setMobileAnchorEl] = useState(null);
 
@@ -32,7 +35,13 @@ const NavBar = () => {
   };
   const handleMenuClick = (path) => {
     setAnchorEl(null);
-    navigate(path);
+
+    if (path == "/logout") {
+      dispatch(logout());
+      navigate("/");
+    } else {
+      navigate(path);
+    }
   };
 
   // state for menu
@@ -218,12 +227,12 @@ const NavBar = () => {
                       edge="start"
                       color="inherit"
                       aria-label="menu"
-                      sx={{ mr: 2, ml: 0.5}}
+                      sx={{ mr: 2, ml: 0.5 }}
                       onClick={handleMenu}
                       aria-controls="menu-appbar"
                       aria-haspopup="true"
                     >
-                      <AccountCircle sx={{ fontSize: 30 }}/>
+                      <AccountCircle sx={{ fontSize: 30 }} />
                     </IconButton>
                     <Menu
                       id="menu-appbar"
@@ -240,18 +249,16 @@ const NavBar = () => {
                       open={Boolean(anchorEl)}
                       onClose={() => setAnchorEl(null)}
                     >
-                      {menu.map((menu) => {
-                        return (
-                          <MenuItem
-                            key={menu.title}
-                            onClick={() =>
-                              handleMenuClick(`${menu.path}`)
-                            }
-                          >
-                            {menu.title}
-                          </MenuItem>
-                        );
-                      })}
+                      <MenuItem
+                        onClick={() =>
+                          handleMenuClick(`/passenger-dashboard/welcome`)
+                        }
+                      >
+                        Account
+                      </MenuItem>
+                      <MenuItem onClick={() => handleMenuClick(`/logout`)}>
+                        Logout
+                      </MenuItem>
                     </Menu>
                   </Grid>
                 </Grid>
