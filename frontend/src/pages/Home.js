@@ -21,78 +21,13 @@ const Home = () => {
   const navigate = useNavigate();
 
   // fetch all destinations from API
-  const [destinations, setDestinations] = useState([
-    {
-      airport_code: "YVR",
-      city: "Vancouver",
-      country: "Canada",
-    },
-    {
-      airport_code: "YYZ",
-      city: "Toronto",
-      country: "Canada",
-    },
-    {
-      airport_code: "YEG",
-      city: "Edmonton",
-      country: "Canada",
-    },
-  ]);
+  const [destinations, setDestinations] = useState([]);
 
   // show flights boolean value
   const [showFlights, setShowFlights] = useState(false);
 
   // fetch searched flights from API
-  const [flights, setFlights] = useState([
-    {
-      flight_num: 0,
-      airline_name: "Air Canada",
-      dep_time: "1997-12-17 07:37:16-08",
-      arrival_time: "1997-12-17 07:37:16-08",
-      dest_code: "YYZ",
-      plane_id: 0,
-    },
-    {
-      flight_num: 1,
-      airline_name: "Air Canada",
-      dep_time: "1997-12-17 07:37:16-08",
-      arrival_time: "1997-12-17 07:37:16-08",
-      dest_code: "YYZ",
-      plane_id: 0,
-    },
-    {
-      flight_num: 2,
-      airline_name: "Air Canada",
-      dep_time: "1997-12-17 07:37:16-08",
-      arrival_time: "1997-12-17 07:37:16-08",
-      dest_code: "YYZ",
-      plane_id: 0,
-    },
-    {
-      flight_num: 3,
-      airline_name: "Air Canada",
-      dep_time: "1997-12-17 07:37:16-08",
-      arrival_time: "1997-12-17 07:37:16-08",
-      dest_code: "YYZ",
-      plane_id: 0,
-    },
-    {
-      flight_num: 4,
-      airline_name: "Air Canada",
-      dep_time: "1997-12-17 07:37:16-08",
-      arrival_time: "1997-12-17 07:37:16-08",
-      dest_code: "YYZ",
-      plane_id: 0,
-    },
-    {
-      flight_num: 5,
-      airline_name: "Air Canada",
-      dep_time: "1997-12-17 07:37:16-08",
-      arrival_time: "1997-12-17 07:37:16-08",
-      dest_code: "YYZ",
-      plane_id: 0,
-    },
-  ]);
+  const [flights, setFlights] = useState([]);
 
   // input states
   const [destination, setDestination] = useState(null);
@@ -117,6 +52,17 @@ const Home = () => {
     }
 
     if (dest_param && dep_param) {
+      // search flights
+      try {
+        const flights = await axiosInstance.get(
+          `flights/${dest_param}/${dep_param}/`
+        );
+        console.log(flights.data)
+        setFlights(flights.data)
+      } catch (err) {
+        console.log(err);
+      }
+
       setShowFlights(true);
     } else {
       setShowFlights(false);
@@ -271,9 +217,15 @@ const Home = () => {
           rowSpacing={3}
           my="50px"
         >
-          <Grid item>
-            <Typography variant="h6">Search Results</Typography>
-          </Grid>
+          {flights.length === 0 ? (
+            <Grid item>
+              <Typography variant="h6">No Results</Typography>
+            </Grid>
+          ) : (
+            <Grid item>
+              <Typography variant="h6">Search Results</Typography>
+            </Grid>
+          )}
 
           {flights.map((flight) => {
             return (
