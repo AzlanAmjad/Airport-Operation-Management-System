@@ -46,25 +46,7 @@ const Login = () => {
 
   // on click log in
   const log_in = async () => {
-    try {
-      // post
-      const result = await axiosInstance.post("token/", {
-        email: email,
-        password: password,
-      });
-
-      // set jwt in local storage
-      localStorage.setItem("access_token", result.data.access);
-      localStorage.setItem("refresh_token", result.data.refresh);
-      axiosInstance.defaults.headers["Authorization"] =
-        "JWT " + localStorage.getItem("access_token");
-
-      console.log(result.data);
-      navigate("/");
-    } catch (err) {
-      // handle error
-      console.log(err);
-    }
+    
   };
 
   return (

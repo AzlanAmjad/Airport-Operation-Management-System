@@ -50,24 +50,7 @@ const Signup = () => {
 
   // on click sign up
   const sign_up = async () => {
-    try {
-      // post
-      const result = await axiosInstance.post("register/", {
-        email: {
-          email: email,
-          password: password,
-          first_name: firstName,
-          last_name: lastName,
-        },
-        ssn: SSN,
-        address: address,
-      });
-      console.log(result.data);
-      navigate("/login");
-    } catch (err) {
-      // handle error
-      console.log(err);
-    }
+    
   };
 
   return (
