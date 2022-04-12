@@ -12,6 +12,8 @@ urlpatterns = [
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     # post passenger
     path('register/', views.PassengerCreate.as_view()),
+    # post refresh_token to blacklist token when logging out
+    path('logout/blacklist/', views.BlacklistTokenView.as_view()),
 
     # FLIGHT
     # post flight

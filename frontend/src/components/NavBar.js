@@ -7,10 +7,17 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { useNavigate } from "react-router-dom";
 import { Box } from "@mui/system";
+import { useSelector } from "react-redux";
 
 const NavBar = () => {
+  // states to identify users
+  const [passenger, setPassenger] = useState(false);
+  const [airportAdmin, setAirportAdmin] = useState(false);
+  const [airlineAdmin, setAirlineAdmin] = useState(false);
+
   // anchor for menu
   const [anchorEl, setAnchorEl] = useState(null);
+
   // state for menu
   const [menu, setMenu] = useState([
     {
@@ -36,6 +43,7 @@ const NavBar = () => {
   ]);
 
   const navigate = useNavigate();
+  const { isLoggedIn } = useSelector((state) => state.user);
 
   // functions to handle menu
   const handleMenu = (event) => {
@@ -109,23 +117,27 @@ const NavBar = () => {
                   })}
                 </Menu>
               </Box>
-              <Box
-                sx={{ display: { xs: "none", md: "flex" }, width: "600px" }}
-                direction="row"
-                justifyContent="space-between"
-              >
-                {menu.map((menu) => {
-                  return (
-                    <Button
-                      variant="contained"
-                      key={menu.title}
-                      onClick={() => navigate(`${menu.path}`)}
-                    >
-                      {menu.title}
-                    </Button>
-                  );
-                })}
-              </Box>
+              {!isLoggedIn ? (
+                <Box
+                  sx={{ display: { xs: "none", md: "flex" }, width: "600px" }}
+                  direction="row"
+                  justifyContent="space-between"
+                >
+                  {menu.map((menu) => {
+                    return (
+                      <Button
+                        variant="contained"
+                        key={menu.title}
+                        onClick={() => navigate(`${menu.path}`)}
+                      >
+                        {menu.title}
+                      </Button>
+                    );
+                  })}
+                </Box>
+              ) : (
+                <Box>LOGGED IN</Box>
+              )}
             </Grid>
           </Grid>
         </Toolbar>
