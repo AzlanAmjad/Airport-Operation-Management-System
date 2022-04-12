@@ -35,8 +35,8 @@ const Flights = () => {
     { airport_code: "", city: "", country: "" }
   ]);
   const [adminAirline, setAdminAirline] = useState(1);
-  const [destCode, setDestCode] = useState(new String(3));
-  const [planeID, setPlaneID] = useState(0);
+  const [destCode, setDestCode] = useState('');
+  const [planeID, setPlaneID] = useState('');
   const [allPlanes, setAllPlanes] = useState([
     {
       id: null,
@@ -81,6 +81,7 @@ const Flights = () => {
         plane_id: planeID
 
       });
+      console.log(destCode + " " + planeID);
       console.log(result.data);
 
       setAddDialogForm(false);
@@ -299,7 +300,8 @@ const Flights = () => {
               <Select
                 value={destCode}
                 onChange={(event) => {
-                  setDestCode(event.target.value)
+                  setDestCode(event.target.value);
+                  console.log(event.target.value);
 
                 }}
               >
