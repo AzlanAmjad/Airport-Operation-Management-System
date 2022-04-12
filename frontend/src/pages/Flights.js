@@ -34,6 +34,7 @@ const Flights = () => {
   const [allDest, setAllDest] = useState([
     { airport_code: "", city: "", country: "" }
   ]);
+  const [adminAirline, setAdminAirline] = useState(1);
   const [destCode, setDestCode] = useState(new String(3));
   const [planeID, setPlaneID] = useState(0);
   const [allPlanes, setAllPlanes] = useState([
@@ -58,7 +59,7 @@ const Flights = () => {
   const [addDialogForm, setAddDialogForm] = useState(false);
   const [editDialogForm, setEditDialogForm] = useState(false);
 
-  const [adminAirline, setAdminAirline] = useState(1);
+
 
   const [editFlight, setEditFlight] = useState('');
 
@@ -147,6 +148,8 @@ const Flights = () => {
           });
 
 
+
+
       } catch (e) {
         console.error(e);
       }
@@ -164,9 +167,10 @@ const Flights = () => {
     >
       <Grid item xs={12}>
         <Typography variant="h2" component="div" gutterBottom>
-          {adminAirline} Flights
+          All Flights
         </Typography>
       </Grid>
+
 
       {/*Displaying Flights*/}
       <Grid item container direction="column" spacing={2} xs={6}>
