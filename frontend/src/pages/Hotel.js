@@ -4,11 +4,22 @@ import {
     Button,
     Typography,
     IconButton,
+    getListItemSecondaryActionClassesUtilityClass,
 } from "@mui/material";
 import * as React from "react";
 // state management
 import { useState, useEffect } from "react";
 import AddIcon from '@mui/icons-material/Add';
+import axiosInstance from "../components/Axios";
+import { useParams } from "react-router-dom";
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import FormControl from '@mui/material/FormControl';
+import FormHelperText from '@mui/material/FormHelperText';
+import Input from "@mui/material/Input";
 
 
 
@@ -16,28 +27,55 @@ const Hotel = () => {
 
     const [stays, setStays] = useState([
         {
-            id: "0",
-            name: "1 Day Stay",
-            price: "$999.99",
-            description: "Two Beds, 1 Bath, Small Kitchen",
-        },
-        {
-            id: "1",
-            name: "2 Day Stay",
-            price: "$999.99",
-            description: "Two Beds, 1 Bath, Small Kitchen",
-
-        },
-        {
-            id: "2",
-            name: "3 Day Stay",
-            price: "$999.99",
-            description: "Two Beds, 1 Bath, Small Kitchen",
-
-        },
+            id: null,
+            name: null,
+            price: null,
+            description: null,
+        }
     ]);
 
-    const [isAdmin, setIsAdmin] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(true);
+
+    const hotel = useParams();
+
+    const [addDialogForm, setAddDialogForm] = useState(false);
+    const handleAddDialogFormOpen = () => {
+        setAddDialogForm(true);
+    }
+    const handleAddDialogFormClose = () => {
+        setAddDialogForm(false);
+    }
+
+    const [stayName, setStayName] = useState('');
+    const [price, setPrice] = useState('');
+    const [description, setDescription] = useState('');
+    const [hotelName, setHotelName] = useState('');
+
+
+
+
+    useEffect(() => {
+
+        async function fetchData() {
+            try {
+                const allComplaints = await axiosInstance.get(`/stays/${hotel.hotel}`, {
+
+                })
+                    .then((response) => {
+                        setStays(response.data);
+                    });
+
+
+
+            } catch (e) {
+                console.error(e);
+            }
+        };
+        fetchData();
+        console.log(hotel);
+
+
+    }, []);
 
 
 
@@ -75,7 +113,7 @@ const Hotel = () => {
                                             rowSpacing={1}
                                         >
                                             <Grid item>
-                                                <Typography>
+                                                <Typography variant="h2" >
                                                     {stay.name}
                                                 </Typography>
                                             </Grid>
@@ -95,7 +133,7 @@ const Hotel = () => {
                         )
                     })}
 
-                    <IconButton size="large" sx={{ color: "white" }} onClick={null}><AddIcon fontSize="inherit" /></IconButton>
+                    <IconButton size="large" sx={{ color: "white" }} onClick={handleAddDialogFormOpen}><AddIcon fontSize="inherit" /></IconButton>
 
                 </Grid>
             </Grid>
@@ -126,7 +164,7 @@ const Hotel = () => {
                                             rowSpacing={1}
                                         >
                                             <Grid item>
-                                                <Typography>
+                                                <Typography variant="h2">
                                                     {stay.name}
                                                 </Typography>
                                             </Grid>
@@ -147,6 +185,9 @@ const Hotel = () => {
                     })}
                 </Grid>
             }
+
+
+
 
         </Grid >
 
