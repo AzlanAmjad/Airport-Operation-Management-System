@@ -34,8 +34,9 @@ const Flights = () => {
   const [allDest, setAllDest] = useState([
     { airport_code: "", city: "", country: "" }
   ]);
-  const [destCode, setDestCode] = useState(new String(3));
-  const [planeID, setPlaneID] = useState(0);
+  const [adminAirline, setAdminAirline] = useState(1);
+  const [destCode, setDestCode] = useState('');
+  const [planeID, setPlaneID] = useState('');
   const [allPlanes, setAllPlanes] = useState([
     {
       id: null,
@@ -58,7 +59,7 @@ const Flights = () => {
   const [addDialogForm, setAddDialogForm] = useState(false);
   const [editDialogForm, setEditDialogForm] = useState(false);
 
-  const [adminAirline, setAdminAirline] = useState(1);
+
 
   const [editFlight, setEditFlight] = useState('');
 
@@ -80,6 +81,7 @@ const Flights = () => {
         plane_id: planeID
 
       });
+      console.log(destCode + " " + planeID);
       console.log(result.data);
 
       setAddDialogForm(false);
@@ -147,6 +149,8 @@ const Flights = () => {
           });
 
 
+
+
       } catch (e) {
         console.error(e);
       }
@@ -164,9 +168,10 @@ const Flights = () => {
     >
       <Grid item xs={12}>
         <Typography variant="h2" component="div" gutterBottom>
-          {adminAirline} Flights
+          All Flights
         </Typography>
       </Grid>
+
 
       {/*Displaying Flights*/}
       <Grid item container direction="column" spacing={2} xs={6}>
@@ -295,7 +300,8 @@ const Flights = () => {
               <Select
                 value={destCode}
                 onChange={(event) => {
-                  setDestCode(event.target.value)
+                  setDestCode(event.target.value);
+                  console.log(event.target.value);
 
                 }}
               >

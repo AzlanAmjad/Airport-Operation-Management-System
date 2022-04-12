@@ -12,6 +12,8 @@ from . import models
 from . import serializers
 
 # REGISTRATION, AUTHENTICATION, AND AUTHORIZATION
+
+
 class PassengerCreate(APIView):
     permission_classes = [AllowAny]
 
@@ -21,6 +23,7 @@ class PassengerCreate(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 class BlacklistTokenView(APIView):
     permission_classes = [AllowAny]
@@ -85,6 +88,7 @@ class Destination(APIView):
         serializer = serializers.DestinationSerializer(oneDestination)
         return Response(serializer.data)
 
+
 class Destinations(APIView):
     def get(self, request, format=None):
         destinations = models.Destination.objects.all()
@@ -113,7 +117,7 @@ class Books(APIView):
             # can not decrement
             else:
                 return Response(status=status.HTTP_400_BAD_REQUEST)
-            
+
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -157,7 +161,8 @@ class AirlineComplaint(APIView):
 
     def put(self, request, complaint, format=None):
         _complaint = models.AirlineComplaint.objects.get(pk=complaint)
-        serializer = serializers.AirlineComplaintSerializer(_complaint, data=request.data)
+        serializer = serializers.AirlineComplaintSerializer(
+            _complaint, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -168,10 +173,13 @@ class AirlineComplaint(APIView):
         _complaint.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+
 class AirlineComplaints(APIView):
     def get(self, request, airline, format=None):
         complaints = models.AirlineComplaint.objects.filter(airline=airline)
-        serializer = serializers.AirlineComplaintSerializer(complaints, many=True)
+        serializer = serializers.AirlineComplaintSerializer(
+            complaints, many=True)
+
         return Response(serializer.data)
 
 
@@ -186,7 +194,8 @@ class AirportComplaint(APIView):
 
     def put(self, request, complaint, format=None):
         _complaint = models.AirportComplaint.objects.get(pk=complaint)
-        serializer = serializers.AirportComplaintSerializer(_complaint, data=request.data)
+        serializer = serializers.AirportComplaintSerializer(
+            _complaint, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -197,10 +206,12 @@ class AirportComplaint(APIView):
         _complaint.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+
 class AirportComplaints(APIView):
     def get(self, request, format=None):
         complaints = models.AirportComplaint.objects.all()
-        serializer = serializers.AirportComplaintSerializer(complaints, many=True)
+        serializer = serializers.AirportComplaintSerializer(
+            complaints, many=True)
         return Response(serializer.data)
 
 
@@ -225,6 +236,7 @@ class Company(APIView):
         _company = models.Company.objects.get(pk=company)
         _company.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
 
 class Companies(APIView):
     def get(self, request, format=None):
@@ -259,6 +271,13 @@ class Hotel(APIView):
 
 # AIRLINE
 
+class Airline(APIView):
+    def get(self, request, airline, format=None):
+        airline = models.Airline.objects.filter(pk=airline).values()
+        serializer = serializers.AirlineSerializer(airline, many=True)
+        return Response(serializer.data)
+
+
 # AIRPLANE
 
 
@@ -267,7 +286,7 @@ class Fare(APIView):
     def post(self, request, format=None):
         serializer = serializers.FareSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()            
+            serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -276,15 +295,19 @@ class Fare(APIView):
 class SearchFlights(APIView):
     def get(self, request, destination, departure, format=None):
         date = datetime.datetime.strptime(departure, '%Y-%m-%d').date()
-        flights = models.Flight.objects.filter(destination=destination).filter(dep_time__date=date)
+        flights = models.Flight.objects.filter(
+            destination=destination).filter(dep_time__date=date)
         serializer = serializers.FlightSerializer(flights, many=True)
         return Response(serializer.data)
 
+
 class FlightFares(APIView):
     def get(self, request, flight, format=None):
-        fares = models.Fare.objects.filter(flight=flight).exclude(tickets_quantity=0)
+        fares = models.Fare.objects.filter(
+            flight=flight).exclude(tickets_quantity=0)
         serializer = serializers.FareSerializer(fares, many=True)
         return Response(serializer.data)
+
 
 class CompanyHotels(APIView):
     def get(self, request, company, format=None):
@@ -292,17 +315,20 @@ class CompanyHotels(APIView):
         serializer = serializers.HotelSerializer(hotels, many=True)
         return Response(serializer.data)
 
+
 class HotelStays(APIView):
     def get(self, request, hotel, format=None):
         stays = models.Stay.objects.filter(hotel=hotel).filter(transac=None)
         serializer = serializers.StaySerializer(stays, many=True)
         return Response(serializer.data)
 
+
 class AirlineFlights(APIView):
     def get(self, request, airline, format=None):
         flights = models.Flight.objects.filter(airline=airline)
         serializer = serializers.FlightSerializer(flights, many=True)
         return Response(serializer.data)
+
 
 class AirlineAirplanes(APIView):
     def get(self, request, airline, format=None):

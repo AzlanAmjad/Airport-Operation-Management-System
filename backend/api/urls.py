@@ -49,15 +49,18 @@ urlpatterns = [
     # post airline complaint
     path('airline-complaint/', views.AirlineComplaint.as_view()),
     # put airline complaint, delete airline complaint
-    path('airline-complaint/<int:complaint>/', views.AirlineComplaint.as_view()),
+    path('airline-complaint/<int:complaint>/',
+         views.AirlineComplaint.as_view()),
     # get airline complaints
-    path('airline-complaints/<int:airline>/', views.AirlineComplaints.as_view()),
+    path('airline-complaints/<int:airline>/',
+         views.AirlineComplaints.as_view()),
 
     # AIRPORT COMPLAINT
     # post airport complaint
     path('airport-complaint/', views.AirportComplaint.as_view()),
     # put airport complaint, delete airport complaint
-    path('airport-complaint/<int:complaint>/', views.AirportComplaint.as_view()),
+    path('airport-complaint/<int:complaint>/',
+         views.AirportComplaint.as_view()),
     # get airport complaints
     path('airport-complaints/', views.AirportComplaints.as_view()),
 
@@ -81,13 +84,17 @@ urlpatterns = [
     # AIRLINE
     # AIRPLANE
 
+    # get airline information based on id
+    path('airlines/<int:airline>/', views.Airline.as_view()),
+
     # FARE
     # post fare
     path('fare/', views.Fare.as_view()),
 
     # MORE COMPLICATED END-POINTS
     # get searched flights
-    path('flights/<slug:destination>/<slug:departure>/', views.SearchFlights.as_view()),
+    path('flights/<slug:destination>/<slug:departure>/',
+         views.SearchFlights.as_view()),
     # get available flight fares
     path('fares/<int:flight>/', views.FlightFares.as_view()),
     # get company hotels

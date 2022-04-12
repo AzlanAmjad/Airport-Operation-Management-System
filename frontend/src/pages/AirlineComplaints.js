@@ -3,7 +3,7 @@
 import Grid from "@mui/material/Grid";
 import * as React from "react";
 import Typography from '@mui/material/Typography';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -12,18 +12,12 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Button from "@mui/material/Button";
+import axiosInstance from "../components/Axios";
 
-function createData(id, email, description) {
-    return { id, email, description };
-}
 
-const rows = [
-    createData(0, 'passenger1@email.com', 'worst experience in my life'),
-    createData(1, 'passenger1@email.com', 'worst experience in my life'),
-    createData(2, 'passenger1@email.com', 'worst experience in my life'),
-    createData(3, 'passenger1@email.com', 'worst experience in my life'),
-    createData(4, 'passenger1@email.com', 'worst experience in my life'),
-];
+
+
+
 
 const AirlineComplaints = () => {
 
@@ -35,6 +29,33 @@ const AirlineComplaints = () => {
         <Button variant="contained">Resolve</Button>
 
     );
+
+    const [rows, setRows] = useState([
+        { pk: null, description: null, passenger_email: null, admin: null }
+    ]);
+
+    useEffect(() => {
+
+        async function fetchData() {
+            try {
+
+
+                const allComplaints = await axiosInstance.get(`/airline-complaints/${1}`, {
+
+                })
+                    .then((response) => {
+                        setRows(response.data);
+                    });
+
+
+
+            } catch (e) {
+                console.error(e);
+            }
+        };
+        fetchData();
+    }, []);
+
 
 
     return (
@@ -64,14 +85,14 @@ const AirlineComplaints = () => {
                         <TableBody>
                             {rows.map((row) => (
                                 <TableRow
-                                    key={row.id}
+                                    key={row.pk}
                                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                 >
-                                    <TableCell >
-                                        {row.id}
+                                    <TableCell align="center" >
+                                        {row.pk}
                                     </TableCell>
-                                    <TableCell align="center">{row.email}</TableCell>
-                                    <TableCell align="center">{row.description}</TableCell>
+                                    <TableCell align="left">{row.passenger_email}</TableCell>
+                                    <TableCell align="left">{row.description}</TableCell>
                                     <TableCell align="right">{resolveButton}</TableCell>
                                 </TableRow>
                             ))}
