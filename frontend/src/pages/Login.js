@@ -3,9 +3,12 @@ import PersonIcon from "@mui/icons-material/Person";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { login } from "../features/user/userSlice";
 
 const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const hStyle = {
     svg: "white",
@@ -45,8 +48,8 @@ const Login = () => {
 
   // on click log in
   const log_in = async () => {
-
-    navigate("/")
+    dispatch(login(email, password))
+    navigate("/");
   };
 
   return (

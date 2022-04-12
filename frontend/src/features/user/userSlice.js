@@ -15,6 +15,7 @@ export const register = createAsyncThunk(
         SSN,
         address
       );
+      // return registered user
       return response.data;
     } catch (err) {
       // handle error
@@ -31,8 +32,8 @@ export const login = createAsyncThunk(
     try {
       // login
       const response = await authService.login(email, password);
-      // access and refresh token get set to user
-      return { user: response.data };
+      // return access and refresh token
+      return response.data;
     } catch (err) {
       // handle error
       console.log(err);
@@ -47,7 +48,10 @@ export const logout = createAsyncThunk("auth/logout", async () => {
 });
 
 const initialState = {
-  value: { isLoggedIn: false, user: null },
+  access: localStorage.getItem("access_token")
+    ? localStorage.getItem("access_token")
+    : null,
+  isLoggedIn: localStorage.getItem("access_token") ? true : false,
 };
 
 // user slice of state
@@ -56,7 +60,26 @@ export const userSlice = createSlice({
   initialState,
   // define reducers with associated actions
   extraReducers: (builder) => {
-    
+    builder.addCase(register.fulfilled, (state, action) => {
+      state.access = null;
+      state.isLoggedIn = false;
+    });
+    builder.addCase(register.rejected, (state, action) => {
+      state.access = null;
+      state.isLoggedIn = false;
+    });
+    builder.addCase(login.fulfilled, (state, action) => {
+      state.access = action.payload.access;
+      state.isLoggedIn = true;
+    });
+    builder.addCase(login.rejected, (state, action) => {
+      state.access = null;
+      state.isLoggedIn = false;
+    });
+    builder.addCase(logout.fulfilled, (state, action) => {
+      state.access = null;
+      state.isLoggedIn = false;
+    });
   },
 });
 
