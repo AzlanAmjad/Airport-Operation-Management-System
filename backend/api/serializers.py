@@ -68,6 +68,14 @@ class CompanySerializer(serializers.ModelSerializer):
 # HOTEL
 
 
+class GetSerializer(serializers.ModelSerializer):
+    company_name = serializers.CharField(source='company.name')
+
+    class Meta:
+        model = models.Hotel
+        fields = ('pk', 'name', 'location', 'company_name')
+
+
 class HotelSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Hotel

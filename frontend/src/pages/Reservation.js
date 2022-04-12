@@ -3,7 +3,7 @@ import Typography from "@mui/material/Typography";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import { CardActionArea, Icon } from "@mui/material";
-import { Route, Routes, useNavigate, useLocation } from "react-router-dom";
+import { Route, Routes, useNavigate, useLocation, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axiosInstance from "../components/Axios";
 import AddIcon from '@mui/icons-material/Add';
@@ -99,7 +99,7 @@ const Reservation = () => {
 
           <Grid item xs={5}>
             <Card sx={{ maxWidth: 400 }}>
-              <CardActionArea onClick={() => navigate(`/reservation/${company.name}`)}>
+              <CardActionArea onClick={() => navigate(`/reservation/${company.id}`)}>
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="div">
                     {company.name}
