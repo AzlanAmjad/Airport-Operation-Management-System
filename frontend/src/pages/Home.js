@@ -12,6 +12,7 @@ import { useSearchParams, useNavigate } from "react-router-dom";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import moment from "moment";
+import axiosInstance from "../components/Axios";
 
 // state management
 import { useState, useEffect } from "react";
@@ -106,7 +107,15 @@ const Home = () => {
 
   // useEffect hook which will only run when search params change
   // will fetch from API here
-  useEffect(() => {
+  useEffect(async () => {
+    try {
+      // get destinations
+      const destinations = await axiosInstance.get("destinations/");
+      setDestinations(destinations.data);
+    } catch (err) {
+      console.log(err);
+    }
+
     if (dest_param && dep_param) {
       setShowFlights(true);
     } else {
