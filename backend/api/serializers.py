@@ -14,6 +14,11 @@ class UserSerializer(serializers.ModelSerializer):
             'last_name'
         )
 
+class AllUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.User
+        fields = '__all__'
+
 # PASSENGER REGISTRATION
 
 

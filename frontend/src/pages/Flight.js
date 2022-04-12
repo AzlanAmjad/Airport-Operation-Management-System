@@ -1,6 +1,5 @@
 import { Grid, Typography, Paper, IconButton } from "@mui/material";
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
@@ -135,9 +134,9 @@ const Flight = () => {
                       <Typography>{fare.tickets} Tickets Left</Typography>
                     </Grid>
                   </Grid>
-                  <Grid item>
-                    <IconButton color="inherit" onClick={() => { }}>
-                      <ShoppingCartIcon fontSize="large" />
+                  <Grid item mr={2}>
+                    <IconButton color="inherit" onClick={() => {}}>
+                      <AddShoppingCartIcon fontSize="large" />
                     </IconButton>
                   </Grid>
                 </Grid>

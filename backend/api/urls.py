@@ -15,6 +15,10 @@ urlpatterns = [
     # post refresh_token to blacklist token when logging out
     path('logout/blacklist/', views.BlacklistTokenView.as_view()),
 
+    # USER
+    # get user
+    path('user/', views.User.as_view()),
+
     # FLIGHT
     # post flight
     path('flight/', views.Flight.as_view()),

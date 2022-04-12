@@ -1,16 +1,17 @@
 import datetime
+from django.conf import settings
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.authentication import get_authorization_header
+import jwt
 
 from . import models
 from . import serializers
 
 # REGISTRATION, AUTHENTICATION, AND AUTHORIZATION
-
-
 class PassengerCreate(APIView):
     permission_classes = [AllowAny]
 
@@ -21,18 +22,35 @@ class PassengerCreate(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
 class BlacklistTokenView(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request):
         try:
-            refresh_token = request.data('refresh_token')
+            refresh_token = request.data['refresh_token']
+            print(refresh_token)
             token = RefreshToken(refresh_token)
             token.blacklist()
+            return Response(status=status.HTTP_200_OK)
         except Exception as e:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
+
+# USER
+class User(APIView):
+    def get(self, request):
+        token = get_authorization_header(request).decode('utf-8')
+        print(token)
+        try:
+            payload = jwt.decode(jwt=token, key=settings.SECRET_KEY, algorithms=['HS256'])
+            user = models.User.objects.get(pk=payload['user_id'])
+            serializer = serializers.AllUserSerializer(user)
+            return Response(serializer.data)
+        except jwt.ExpiredSignatureError as e:
+            return Response({'error': 'Activations link expired'}, status=status.HTTP_400_BAD_REQUEST)
+        except jwt.exceptions.DecodeError as e:
+            return Response({'error': 'Invalid token'}, status=status.HTTP_400_BAD_REQUEST)
+            
 
 # FLIGHT
 class Flight(APIView):
@@ -68,7 +86,6 @@ class Destination(APIView):
         oneDestination = models.Destination.objects.get(pk=destination)
         serializer = serializers.DestinationSerializer(oneDestination)
         return Response(serializer.data)
-
 
 class Destinations(APIView):
     def get(self, request, format=None):
@@ -154,7 +171,6 @@ class AirlineComplaint(APIView):
         _complaint.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-
 class AirlineComplaints(APIView):
     def get(self, request, airline, format=None):
         complaints = models.AirlineComplaint.objects.filter(airline=airline)
@@ -187,7 +203,6 @@ class AirportComplaint(APIView):
         _complaint.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-
 class AirportComplaints(APIView):
     def get(self, request, format=None):
         complaints = models.AirportComplaint.objects.all()
@@ -217,7 +232,6 @@ class Company(APIView):
         _company = models.Company.objects.get(pk=company)
         _company.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-
 
 class Companies(APIView):
     def get(self, request, format=None):
@@ -251,7 +265,6 @@ class Hotel(APIView):
 # AIRLINE ADMIN
 
 # AIRLINE
-
 class Airline(APIView):
     def get(self, request, airline, format=None):
         airline = models.Airline.objects.filter(pk=airline).values()
@@ -260,7 +273,6 @@ class Airline(APIView):
 
 
 # AIRPLANE
-
 
 # FARE
 class Fare(APIView):
@@ -276,16 +288,14 @@ class Fare(APIView):
 class SearchFlights(APIView):
     def get(self, request, destination, departure, format=None):
         date = datetime.datetime.strptime(departure, '%Y-%m-%d').date()
-        flights = models.Flight.objects.filter(
-            destination=destination).filter(dep_time__date=date)
+        flights = models.Flight.objects.filter(destination=destination).filter(dep_time__date=date)
         serializer = serializers.FlightSerializer(flights, many=True)
         return Response(serializer.data)
 
 
 class FlightFares(APIView):
     def get(self, request, flight, format=None):
-        fares = models.Fare.objects.filter(
-            flight=flight).exclude(tickets_quantity=0)
+        fares = models.Fare.objects.filter(flight=flight).exclude(tickets_quantity=0)
         serializer = serializers.FareSerializer(fares, many=True)
         return Response(serializer.data)
 
