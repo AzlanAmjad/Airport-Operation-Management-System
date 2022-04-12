@@ -3,6 +3,7 @@ import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axiosInstance from "../components/Axios";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -49,7 +50,24 @@ const Signup = () => {
 
   // on click sign up
   const sign_up = async () => {
-    
+    try {
+      const result = await axiosInstance.post("register/", {
+        email: {
+          email: email,
+          password: password,
+          first_name: firstName,
+          last_name: lastName,
+        },
+        ssn: SSN,
+        address: address,
+      });
+
+      console.log(result.data)
+      
+      navigate("/login");
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
