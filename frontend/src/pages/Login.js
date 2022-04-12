@@ -3,7 +3,6 @@ import PersonIcon from "@mui/icons-material/Person";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import axiosInstance from "../components/Axios";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -46,7 +45,8 @@ const Login = () => {
 
   // on click log in
   const log_in = async () => {
-    
+
+    navigate("/")
   };
 
   return (

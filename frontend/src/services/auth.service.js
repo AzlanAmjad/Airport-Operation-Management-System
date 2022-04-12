@@ -27,7 +27,7 @@ const login = async (email, password) => {
   axiosInstance.defaults.headers["Authorization"] =
     "JWT " + localStorage.getItem("access_token");
 
-  return result.data;
+  return result;
 };
 
 const logout = async () => {

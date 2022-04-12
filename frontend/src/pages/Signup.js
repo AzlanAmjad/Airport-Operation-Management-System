@@ -3,7 +3,6 @@ import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axiosInstance from "../components/Axios";
 
 const Signup = () => {
   const navigate = useNavigate();
