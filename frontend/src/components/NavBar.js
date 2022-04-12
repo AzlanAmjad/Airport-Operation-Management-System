@@ -3,6 +3,7 @@ import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
 import IconButton from "@mui/material/IconButton";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MenuIcon from "@mui/icons-material/Menu";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useState } from "react";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -113,6 +114,7 @@ const NavBar = () => {
   const { passenger } = useSelector((state) => state.user);
   const { airport_admin } = useSelector((state) => state.user);
   const { airline_admin } = useSelector((state) => state.user);
+  const { quantity } = useSelector((state) => state.cart);
 
   return (
     <nav>
@@ -184,7 +186,7 @@ const NavBar = () => {
                   direction="row"
                   justifyContent="flex-end"
                   alignItems="center"
-                  spacing={2}
+                  spacing={3}
                 >
                   {menu.map((menu) => {
                     return (
@@ -207,7 +209,7 @@ const NavBar = () => {
                   direction="row"
                   justifyContent="flex-end"
                   alignItems="center"
-                  spacing={2}
+                  spacing={3}
                 >
                   {passengerMenu.map((menu) => {
                     return (
@@ -221,13 +223,23 @@ const NavBar = () => {
                       </Grid>
                     );
                   })}
+                  <Grid item key={menu.title}>
+                    <Button
+                      variant="contained"
+                      color="secondary"
+                      onClick={() => navigate(`/cart`)}
+                    >
+                      <ShoppingCartIcon fontSize="small" />
+                      <Typography sx={{ml: 1.5}}>{quantity}</Typography>
+                    </Button>
+                  </Grid>
                   <Grid item>
                     <IconButton
                       size="large"
                       edge="start"
                       color="inherit"
                       aria-label="menu"
-                      sx={{ mr: 2, ml: 0.5 }}
+                      sx={{ mr: 2 }}
                       onClick={handleMenu}
                       aria-controls="menu-appbar"
                       aria-haspopup="true"
@@ -270,7 +282,7 @@ const NavBar = () => {
                   direction="row"
                   justifyContent="flex-end"
                   alignItems="center"
-                  spacing={2}
+                  spacing={3}
                 >
                   {airportAdminMenu.map((menu) => {
                     return (
@@ -290,7 +302,7 @@ const NavBar = () => {
                       edge="start"
                       color="inherit"
                       aria-label="menu"
-                      sx={{ mr: 2, ml: 0.5 }}
+                      sx={{ mr: 2 }}
                       onClick={handleMenu}
                       aria-controls="menu-appbar"
                       aria-haspopup="true"
@@ -333,7 +345,7 @@ const NavBar = () => {
                   direction="row"
                   justifyContent="flex-end"
                   alignItems="center"
-                  spacing={2}
+                  spacing={3}
                 >
                   {airlineAdminMenu.map((menu) => {
                     return (
@@ -353,7 +365,7 @@ const NavBar = () => {
                       edge="start"
                       color="inherit"
                       aria-label="menu"
-                      sx={{ mr: 2, ml: 0.5 }}
+                      sx={{ mr: 2 }}
                       onClick={handleMenu}
                       aria-controls="menu-appbar"
                       aria-haspopup="true"
