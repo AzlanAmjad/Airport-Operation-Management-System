@@ -10,8 +10,14 @@ import { Box } from "@mui/system";
 import { useSelector } from "react-redux";
 
 const NavBar = () => {
+  // states to identify users
+  const [passenger, setPassenger] = useState(false);
+  const [airportAdmin, setAirportAdmin] = useState(false);
+  const [airlineAdmin, setAirlineAdmin] = useState(false);
+
   // anchor for menu
   const [anchorEl, setAnchorEl] = useState(null);
+
   // state for menu
   const [menu, setMenu] = useState([
     {
