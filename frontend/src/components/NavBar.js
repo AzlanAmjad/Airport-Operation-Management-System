@@ -37,7 +37,7 @@ const NavBar = () => {
     setAnchorEl(null);
 
     if (path == "/logout") {
-      dispatch(logout());
+      dispatch(logout({}));
       navigate("/");
     } else {
       navigate(path);
