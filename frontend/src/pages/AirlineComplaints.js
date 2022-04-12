@@ -22,7 +22,7 @@ import axiosInstance from "../components/Axios";
 const AirlineComplaints = () => {
 
     const [adminAirline, setAdminAirline] = useState("Air Canada")
-    const [adminEmail, setAdminEmail] = useState("man@hotmail.com");
+    const [adminID, setAdminID] = useState(1);
 
 
 
@@ -34,9 +34,7 @@ const AirlineComplaints = () => {
     const resolveComplaint = async (pk, desc, email) => {
         try {
             const result = await axiosInstance.put(`airline-complaint/${pk}/`, {
-                description: desc,
-                admin: adminEmail,
-                passenger_emai: email
+                admin: adminID
             });
 
             console.log(result);

@@ -124,11 +124,7 @@ const Flights = () => {
     async function fetchData() {
       try {
 
-        const allFlights = await axiosInstance.get("flights/1", {
-          params: {
-            airline: '1'
-          }
-        })
+        const allFlights = await axiosInstance.get(`flights/${adminAirline}`)
           .then((response) => {
             setFlights(response.data);
           });
@@ -138,11 +134,7 @@ const Flights = () => {
             setAllDest(response.data);
           });
 
-        const allPlanes = await axiosInstance.get("airplanes/1", {
-          params: {
-            airline: '1'
-          }
-        })
+        const allPlanes = await axiosInstance.get(`airplanes/${adminAirline}`)
           .then((response) => {
             setAllPlanes(response.data);
           });

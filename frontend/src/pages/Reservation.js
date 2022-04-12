@@ -3,7 +3,7 @@ import Typography from "@mui/material/Typography";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import { CardActionArea, Icon } from "@mui/material";
-import { Route, Routes, useNavigate, useLocation, useParams } from "react-router-dom";
+import { Route, Routes, useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axiosInstance from "../components/Axios";
 import AddIcon from '@mui/icons-material/Add';
@@ -122,7 +122,7 @@ const Reservation = () => {
       </Grid>
       <Grid item>
         <Dialog open={addDialogForm} onClose={handleAddDialogFormClose}>
-          <DialogTitle>Add a Flight</DialogTitle>
+          <DialogTitle>Add a Company</DialogTitle>
           <DialogContent>
             <DialogContentText sx={{ color: "text.primary" }}>
               To add a Company, please add the following information

@@ -31,7 +31,7 @@ const Company = () => {
       id: null,
       name: null,
       location: null,
-      company_name: null
+      company_name: null,
     }
   ]);
   const [hotelName, setHotelName] = useState('');
@@ -119,7 +119,7 @@ const Company = () => {
                   backgroundColor: "background.paper",
                 }}
               >
-                <CardActionArea onClick={() => navigate(`/reservation/${company}/${hotel.name}`)}>
+                <CardActionArea onClick={() => navigate(`/reservation/${company}/${hotel.pk}`)}>
                   <CardContent>
                     <Typography gutterBottom variant="h2">{hotel.name}</Typography>
                     <Typography gutterBottom variant="h6">{hotel.location}</Typography>
