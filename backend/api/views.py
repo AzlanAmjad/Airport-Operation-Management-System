@@ -1,9 +1,12 @@
 import datetime
+from django.conf import settings
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.authentication import get_authorization_header
+import jwt
 
 from . import models
 from . import serializers
@@ -30,6 +33,22 @@ class BlacklistTokenView(APIView):
         except Exception as e:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
+
+# USER
+class User(APIView):
+    def get(self, request):
+        token = get_authorization_header(request).decode('utf-8')
+        print(token)
+        try:
+            payload = jwt.decode(jwt=token, key=settings.SECRET_KEY, algorithms=['HS256'])
+            user = models.User.objects.get(pk=payload['user_id'])
+            serializer = serializers.AllUserSerializer(user)
+            return Response(serializer.data)
+        except jwt.ExpiredSignatureError as e:
+            return Response({'error': 'Activations link expired'}, status=status.HTTP_400_BAD_REQUEST)
+        except jwt.exceptions.DecodeError as e:
+            return Response({'error': 'Invalid token'}, status=status.HTTP_400_BAD_REQUEST)
+            
 
 # FLIGHT
 class Flight(APIView):
