@@ -22,7 +22,7 @@ export const login = createAsyncThunk(
       axiosInstance.defaults.headers["Authorization"] =
         "JWT " + localStorage.getItem("access_token");
       console.log(result.data);
-      return result;
+      return result.data;
     } catch (err) {
       console.log(err);
       return thunkAPI.rejectWithValue();
