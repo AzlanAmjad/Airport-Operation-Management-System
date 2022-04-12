@@ -8,9 +8,10 @@ import {
   IconButton,
 } from "@mui/material";
 import * as React from "react";
-import DatePicker from "@mui/lab/DatePicker";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import moment from "moment";
 
 // state management
 import { useState, useEffect } from "react";
@@ -116,20 +117,17 @@ const Home = () => {
   // search
   const search = () => {
     if (destination && departure) {
-      // date get ISO string
-      const dep_string = departure.toISOString();
-
-      // regex
+      // dest regex
       const dest_reg = /[A-Z]{3}/;
-      const dep_reg = /[0-9]{4}-[0-9]{2}-[0-9]{2}/;
-
-      // regex result
+      // dest regex result
       const dest = destination.match(dest_reg);
-      const dep = dep_string.match(dep_reg);
+
+      // date formatting
+      const dep = moment(departure).format("YYYY-MM-DD");
 
       const params = {
         destination: dest[0],
-        departure: dep[0],
+        departure: dep,
       };
 
       setSearchParams(params);
@@ -213,7 +211,6 @@ const Home = () => {
           </Grid>
           <Grid item>
             <DatePicker
-              inputFormat="MM/dd/yyyy"
               openTo="day"
               value={departure}
               onChange={(newDeparture) => {
@@ -309,7 +306,9 @@ const Home = () => {
                         color="inherit"
                         onClick={() =>
                           navigate(
-                            `/${flight.airline_name.replace(/\s+/g, '+')}/${flight.flight_num}/flight-details`
+                            `/${flight.airline_name.replace(/\s+/g, "+")}/${
+                              flight.flight_num
+                            }/flight-details`
                           )
                         }
                       >
