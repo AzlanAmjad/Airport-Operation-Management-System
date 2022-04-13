@@ -45,7 +45,7 @@ const Flight = () => {
     <>
       {loading ? (
         <Grid item>
-          <ClipLoader loading={loading} size={50} />
+          <ClipLoader loading={loading} size={70} />
         </Grid>
       ) : (
         <Grid
