@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import Typography from "@mui/material/Typography";
-import { Grid, Paper, Button, TextField } from "@mui/material";
+import { Grid, Paper, Button, TextField, Autocomplete } from "@mui/material";
 import { ClipLoader } from "react-spinners";
 import axiosInstance from "../components/Axios";
 
@@ -24,7 +24,15 @@ const MyComplaints = () => {
     try {
       const passenger = await axiosInstance.get(`passenger/${id}/`);
       console.log(passenger.data);
-      setPassenger(passenger);
+      setPassenger(passenger.data);
+    } catch (err) {
+      console.log(err);
+    }
+
+    try {
+      const airlines = await axiosInstance.get("airlines/");
+      console.log(airlines.data);
+      setAirlines(airlines.data);
     } catch (err) {
       console.log(err);
     }
@@ -112,7 +120,7 @@ const MyComplaints = () => {
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  label="complaint"
+                  placeholder="Complaint"
                   multiline
                   variant="outlined"
                   sx={{
@@ -174,9 +182,53 @@ const MyComplaints = () => {
               <Grid item>
                 <Typography variant="h6">Airline Complaint</Typography>
               </Grid>
+              <Grid item>
+                <Autocomplete
+                  disablePortal
+                  id="combo-box-demo"
+                  options={airlines.map((item) => {
+                    const airline = `${item.id} - ${item.name}, ${item.location}`;
+                    return airline;
+                  })}
+                  sx={{ width: 300 }}
+                  value={airline}
+                  onChange={(event, values) => {
+                    setAirline(values);
+                  }}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      variant="outlined"
+                      placeholder="Airline"
+                      sx={{
+                        svg: "white",
+                        input: "white",
+                        label: "white",
+                        "& .MuiOutlinedInput-notchedOutline": {
+                          borderColor: "white",
+                        },
+                        "&:hover .MuiOutlinedInput-notchedOutline": {
+                          borderColor: "red",
+                        },
+                        "&.MuiOutlinedInput-notchedOutline.Mui-focused": {
+                          borderColor: "red",
+                        },
+                        "& .MuiButtonBase-root.MuiAutocomplete-clearIndicator":
+                          {
+                            color: "red",
+                          },
+                        "& .MuiButtonBase-root.MuiAutocomplete-popupIndicator":
+                          {
+                            color: "white",
+                          },
+                      }}
+                    />
+                  )}
+                />
+              </Grid>
               <Grid item xs={12}>
                 <TextField
-                  label="complaint"
+                  placeholder="Complaint"
                   multiline
                   variant="outlined"
                   sx={{

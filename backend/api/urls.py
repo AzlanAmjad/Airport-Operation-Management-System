@@ -95,6 +95,8 @@ urlpatterns = [
      # AIRLINE
      # get airline information based on id
      path('airlines/<int:airline>/', views.Airline.as_view()),
+     # get all airlines
+     path('airlines/', views.Airline.as_view()),
 
      # FARE
      # post fare

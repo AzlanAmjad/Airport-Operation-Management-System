@@ -301,6 +301,11 @@ class Airline(APIView):
         serializer = serializers.AirlineSerializer(airline, many=True)
         return Response(serializer.data)
 
+    def get(self, request, format=None):
+        airlines = models.Airline.objects.all()
+        serializer = serializers.AirlineSerializer(airlines, many=True)
+        return Response(serializer.data)
+
 
 # AIRPLANE
 
