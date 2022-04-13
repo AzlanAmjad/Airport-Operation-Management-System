@@ -60,7 +60,7 @@ const AirlineDashboard = () => {
       <Grid item xs={10} container>
         <Routes>
           <Route path="welcome" element={<WelcomeAirport />} />
-          <Route path="reserve" element={<Reservation />} />
+          <Route path="reservation" element={<Reservation />} />
           <Route path="complaints" element={<AirportComplaints />} />
         </Routes>
       </Grid>
