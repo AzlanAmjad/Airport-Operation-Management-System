@@ -52,7 +52,7 @@ const Signup = () => {
   const sign_up = async () => {
     try {
       const result = await axiosInstance.post("register/", {
-        email: {
+        user: {
           email: email,
           password: password,
           first_name: firstName,
