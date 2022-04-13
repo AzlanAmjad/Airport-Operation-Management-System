@@ -404,7 +404,7 @@ const Complaints = () => {
                 <Typography>No airline complaints</Typography>
               </Grid>
             ) : (
-              <Grid item container direction="column">
+              <Grid item container direction="column" rowSpacing={3}>
                 {airlineComplaints.map((complaint) => {
                   return (
                     <Grid item key={complaint.pk} sx={{ width: "800px" }}>
