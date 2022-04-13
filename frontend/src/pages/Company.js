@@ -177,7 +177,6 @@ const Company = () => {
             </Grid>
 
           }
-
           {!airport_admin &&
             <Grid item container spacing={3} xs={6} justifyContent="space-around">
 
@@ -221,10 +220,34 @@ const Company = () => {
 
           }
 
+          <Grid item>
+            <Dialog open={addDialogForm} onClose={handleAddDialogFormClose}>
+              <DialogTitle>Add a Flight</DialogTitle>
+              <DialogContent>
+                <DialogContentText sx={{ color: "text.primary" }}>
+                  To add a Company, please add the following information
+                </DialogContentText>
+                <FormControl sx={{ maxWidth: 200, padding: "10px" }}>
+                  <Input inputProps={{ min: 0 }} onChange={(event) => { setHotelName(event.target.value) }} />
+                  <FormHelperText sx={{ color: "text.primary" }}>Hotel Name</FormHelperText>
+                </FormControl>
+                <FormControl sx={{ maxWidth: 200, padding: "10px" }}>
+                  <Input inputProps={{ min: 0 }} onChange={(event) => { setLocation(event.target.value) }} />
+                  <FormHelperText sx={{ color: "text.primary" }}>Location</FormHelperText>
+                </FormControl>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleAddHotel}>Add</Button>
+                <Button onClick={handleAddDialogFormClose}>Cancel</Button>
+              </DialogActions>
+            </Dialog>
+          </Grid>
+
 
         </Grid >
 
-      )}
+      )
+      }
 
     </>
   );
