@@ -12,8 +12,6 @@ from . import models
 from . import serializers
 
 # REGISTRATION, AUTHENTICATION, AND AUTHORIZATION
-
-
 class PassengerCreate(APIView):
     permission_classes = [AllowAny]
 
@@ -28,7 +26,7 @@ class PassengerCreate(APIView):
 class BlacklistTokenView(APIView):
     permission_classes = [AllowAny]
 
-    def post(self, request):
+    def post(self, request, format=None):
         try:
             refresh_token = request.data['refresh_token']
             print(refresh_token)
@@ -41,7 +39,7 @@ class BlacklistTokenView(APIView):
 
 # USER
 class User(APIView):
-    def get(self, request):
+    def get(self, request, format=None):
         token = get_authorization_header(request).decode('utf-8')
         print(token)
         try:
@@ -55,27 +53,33 @@ class User(APIView):
         except jwt.exceptions.DecodeError as e:
             return Response({'error': 'Invalid token'}, status=status.HTTP_400_BAD_REQUEST)
 
+class IdUser(APIView):
+    def get(self, request, id, format=None):
+        user = models.User.objects.get(pk=id)
+        serializer = serializers.AllUserSerializer(user)
+        return Response(serializer.data)
+
 
 # PASSENGER
 class Passenger(APIView):
-    def get(self, request, email, format=None):
-        passenger = models.Passenger.objects.get(email=email)
+    def get(self, request, id, format=None):
+        passenger = models.Passenger.objects.get(pk=id)
         serializer = serializers.PassengerSerializer(passenger)
         return Response(serializer.data)
 
 
 # AIRPORT ADMIN
 class AirportAdmin(APIView):
-    def get(self, request, email, format=None):
-        airportAdmin = models.AirportAdmin.objects.get(email=email)
+    def get(self, request, id, format=None):
+        airportAdmin = models.AirportAdmin.objects.get(pk=id)
         serializer = serializers.AirportAdminSerializer(airportAdmin)
         return Response(serializer.data)
 
 
 # AIRLINE ADMIN
 class AirlineAdmin(APIView):
-    def get(self, request, email, format=None):
-        airlineAdmin = models.AirlineAdmin.objects.get(email=email)
+    def get(self, request, id, format=None):
+        airlineAdmin = models.AirlineAdmin.objects.get(pk=id)
         serializer = serializers.AirlineAdminSerializer(airlineAdmin)
         return Response(serializer.data)
 

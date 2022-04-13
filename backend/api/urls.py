@@ -18,18 +18,19 @@ urlpatterns = [
      # USER
      # get user
      path('user/', views.User.as_view()),
+     path('user/<int:id>/', views.IdUser.as_view()),
 
      # PASSENGER
      # get passenger
-     path('passenger/<slug:email>/', views.Passenger.as_view()),
+     path('passenger/<int:id>/', views.Passenger.as_view()),
 
      # AIRPORT ADMIN
      # get airport admin
-     path('airport-admin/<slug:email>/', views.AirportAdmin.as_view()),
+     path('airport-admin/<int:id>/', views.AirportAdmin.as_view()),
 
      # AIRLINE ADMIN
      # get airline admin
-     path('airline-admin/<slug:email>/', views.AirportAdmin.as_view()),
+     path('airline-admin/<int:id>/', views.AirportAdmin.as_view()),
 
      # FLIGHT
      # post flight

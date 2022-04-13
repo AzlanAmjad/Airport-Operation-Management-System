@@ -1,9 +1,9 @@
-import * as React from "react";
 import ArticleIcon from "@mui/icons-material/Article";
 import NoteAddIcon from "@mui/icons-material/NoteAdd";
-import { Tabs, Tab, Paper, Grid } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
-import { Route, Routes, useNavigate, useLocation } from "react-router-dom";
+import { Tabs, Tab, Paper, Grid } from "@mui/material";
+import { Route, Routes, useNavigate } from "react-router-dom";
+import { useState } from "react";
 import WelcomePassenger from "./WelcomePassenger";
 import FileComplaint from "./FileComplaint";
 import MyComplaints from "./MyComplaints";
@@ -21,14 +21,13 @@ function LinkTab(props) {
 }
 
 const PassengerDashboard = () => {
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
   const navigate = useNavigate();
-  const location = useLocation();
 
   return (
     <Grid
@@ -62,8 +61,16 @@ const PassengerDashboard = () => {
           />
         </Tabs>
       </Grid>
-      <Grid item xs={10} container>
-        <Paper elevation={12} sx={{ padding: "80px", margin: "60px", minHeight: "400px", minWidth: "80%"}}>
+      <Grid item container xs={10}>
+        <Paper
+          elevation={12}
+          sx={{
+            padding: "50px 100px",
+            margin: "60px",
+            minHeight: "400px",
+            minWidth: "80%",
+          }}
+        >
           <Routes>
             <Route path="welcome" element={<WelcomePassenger />} />
             <Route path="my-complaints" element={<MyComplaints />} />

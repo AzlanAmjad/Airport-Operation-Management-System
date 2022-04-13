@@ -2,8 +2,6 @@ from rest_framework import serializers
 from . import models
 
 # USER
-
-
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.User
@@ -14,11 +12,10 @@ class UserSerializer(serializers.ModelSerializer):
             'last_name'
         )
 
-
 class AllUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.User
-        fields = '__all__'
+        exclude = ('password',)
 
 
 # PASSENGER REGISTRATION
