@@ -16,7 +16,7 @@ const MyComplaints = () => {
 
   useEffect(async () => {
     try {
-      const passenger = await axiosInstance.get(`passenger/${id}`);
+      const passenger = await axiosInstance.get(`passenger/${id}/`);
       console.log(passenger.data)
       setPassenger(passenger.data)
     } catch (err) {

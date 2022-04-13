@@ -1,3 +1,4 @@
+from django.forms import CharField
 from rest_framework import serializers
 from . import models
 
@@ -133,10 +134,11 @@ class AirlineComplaintSerializer(serializers.ModelSerializer):
 
 class GetAirlineComplaintSerializer(serializers.ModelSerializer):
     passenger_email = serializers.EmailField(source='passenger.user.email')
+    airline_name = serializers.CharField(source='airline.name')
 
     class Meta:
         model = models.AirlineComplaint
-        fields = ('pk', 'description', 'admin', 'passenger_email', 'passenger')
+        fields = ('pk', 'description', 'admin', 'passenger_email', 'passenger', 'airline_name', 'airline')
 
 
 # AIRPLANE
