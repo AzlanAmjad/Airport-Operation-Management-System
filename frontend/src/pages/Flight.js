@@ -24,7 +24,6 @@ const Flight = () => {
     try {
       // get flight
       const flight = await axiosInstance.get(`flight/${id}`);
-      console.log(flight.data);
       setFlight(flight.data);
     } catch (err) {
       console.log(err);
@@ -33,7 +32,6 @@ const Flight = () => {
     try {
       // get fares
       const fares = await axiosInstance.get(`fares/${id}`);
-      console.log(fares.data);
       setFare(fares.data);
     } catch (err) {
       console.log(err);
