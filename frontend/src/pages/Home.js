@@ -246,7 +246,7 @@ const Home = () => {
                       rowSpacing={1}
                     >
                       <Grid item>
-                        <Typography>
+                        <Typography fontWeight="bold">
                           {moment(flight.dep_time)
                             .utc()
                             .format("( MMMM DD, YYYY | HH:MM UTC )")}{" "}
