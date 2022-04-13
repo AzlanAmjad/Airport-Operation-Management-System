@@ -147,6 +147,14 @@ class FlightSerializer(serializers.ModelSerializer):
         model = models.Flight
         fields = '__all__'
 
+class GetFlightsSerializer(serializers.ModelSerializer):
+    airline_name = serializers.CharField(source='airline.name')
+    destination_city = serializers.CharField(source='destination.city')
+
+    class Meta:
+        model = models.Flight
+        fields = ('id', 'airline', 'dep_time', 'arrival_time', 'destination', 'plane', 'airline_name', 'destination_city')
+
 
 # FARE
 class FareSerializer(serializers.ModelSerializer):
