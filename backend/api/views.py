@@ -208,7 +208,7 @@ class AirlineComplaint(APIView):
 class AirlineComplaints(APIView):
     def get(self, request, airline, format=None):
         complaints = models.AirlineComplaint.objects.filter(airline=airline)
-        serializer = serializers.GetAirlineComplaintSerializer(
+        serializer = serializers.AirlineComplaintSerializer(
             complaints, many=True)
 
         return Response(serializer.data)

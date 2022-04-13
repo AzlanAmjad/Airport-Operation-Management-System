@@ -14,27 +14,44 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Button from "@mui/material/Button";
 import axiosInstance from "../components/Axios";
-
+import { useSelector } from "react-redux";
+import { ClipLoader } from "react-spinners";
 
 
 const AirportComplaints = () => {
 
 
-
+    const { id } = useSelector((state) => state.user);
+    const [adminData, setAdminData] = useState([
+        { id: null, admin_id: null, user: null }
+    ]);
     const [rows, setRows] = useState([
-        { pk: null, description: null, admin: null, passenger_email: null }
+        { pk: null, description: null, admin: null, passenger_email: null, passenger: null }
     ]);
 
-    const resolveComplaint = async (pk, desc, email) => {
+    const [reload, setReload] = useState(false);
+    const [loading, setLoading] = useState(false);
+
+    const resolveComplaint = async (pk, desc, pass) => {
+
+        console.log(adminData);
         try {
             const result = await axiosInstance.put(`airport-complaint/${pk}/`, {
+
                 description: desc,
-                passenger_emai: email
+                passenger: pass,
+                admin: adminData['admin_id']
+
             });
 
             console.log(result);
+            if (reload) {
+                setReload(false);
+            }
+            else {
+                setReload(true);
+            }
 
-            this.forceUpdate();
 
         } catch (err) {
 
@@ -45,77 +62,97 @@ const AirportComplaints = () => {
 
     };
 
+    useEffect(async () => {
 
 
-    useEffect(() => {
-
-        async function fetchData() {
-            try {
+        try {
 
 
-                const allComplaints = await axiosInstance.get(`airport-complaints/`, {
+            const allComplaints = await axiosInstance.get(`airport-complaints/`, {
 
-                })
-                    .then((response) => {
-                        setRows(response.data);
-                    });
+            })
+                .then((response) => {
+                    setRows(response.data);
+                });
+            const adminID = await axiosInstance.get(`airport-admin/${id}/`)
+                .then((response) => {
+                    setAdminData(response.data);
+                });
+
+        } catch (e) {
+            console.error(e);
+        }
+
+        setLoading(false);
 
 
 
-            } catch (e) {
-                console.error(e);
-            }
-        };
-        fetchData();
-    }, []);
+
+    }, [reload]);
 
 
     return (
-        <Grid
-            container
-            justifyContent="center"
+        <>
+            {loading ? (
+                <Grid item>
+                    <ClipLoader loading={loading} size={70} />
+                </Grid>
+            ) : (
 
-        >
-            <Grid item xs={12}>
-                <Typography variant="h1" component="div" gutterBottom>
-                    YYC Internation Airport: Complaints
-                </Typography>
-            </Grid>
+                <Grid
+                    container
+                    justifyContent="center"
 
-            <Grid item>
+                >
+                    <Grid item xs={12}>
+                        <Typography variant="h1" component="div" gutterBottom>
+                            YYC Internation Airport: Complaints
+                        </Typography>
+                    </Grid>
 
-                <TableContainer component={Paper}>
-                    <Table sx={{ minWidth: 650 }}>
-                        <TableHead>
-                            <TableRow>
-                                <TableCell>Complaint ID</TableCell>
-                                <TableCell align="left">Passenger Email</TableCell>
-                                <TableCell align="left">Description</TableCell>
-                                <TableCell align="center">Resolve?</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {rows.map((row) => (
-                                <TableRow
-                                    key={row.pk}
-                                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                >
-                                    <TableCell align="center" >
-                                        {row.pk}
-                                    </TableCell>
-                                    <TableCell align="left">{row.passenger_email}</TableCell>
-                                    <TableCell align="left">{row.description}</TableCell>
-                                    <TableCell align="right">
-                                        <Button variant="contained" onClick={() => resolveComplaint(row.pk, row.description, row.passenger_email)} >Resolve</Button>
-                                    </TableCell>
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-            </Grid>
+                    <Grid item>
 
-        </Grid >
+                        <TableContainer component={Paper}>
+                            <Table sx={{ minWidth: 650 }}>
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell>Complaint ID</TableCell>
+                                        <TableCell align="left">Passenger Email</TableCell>
+                                        <TableCell align="left">Description</TableCell>
+                                        <TableCell align="left">Resolve?</TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {rows.map((row) => (
+                                        <TableRow
+                                            key={row.pk}
+                                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                        >
+                                            <TableCell align="center" >
+                                                {row.pk}
+                                            </TableCell>
+                                            <TableCell align="left">{row.passenger_email}</TableCell>
+                                            <TableCell align="left">{row.description}</TableCell>
+                                            <TableCell align="left">
+                                                {row.admin === null ? (
+
+                                                    <Button variant="contained" onClick={() => resolveComplaint(row.pk, row.description, row.passenger)} >Resolve</Button>
+                                                ) : (
+                                                    <Typography variant="h8">Resolved</Typography>
+                                                )}
+
+                                            </TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
+                    </Grid>
+
+                </Grid >
+            )
+            }
+        </>
     );
 }
 
