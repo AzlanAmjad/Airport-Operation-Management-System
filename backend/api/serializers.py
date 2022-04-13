@@ -99,7 +99,7 @@ class GetStaySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Stay
-        fields = ('pk', 'name', 'price', 'description', 'hotel_name')
+        fields = ('id', 'name', 'price', 'description', 'hotel_name')
 
 
 # AIRPORT COMPLAINT
