@@ -39,6 +39,7 @@ export const login = createAsyncThunk(
 
       // get the user
       const user = await axiosInstance.get("user/");
+      console.log(user.data);
       localStorage.setItem("email", user.data.email);
       localStorage.setItem("passenger", user.data.a_passenger);
       localStorage.setItem("airport_admin", user.data.an_airport_admin);
