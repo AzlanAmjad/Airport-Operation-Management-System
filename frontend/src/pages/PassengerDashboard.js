@@ -32,7 +32,7 @@ const PassengerDashboard = () => {
       item
       container
       direction="row"
-      justifyContent="space-evenly"
+      justifyContent="center"
       alignItems="center"
     >
       <Grid item xs={1} ml="100px">
@@ -54,7 +54,7 @@ const PassengerDashboard = () => {
           />
         </Tabs>
       </Grid>
-      <Grid item container xs={10}>
+      <Grid item container xs={8} py="30px">
         <Routes>
           <Route path="welcome" element={<WelcomePassenger />} />
           <Route path="complaints" element={<Complaints />} />

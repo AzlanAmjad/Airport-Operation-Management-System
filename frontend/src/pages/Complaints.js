@@ -98,7 +98,7 @@ const Complaints = () => {
   };
 
   return (
-    <Grid item container mx="60px" my="40px">
+    <Grid item container justifyContent="center" alignItems="center">
       {loading ? (
         <Grid item>
           <ClipLoader loading={loading} size={70} color={"#ffffff"} />
@@ -111,6 +111,8 @@ const Complaints = () => {
           justifyContent="flex-start"
           alignItems="flex-start"
           rowSpacing={5}
+          mb="10px"
+          px="70px"
         >
           <Grid item>
             <Typography variant="h5" fontWeight="bold">
@@ -156,7 +158,7 @@ const Complaints = () => {
               <Grid item>
                 <Typography variant="h6">Airport Complaint</Typography>
               </Grid>
-              <Grid item xs={12}>
+              <Grid item>
                 <TextField
                   placeholder="Complaint"
                   multiline
@@ -348,16 +350,38 @@ const Complaints = () => {
               <Typography variant="h6">Airport Complaints</Typography>
             </Grid>
             {airportComplaints.length === 0 ? (
-              <Grid item ml="20px">
+              <Grid item>
                 <Typography>No airport complaints</Typography>
               </Grid>
             ) : (
-              <Grid item container direction="column" ml="20px" rowSpacing={3}>
+              <Grid item container direction="column" rowSpacing={3}>
                 {airportComplaints.map((complaint) => {
                   return (
-                    <Grid item key={complaint.pk} sx={{ width: "80%" }}>
-                      <Paper elevation={12} sx={{ padding: "30px" }}>
-                        {complaint.description}
+                    <Grid item key={complaint.pk} sx={{ width: "800px" }}>
+                      <Paper elevation={12} sx={{ padding: "30px 50px" }}>
+                        <Grid
+                          container
+                          direction="column"
+                          alignItems="flex-start"
+                          rowSpacing={1}
+                        >
+                          <Grid item>
+                            {complaint.admin ? (
+                              <Typography fontWeight="bold">
+                                Resolved{" "}
+                              </Typography>
+                            ) : (
+                              <Typography fontWeight="bold">
+                                Not Resolved{" "}
+                              </Typography>
+                            )}
+                          </Grid>
+                          <Grid item>
+                            <Typography>
+                              Complaint: {complaint.description}
+                            </Typography>
+                          </Grid>
+                        </Grid>
                       </Paper>
                     </Grid>
                   );
@@ -376,15 +400,44 @@ const Complaints = () => {
               <Typography variant="h6">Airline Complaints</Typography>
             </Grid>
             {airlineComplaints.length === 0 ? (
-              <Grid item ml="20px">
+              <Grid item>
                 <Typography>No airline complaints</Typography>
               </Grid>
             ) : (
-              <Grid item container direction="column" ml="20px">
+              <Grid item container direction="column" rowSpacing={3}>
                 {airlineComplaints.map((complaint) => {
                   return (
-                    <Grid item key={complaint.pk}>
-                      {complaint.description}
+                    <Grid item key={complaint.pk} sx={{ width: "800px" }}>
+                      <Paper elevation={12} sx={{ padding: "30px 50px" }}>
+                        <Grid
+                          container
+                          direction="column"
+                          alignItems="flex-start"
+                          rowSpacing={1}
+                        >
+                          <Grid item>
+                            {complaint.admin ? (
+                              <Typography fontWeight="bold">
+                                Resolved{" "}
+                              </Typography>
+                            ) : (
+                              <Typography fontWeight="bold">
+                                Not Resolved{" "}
+                              </Typography>
+                            )}
+                          </Grid>
+                          <Grid item>
+                            <Typography>
+                              Against: {complaint.airline_name}
+                            </Typography>
+                          </Grid>
+                          <Grid item>
+                            <Typography>
+                              Complaint: {complaint.description}
+                            </Typography>
+                          </Grid>
+                        </Grid>
+                      </Paper>
                     </Grid>
                   );
                 })}

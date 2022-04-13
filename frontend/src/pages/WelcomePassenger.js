@@ -33,47 +33,49 @@ const WelcomePassenger = () => {
         minWidth: "80%",
       }}
     >
-      {" "}
-      {loading ? (
-        <Grid item>
-          <ClipLoader loading={loading} size={70} color={"#ffffff"} />
-        </Grid>
-      ) : (
-        <Grid
-          container
-          direction="column"
-          justifyContent="flex-start"
-          alignItems="flex-start"
-          rowSpacing={4}
-        >
+      <Grid item container justifyContent="center" alignItems="center">
+        {" "}
+        {loading ? (
           <Grid item>
-            <Typography variant="h5" fontWeight="bold">
-              Welcome to your account {user.first_name}!
-            </Typography>
+            <ClipLoader loading={loading} size={70} color={"#ffffff"} />
           </Grid>
+        ) : (
           <Grid
-            item
             container
             direction="column"
             justifyContent="flex-start"
             alignItems="flex-start"
-            rowSpacing={2}
+            rowSpacing={4}
           >
             <Grid item>
-              <Typography variant="h6">Your account information</Typography>
+              <Typography variant="h5" fontWeight="bold">
+                Welcome to your account {user.first_name}!
+              </Typography>
             </Grid>
-            <Grid item>
-              <Typography>Email: {user.email}</Typography>
-            </Grid>
-            <Grid item>
-              <Typography>First Name: {user.first_name}</Typography>
-            </Grid>
-            <Grid item>
-              <Typography>Last Name: {user.last_name}</Typography>
+            <Grid
+              item
+              container
+              direction="column"
+              justifyContent="flex-start"
+              alignItems="flex-start"
+              rowSpacing={2}
+            >
+              <Grid item>
+                <Typography variant="h6">Your account information</Typography>
+              </Grid>
+              <Grid item>
+                <Typography>Email: {user.email}</Typography>
+              </Grid>
+              <Grid item>
+                <Typography>First Name: {user.first_name}</Typography>
+              </Grid>
+              <Grid item>
+                <Typography>Last Name: {user.last_name}</Typography>
+              </Grid>
             </Grid>
           </Grid>
-        </Grid>
-      )}
+        )}
+      </Grid>
     </Paper>
   );
 };

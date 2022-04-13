@@ -3,8 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const passenger = localStorage.getItem("passenger") === "true";
 
 const initialState = passenger
-  ? { cart: true, quantity: 0, items: [] }
-  : { cart: false, quantity: 0, items: [] };
+  ? { cart: true, total: 0, quantity: 0, items: [] }
+  : { cart: false, total: 0, quantity: 0, items: [] };
 
 const cartSlice = createSlice({
   name: "cart",
@@ -14,6 +14,7 @@ const cartSlice = createSlice({
       if (state.cart === true) {
         state.items.push(action.payload);
         state.quantity += 1;
+        state.total += parseFloat(action.payload.price);
       }
     },
     remove(state, action) {
@@ -24,6 +25,7 @@ const cartSlice = createSlice({
         if (index != -1) {
           state.items.splice(index, 1);
           state.quantity -= 1;
+          state.total -= parseFloat(action.payload.price);
         }
       }
     },
@@ -34,10 +36,12 @@ const cartSlice = createSlice({
       state.cart = false;
       state.items = [];
       state.quantity = 0;
+      state.total = 0;
     },
     empty(state, action) {
       state.items = [];
       state.quantity = 0;
+      state.total = 0;
     },
   },
 });
