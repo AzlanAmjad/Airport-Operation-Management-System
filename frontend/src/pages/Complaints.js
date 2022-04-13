@@ -98,7 +98,7 @@ const Complaints = () => {
   };
 
   return (
-    <Grid item container mx="60px" my="40px">
+    <>
       {loading ? (
         <Grid item>
           <ClipLoader loading={loading} size={70} color={"#ffffff"} />
@@ -111,6 +111,9 @@ const Complaints = () => {
           justifyContent="flex-start"
           alignItems="flex-start"
           rowSpacing={5}
+          my="10px"
+          mx="60px"
+          px="70px"
         >
           <Grid item>
             <Typography variant="h5" fontWeight="bold">
@@ -156,7 +159,7 @@ const Complaints = () => {
               <Grid item>
                 <Typography variant="h6">Airport Complaint</Typography>
               </Grid>
-              <Grid item xs={12}>
+              <Grid item>
                 <TextField
                   placeholder="Complaint"
                   multiline
@@ -393,7 +396,7 @@ const Complaints = () => {
           </Grid>
         </Grid>
       )}
-    </Grid>
+    </>
   );
 };
 
