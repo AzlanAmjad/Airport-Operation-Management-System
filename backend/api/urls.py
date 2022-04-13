@@ -113,8 +113,8 @@ urlpatterns = [
      path('flights/<int:airline>/', views.AirlineFlights.as_view()),
      # get airline airplanes
      path('airplanes/<int:airline>/', views.AirlineAirplanes.as_view()),
-     # get passenger airport complaints
-     path('passenger/airport-complaints/<int:passenger>/', views.PassengerAirportComplaints.as_view()),
-     # get passenger airline complaints
-     path('passenger/airline-complaints/<int:passenger>/', views.PassengerAirlineComplaintsView.as_view()),
+     # get user airport complaints
+     path('passenger/airport-complaints/<int:user>/', views.PassengerAirportComplaints.as_view()),
+     # get user airline complaints
+     path('passenger/airline-complaints/<int:user>/', views.PassengerAirlineComplaintsView.as_view()),
 ]

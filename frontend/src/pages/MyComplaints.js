@@ -16,14 +16,26 @@ const MyComplaints = () => {
 
   useEffect(async () => {
     try {
-      const passenger = await axiosInstance.get(`passenger/${id}/`);
-      console.log(passenger.data)
-      setPassenger(passenger.data)
+      const airport_complaints = await axiosInstance.get(
+        `passenger/airport-complaints/${id}/`
+      );
+      console.log(airport_complaints.data);
+      setAirportComplaints(airport_complaints.data);
     } catch (err) {
       console.log(err);
     }
 
-    setLoading(false)
+    try {
+      const airline_complaints = await axiosInstance.get(
+        `passenger/airline-complaints/${id}/`
+      );
+      console.log(airline_complaints.data);
+      setAirlineComplaints(airline_complaints.data);
+    } catch (err) {
+      console.log(err);
+    }
+
+    setLoading(false);
   }, [id]);
 
   return (

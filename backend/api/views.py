@@ -360,13 +360,17 @@ class AirlineAirplanes(APIView):
         return Response(serializer.data)
 
 class PassengerAirportComplaints(APIView):
-    def get(self, request, passenger, format=None):
-        complaints = models.AirportComplaint.objects.filter(passenger=passenger)
+    def get(self, request, user, format=None):
+        passenger = models.Passenger.objects.get(user=user)
+        p_serializer = serializers.PassengerSerializer(passenger)
+        complaints = models.AirportComplaint.objects.filter(passenger=p_serializer.data['id'])
         serializer = serializers.GetAirportComplaintSerializer(complaints, many=True)
         return Response(serializer.data)
 
 class PassengerAirlineComplaintsView(APIView):
-    def get(self, request, passenger, format=None):
-        complaints = models.AirlineComplaint.objects.filter(passenger=passenger)
+    def get(self, request, user, format=None):
+        passenger = models.Passenger.objects.get(user=user)
+        p_serializer = serializers.PassengerSerializer(passenger)
+        complaints = models.AirlineComplaint.objects.filter(passenger=p_serializer.data['id'])
         serializer = serializers.GetAirlineComplaintSerializer(complaints, many=True)
         return Response(serializer.data)
