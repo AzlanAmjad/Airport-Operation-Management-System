@@ -91,7 +91,7 @@ class Passenger(models.Model):
         db_table = 'passenger'
 
     def __str__(self):
-        return f'({self.id}) {self.email}'
+        return f'({self.id}) (User: {self.user})'
 
 
 # Airport Admin model
@@ -103,7 +103,7 @@ class AirportAdmin(models.Model):
         db_table = 'airport_admin'
 
     def __str__(self):
-        return f'({self.id}) {self.email}'
+        return f'({self.id}) (User: {self.user})'
 
 
 # Airline model
@@ -128,7 +128,7 @@ class AirlineAdmin(models.Model):
         db_table = 'airline_admin'
 
     def __str__(self):
-        return f'({self.id}) {self.email}'
+        return f'({self.id}) (User: {self.user})'
 
 
 # Company model
