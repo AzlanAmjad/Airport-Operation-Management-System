@@ -98,7 +98,7 @@ const Complaints = () => {
   };
 
   return (
-    <>
+    <Grid item container justifyContent="center" alignItems="center">
       {loading ? (
         <Grid item>
           <ClipLoader loading={loading} size={70} color={"#ffffff"} />
@@ -111,8 +111,7 @@ const Complaints = () => {
           justifyContent="flex-start"
           alignItems="flex-start"
           rowSpacing={5}
-          my="10px"
-          mx="60px"
+          mb="10px"
           px="70px"
         >
           <Grid item>
@@ -351,14 +350,14 @@ const Complaints = () => {
               <Typography variant="h6">Airport Complaints</Typography>
             </Grid>
             {airportComplaints.length === 0 ? (
-              <Grid item ml="20px">
+              <Grid item>
                 <Typography>No airport complaints</Typography>
               </Grid>
             ) : (
-              <Grid item container direction="column" ml="20px" rowSpacing={3}>
+              <Grid item container direction="column" rowSpacing={3}>
                 {airportComplaints.map((complaint) => {
                   return (
-                    <Grid item key={complaint.pk} sx={{ width: "80%" }}>
+                    <Grid item key={complaint.pk} sx={{ width: "800px" }}>
                       <Paper elevation={12} sx={{ padding: "30px" }}>
                         {complaint.description}
                       </Paper>
@@ -379,15 +378,17 @@ const Complaints = () => {
               <Typography variant="h6">Airline Complaints</Typography>
             </Grid>
             {airlineComplaints.length === 0 ? (
-              <Grid item ml="20px">
+              <Grid item>
                 <Typography>No airline complaints</Typography>
               </Grid>
             ) : (
-              <Grid item container direction="column" ml="20px">
+              <Grid item container direction="column">
                 {airlineComplaints.map((complaint) => {
                   return (
-                    <Grid item key={complaint.pk}>
-                      {complaint.description}
+                    <Grid item key={complaint.pk} sx={{ width: "800px" }}>
+                      <Paper elevation={12} sx={{ padding: "30px" }}>
+                        {complaint.description}
+                      </Paper>
                     </Grid>
                   );
                 })}
@@ -396,7 +397,7 @@ const Complaints = () => {
           </Grid>
         </Grid>
       )}
-    </>
+    </Grid>
   );
 };
 
