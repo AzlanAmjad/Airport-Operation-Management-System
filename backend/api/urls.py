@@ -18,7 +18,7 @@ urlpatterns = [
      # USER
      # get user
      path('user/', views.User.as_view()),
-     path('user/<int:user>', views.IdUser.as_view()),
+     path('user/<int:user>/', views.IdUser.as_view()),
 
      # PASSENGER
      # get passenger

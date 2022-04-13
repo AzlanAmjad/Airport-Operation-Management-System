@@ -6,12 +6,14 @@ import axiosInstance from "../components/Axios";
 import { useSelector } from "react-redux";
 
 const WelcomePassenger = () => {
+  const { id } = useSelector((state) => state.user)
+
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState({});
 
-  /*useEffect(async () => {
+  useEffect(async () => {
     try {
-      const user = await axiosInstance.get(`user/${email}/`);
+      const user = await axiosInstance.get(`user/${id}/`);
       console.log(user.data);
       setUser(user.data);
     } catch (err) {
@@ -19,7 +21,7 @@ const WelcomePassenger = () => {
     }
 
     setLoading(false);
-  }, [email]);*/
+  }, [id]);
 
   return (
     <Grid container justifyContent="flex-start">
