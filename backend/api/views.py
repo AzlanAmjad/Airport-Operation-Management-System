@@ -74,7 +74,7 @@ class AirlineAdmin(APIView):
 class Flight(APIView):
     def get(self, request, flight, format=None):
         _flight = models.Flight.objects.get(pk=flight)
-        serializer = serializers.FlightSerializer(_flight)
+        serializer = serializers.GetFlightSerializer(_flight)
         return Response(serializer.data)
 
     def post(self, request, format=None):

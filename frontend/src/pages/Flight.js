@@ -49,7 +49,7 @@ const Flight = () => {
   useEffect(async () => {
     try {
       // get flight
-
+      
     }
     catch (err) {
 
