@@ -358,8 +358,30 @@ const Complaints = () => {
                 {airportComplaints.map((complaint) => {
                   return (
                     <Grid item key={complaint.pk} sx={{ width: "800px" }}>
-                      <Paper elevation={12} sx={{ padding: "30px" }}>
-                        {complaint.description}
+                      <Paper elevation={12} sx={{ padding: "30px 50px" }}>
+                        <Grid
+                          container
+                          direction="column"
+                          alignItems="flex-start"
+                          rowSpacing={1}
+                        >
+                          <Grid item>
+                            {complaint.admin ? (
+                              <Typography fontWeight="bold">
+                                Resolved{" "}
+                              </Typography>
+                            ) : (
+                              <Typography fontWeight="bold">
+                                Not Resolved{" "}
+                              </Typography>
+                            )}
+                          </Grid>
+                          <Grid item>
+                            <Typography>
+                              Complaint: {complaint.description}
+                            </Typography>
+                          </Grid>
+                        </Grid>
                       </Paper>
                     </Grid>
                   );
@@ -386,8 +408,35 @@ const Complaints = () => {
                 {airlineComplaints.map((complaint) => {
                   return (
                     <Grid item key={complaint.pk} sx={{ width: "800px" }}>
-                      <Paper elevation={12} sx={{ padding: "30px" }}>
-                        {complaint.description}
+                      <Paper elevation={12} sx={{ padding: "30px 50px" }}>
+                        <Grid
+                          container
+                          direction="column"
+                          alignItems="flex-start"
+                          rowSpacing={1}
+                        >
+                          <Grid item>
+                            {complaint.admin ? (
+                              <Typography fontWeight="bold">
+                                Resolved{" "}
+                              </Typography>
+                            ) : (
+                              <Typography fontWeight="bold">
+                                Not Resolved{" "}
+                              </Typography>
+                            )}
+                          </Grid>
+                          <Grid item>
+                            <Typography>
+                              Against: {complaint.airline_name}
+                            </Typography>
+                          </Grid>
+                          <Grid item>
+                            <Typography>
+                              Complaint: {complaint.description}
+                            </Typography>
+                          </Grid>
+                        </Grid>
                       </Paper>
                     </Grid>
                   );
