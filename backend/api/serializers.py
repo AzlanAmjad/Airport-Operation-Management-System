@@ -52,9 +52,11 @@ class AirportAdminSerializer(serializers.ModelSerializer):
 
 # AIRLINE ADMIN
 class AirlineAdminSerializer(serializers.ModelSerializer):
+    airline_name = serializers.CharField(source='airline.name')
+
     class Meta:
         model = models.AirlineAdmin
-        fields = '__all__'
+        fields = ('id', 'email', 'employee_id', 'airline', 'airline_name')
 
 
 # COMPANY

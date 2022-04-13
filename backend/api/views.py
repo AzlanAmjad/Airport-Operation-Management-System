@@ -54,20 +54,26 @@ class User(APIView):
 
 # PASSENGER
 class Passenger(APIView):
-    def get(self, request):
-        pass
+    def get(self, request, email, format=None):
+        passenger = models.Passenger.objects.get(email=email)
+        serializer = serializers.PassengerSerializer(passenger)
+        return Response(serializer.data)
 
 
 # AIRPORT ADMIN
 class AirportAdmin(APIView):
-    def get(self, request):
-        pass
+    def get(self, request, email, format=None):
+        airportAdmin = models.AirportAdmin.objects.get(email=email)
+        serializer = serializers.AirportAdminSerializer(airportAdmin)
+        return Response(serializer.data)
 
 
 # AIRLINE ADMIN
 class AirlineAdmin(APIView):
-    def get(self, request):
-        pass
+    def get(self, request, email, format=None):
+        airlineAdmin = models.AirlineAdmin.objects.get(email=email)
+        serializer = serializers.AirlineAdminSerializer(airlineAdmin)
+        return Response(serializer.data)
 
 
 # FLIGHT

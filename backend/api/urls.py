@@ -21,15 +21,15 @@ urlpatterns = [
 
      # PASSENGER
      # get passenger
-     path('passenger/', views.Passenger.as_view()),
+     path('passenger/<slug:email>/', views.Passenger.as_view()),
 
      # AIRPORT ADMIN
      # get airport admin
-     path('airport-admin/', views.AirportAdmin.as_view()),
+     path('airport-admin/<slug:email>/', views.AirportAdmin.as_view()),
 
      # AIRLINE ADMIN
      # get airline admin
-     path('airline-admin/', views.AirportAdmin.as_view()),
+     path('airline-admin/<slug:email>/', views.AirportAdmin.as_view()),
 
      # FLIGHT
      # post flight
