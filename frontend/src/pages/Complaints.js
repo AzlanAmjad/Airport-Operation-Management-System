@@ -60,6 +60,20 @@ const Complaints = () => {
     setLoading(false);
   }, [id]);
 
+  const submitAirportComplaint = async () => {
+    try {
+      const complaint = await axiosInstance.post("airport-complaint/", {
+        description: description,
+        passenger: passenger.id,
+      });
+      console.log(complaint.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const submitAirlineComplaint = async () => {};
+
   return (
     <>
       {loading ? (
@@ -166,7 +180,16 @@ const Complaints = () => {
                   </Button>
                 </Grid>
                 <Grid item>
-                  <Button variant="contained">Submit</Button>
+                  <Button
+                    variant="contained"
+                    onClick={() => {
+                      submitAirportComplaint();
+                      setFileAirportComplaint(false);
+                      setDescription(null);
+                    }}
+                  >
+                    Submit
+                  </Button>
                 </Grid>
               </Grid>
             </Grid>
@@ -268,13 +291,24 @@ const Complaints = () => {
                     onClick={() => {
                       setFileAirlineComplaint(false);
                       setDescription(null);
+                      setAirline(null);
                     }}
                   >
                     Cancel
                   </Button>
                 </Grid>
                 <Grid item>
-                  <Button variant="contained">Submit</Button>
+                  <Button
+                    variant="contained"
+                    onClick={() => {
+                      submitAirlineComplaint();
+                      setFileAirlineComplaint(false);
+                      setDescription(null);
+                      setAirline(null);
+                    }}
+                  >
+                    Submit
+                  </Button>
                 </Grid>
               </Grid>
             </Grid>

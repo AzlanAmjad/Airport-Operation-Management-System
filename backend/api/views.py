@@ -372,7 +372,7 @@ class PassengerAirportComplaints(APIView):
         serializer = serializers.GetAirportComplaintSerializer(complaints, many=True)
         return Response(serializer.data)
 
-class PassengerAirlineComplaintsView(APIView):
+class PassengerAirlineComplaints(APIView):
     def get(self, request, user, format=None):
         passenger = models.Passenger.objects.get(user=user)
         p_serializer = serializers.PassengerSerializer(passenger)

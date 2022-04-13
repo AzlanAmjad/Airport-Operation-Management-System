@@ -115,4 +115,8 @@ urlpatterns = [
      path('flights/<int:airline>/', views.AirlineFlights.as_view()),
      # get airline airplanes
      path('airplanes/<int:airline>/', views.AirlineAirplanes.as_view()),
+     # user airport complaints
+     path('passenger/airport-complaints/<int:user>/', views.PassengerAirportComplaints.as_view()),
+     # user airline complaints
+     path('passenger/airline-complaints/<int:user>/', views.PassengerAirlineComplaints.as_view()),
 ]
