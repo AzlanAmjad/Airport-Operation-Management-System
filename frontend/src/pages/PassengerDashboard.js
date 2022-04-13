@@ -4,7 +4,7 @@ import { Tabs, Tab, Paper, Grid } from "@mui/material";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import WelcomePassenger from "./WelcomePassenger";
-import MyComplaints from "./MyComplaints";
+import Complaints from "./Complaints";
 
 function LinkTab(props) {
   return (
@@ -48,9 +48,9 @@ const PassengerDashboard = () => {
             onClick={() => navigate("welcome")}
           />
           <LinkTab
-            label="My Complaints"
+            label="Complaints"
             icon={<ArticleIcon />}
-            onClick={() => navigate("my-complaints")}
+            onClick={() => navigate("complaints")}
           />
         </Tabs>
       </Grid>
@@ -66,7 +66,7 @@ const PassengerDashboard = () => {
         >
           <Routes>
             <Route path="welcome" element={<WelcomePassenger />} />
-            <Route path="my-complaints" element={<MyComplaints />} />
+            <Route path="complaints" element={<Complaints />} />
           </Routes>
         </Paper>
       </Grid>

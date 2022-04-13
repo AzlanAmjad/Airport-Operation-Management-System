@@ -5,7 +5,7 @@ import { Grid, Paper, Button, TextField, Autocomplete } from "@mui/material";
 import { ClipLoader } from "react-spinners";
 import axiosInstance from "../components/Axios";
 
-const MyComplaints = () => {
+const Complaints = () => {
   const [loading, setLoading] = useState(true);
   const [fileAirportComplaint, setFileAirportComplaint] = useState(false);
   const [fileAirlineComplaint, setFileAirlineComplaint] = useState(false);
@@ -329,4 +329,4 @@ const MyComplaints = () => {
   );
 };
 
-export default MyComplaints;
+export default Complaints;
