@@ -7,6 +7,7 @@ import axiosInstance from "../components/Axios";
 
 const Complaints = () => {
   const [loading, setLoading] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
   const [fileAirportComplaint, setFileAirportComplaint] = useState(false);
   const [fileAirlineComplaint, setFileAirlineComplaint] = useState(false);
 
@@ -58,9 +59,11 @@ const Complaints = () => {
     }
 
     setLoading(false);
-  }, [id]);
+  }, [id, submitting]);
 
   const submitAirportComplaint = async () => {
+    setSubmitting(true);
+
     try {
       const complaint = await axiosInstance.post("airport-complaint/", {
         description: description,
@@ -70,6 +73,8 @@ const Complaints = () => {
     } catch (err) {
       console.log(err);
     }
+
+    setSubmitting(false);
   };
 
   const submitAirlineComplaint = async () => {};
@@ -330,7 +335,11 @@ const Complaints = () => {
             ) : (
               <Grid item container direction="column" ml="20px">
                 {airportComplaints.map((complaint) => {
-                  return <Grid item>{complaint.description}</Grid>;
+                  return (
+                    <Grid item key={complaint.pk}>
+                      {complaint.description}
+                    </Grid>
+                  );
                 })}
               </Grid>
             )}
@@ -352,7 +361,11 @@ const Complaints = () => {
             ) : (
               <Grid item container direction="column" ml="20px">
                 {airlineComplaints.map((complaint) => {
-                  return <Grid item>{complaint.description}</Grid>;
+                  return (
+                    <Grid item key={complaint.pk}>
+                      {complaint.description}
+                    </Grid>
+                  );
                 })}
               </Grid>
             )}
