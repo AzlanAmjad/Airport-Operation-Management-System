@@ -10,8 +10,8 @@ import Signup from "./pages/Signup";
 import Flight from "./pages/Flight";
 import Company from "./pages/Company";
 import Reservation from "./pages/Reservation";
-import Cart from "./pages/Cart"
-import Checkout from "./pages/Checkout"
+import Cart from "./pages/Cart";
+import Checkout from "./pages/Checkout";
 import AirportDashboard from "./pages/AirportDashboard";
 import AirlineDashboard from "./pages/AirlineDashboard";
 import PassengerDashboard from "./pages/PassengerDashboard";
@@ -25,8 +25,8 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 
 // Date picker
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 
 const theme = createTheme({
   palette: {
@@ -94,10 +94,7 @@ function App() {
           >
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route
-                path="/:airline/:flight_num/flight-details"
-                element={<Flight />}
-              />
+              <Route path="/flight-details/:id" element={<Flight />} />
 
               <Route path="/reservation" element={<Reservation />} />
               <Route path="/reservation/:company" element={<Company />} />
@@ -115,7 +112,10 @@ function App() {
                 element={<AirportDashboard />}
               />
 
-              <Route path="/passenger-dashboard/*" element={<PassengerDashboard />} />
+              <Route
+                path="/passenger-dashboard/*"
+                element={<PassengerDashboard />}
+              />
 
               <Route path="/cart" element={<Cart />} />
               <Route path="/checkout" element={<Checkout />} />

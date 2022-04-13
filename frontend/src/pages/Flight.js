@@ -6,13 +6,12 @@ import { useParams, useNavigate } from "react-router-dom";
 const Flight = () => {
   const navigate = useNavigate();
 
-  const { airline, flight_num } = useParams();
-  const airline_name = airline.replace(/\++/g, " ");
+  const { id } = useParams();
 
   // fetch flight from API
   const [flight, setFlight] = useState({
-    flight_num: flight_num,
-    airline_name: airline_name,
+    flight_num: 3,
+    airline_name: "WestJet",
     dep_time: "1997-12-17 07:37:16-08",
     arrival_time: "1997-12-17 07:37:16-08",
     dest_code: "YYZ",

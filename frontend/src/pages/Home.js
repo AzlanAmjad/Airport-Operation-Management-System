@@ -269,13 +269,7 @@ const Home = () => {
                     <Grid item>
                       <IconButton
                         color="inherit"
-                        onClick={() =>
-                          navigate(
-                            `/${flight.airline_name.replace(/\s+/g, "+")}/${
-                              flight.flight_num
-                            }/flight-details`
-                          )
-                        }
+                        onClick={() => navigate(`/flight-details/${flight.id}`)}
                       >
                         <ChevronRightIcon fontSize="large" />
                       </IconButton>
