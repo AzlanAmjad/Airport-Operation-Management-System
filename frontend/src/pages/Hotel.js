@@ -22,10 +22,13 @@ import FormHelperText from '@mui/material/FormHelperText';
 import Input from "@mui/material/Input";
 import TextField from '@mui/material/TextField';
 import { ClipLoader } from "react-spinners";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import { CardActionArea } from "@mui/material";
+import { add } from "../features/cart/cartSlice";
+import { useNavigate } from "react-router-dom";
+
 
 const Hotel = () => {
 
@@ -38,6 +41,10 @@ const Hotel = () => {
             hotel_name: null
         }
     ]);
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const { passenger } = useSelector((state) => state.user);
 
     const { airport_admin } = useSelector((state) => state.user);
 
@@ -179,9 +186,6 @@ const Hotel = () => {
                                                             <Typography>{stay.price}</Typography>
                                                         </Grid>
                                                     </Grid>
-                                                    <Grid item>
-                                                        <Button variant="contained">Reserve</Button>
-                                                    </Grid>
                                                 </Grid>
                                             </Paper>
                                         </Grid>
@@ -254,7 +258,16 @@ const Hotel = () => {
                                                         </Grid>
                                                     </Grid>
                                                     <Grid item>
-                                                        <Button variant="contained">Reserve</Button>
+                                                        <Button variant="contained"
+                                                            onClick={() => {
+                                                                if (passenger) {
+                                                                    dispatch(add({ ...stay, type: "stay" }));
+                                                                } else {
+                                                                    navigate("/login");
+                                                                }
+                                                            }}
+                                                        >
+                                                            Reserve</Button>
                                                     </Grid>
                                                 </Grid>
                                             </Paper>
