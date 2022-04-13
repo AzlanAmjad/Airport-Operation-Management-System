@@ -18,11 +18,12 @@ import FormControl from '@mui/material/FormControl';
 import FormHelperText from '@mui/material/FormHelperText';
 import Input from "@mui/material/Input";
 import IconButton from '@mui/material/IconButton';
+import { ClipLoader } from "react-spinners";
+import { useSelector } from "react-redux";
 
 
 
 const Company = () => {
-  const [companyName, setCompanyName] = useState('');
 
   const { company } = useParams();
 
@@ -35,8 +36,12 @@ const Company = () => {
     }
   ]);
   const [hotelName, setHotelName] = useState('');
-  const [admin, setAdmin] = useState('yeye@hotmail.com');
+
+  const { airport_admin } = useSelector((state) => state.user);
+
   const [location, setLocation] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [reload, setReload] = useState(false);
 
   const [addDialogForm, setAddDialogForm] = useState(false);
   const handleAddDialogFormOpen = () => {
@@ -62,7 +67,12 @@ const Company = () => {
 
 
       setAddDialogForm(false);
-      this.forceUpdate();
+      if (reload) {
+        setReload(false);
+      }
+      else {
+        setReload(true);
+      }
     } catch (err) {
 
     }
@@ -73,96 +83,150 @@ const Company = () => {
 
 
 
-  useEffect(() => {
+  useEffect(async () => {
 
-    async function fetchData() {
-      try {
-        const allComplaints = await axiosInstance.get(`/hotels/${company}`, {
+    try {
+      const allComplaints = await axiosInstance.get(`/hotels/${company}`, {
 
-        })
-          .then((response) => {
-            setHotels(response.data);
-          });
-
+      })
+        .then((response) => {
+          setHotels(response.data);
+        });
 
 
-      } catch (e) {
-        console.error(e);
-      }
-    };
-    fetchData();
-    setCompanyName(hotels[0]['company_name']);
+
+    } catch (e) {
+      console.error(e);
+    }
+
+    setLoading(false);
 
 
-  }, []);
+  }, [reload]);
 
 
   const navigate = useNavigate();
 
   return (
-    <Grid container justifyContent="center">
-      <Grid item xs={12}>
-
-        <Typography variant="h1" component="div" gutterBottom>
-          {hotels[0]['company_name']}
-        </Typography>
-      </Grid>
-
-      <Grid item container direction="row" spacing={3} xs={6}>
-        {hotels.map((hotel) => {
-          return (
-            <Grid item>
-              <Card
-                sx={{
-                  minWidth: 300,
-                  maxWidth: 300,
-                  backgroundColor: "background.paper",
-                }}
-              >
-                <CardActionArea onClick={() => navigate(`/reservation/${company}/${hotel.pk}`)}>
-                  <CardContent>
-                    <Typography gutterBottom variant="h2">{hotel.name}</Typography>
-                    <Typography gutterBottom variant="h6">{hotel.location}</Typography>
-                  </CardContent>
-                </CardActionArea>
-              </Card>
-            </Grid>
-          );
-        })}
+    <>
+      {loading ? (
         <Grid item>
-          <Card sx={{ maxWidth: 300, minWidth: 300 }}>
-            <CardActionArea onClick={handleAddDialogFormOpen}>
-              <CardContent sx={{ padding: 4.5 }}>
-                <AddIcon fontSize="large" />
-              </CardContent>
-            </CardActionArea>
-          </Card>
+          <ClipLoader loading={loading} size={70} />
         </Grid>
-      </Grid>
+      ) : (
 
-      <Grid item>
-        <Dialog open={addDialogForm} onClose={handleAddDialogFormClose}>
-          <DialogTitle>Add a Flight</DialogTitle>
-          <DialogContent>
-            <DialogContentText sx={{ color: "text.primary" }}>
-              To add a Company, please add the following information
-            </DialogContentText>
-            <FormControl sx={{ maxWidth: 200, padding: "10px" }}>
-              <Input inputProps={{ min: 0 }} onChange={(event) => { setHotelName(event.target.value) }} />
-              <FormHelperText sx={{ color: "text.primary" }}>Hotel Name</FormHelperText>
-            </FormControl>
-            <FormControl sx={{ maxWidth: 200, padding: "10px" }}>
-              <Input type="number" inputProps={{ min: 0 }} onChange={(event) => { setLocation(event.target.value) }} />
-              <FormHelperText sx={{ color: "text.primary" }}>Location</FormHelperText>
-            </FormControl>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleAddHotel}>Add</Button>
-            <Button onClick={handleAddDialogFormClose}>Cancel</Button>
-          </DialogActions>
-        </Dialog>
-      </Grid>
-    </Grid >
+        <Grid container justifyContent="center" spacing={5}>
+
+          {airport_admin &&
+            <Grid item container spacing={3} xs={6} justifyContent="space-around">
+
+              {hotels.length === 0 ? (
+                <Grid item>
+                  <Card sx={{ maxWidth: 300, minWidth: 300 }}>
+                    <CardActionArea onClick={handleAddDialogFormOpen}>
+                      <CardContent sx={{ padding: 4.5 }}>
+                        <AddIcon fontSize="large" />
+                      </CardContent>
+                    </CardActionArea>
+                  </Card>
+                </Grid>
+              ) : (
+                <Grid item xs={12}>
+                  <Typography variant="h1" component="div" gutterBottom>
+                    {hotels[0]['company_name']}
+                  </Typography>
+                </Grid>
+              )}
+
+
+              {hotels.map((hotel) => {
+                return (
+                  <Grid item>
+                    <Card
+                      sx={{
+                        minWidth: 300,
+                        maxWidth: 300,
+                        backgroundColor: "background.paper",
+                      }}
+                    >
+                      <CardActionArea onClick={() => navigate(`/reservation/${company}/${hotel.pk}`)}>
+                        <CardContent>
+                          <Typography gutterBottom variant="h2">{hotel.name}</Typography>
+                          <Typography gutterBottom variant="h6">{hotel.location}</Typography>
+                        </CardContent>
+                      </CardActionArea>
+                    </Card>
+                  </Grid>
+                );
+              })}
+
+              {hotels.length > 0 &&
+
+                <Grid item>
+                  <Card sx={{ maxWidth: 300, minWidth: 300 }}>
+                    <CardActionArea onClick={handleAddDialogFormOpen}>
+                      <CardContent sx={{ padding: 4.5 }}>
+                        <AddIcon fontSize="large" />
+                      </CardContent>
+                    </CardActionArea>
+                  </Card>
+                </Grid>
+
+              }
+
+            </Grid>
+
+          }
+
+          {!airport_admin &&
+            <Grid item container spacing={3} xs={6} justifyContent="space-around">
+
+              {hotels.length === 0 ? (
+                <Grid item xs={12}>
+                  <Typography variant="h1" component="div" gutterBottom>
+                    Uh Oh! No Hotels were found :(
+                  </Typography>
+                </Grid>
+              ) : (
+                <Grid item xs={12}>
+                  <Typography variant="h1" component="div" gutterBottom>
+                    {hotels[0]['company_name']}
+                  </Typography>
+                </Grid>
+              )}
+
+
+              {hotels.map((hotel) => {
+                return (
+                  <Grid item>
+                    <Card
+                      sx={{
+                        minWidth: 300,
+                        maxWidth: 300,
+                        backgroundColor: "background.paper",
+                      }}
+                    >
+                      <CardActionArea onClick={() => navigate(`/reservation/${company}/${hotel.pk}`)}>
+                        <CardContent>
+                          <Typography gutterBottom variant="h2">{hotel.name}</Typography>
+                          <Typography gutterBottom variant="h6">{hotel.location}</Typography>
+                        </CardContent>
+                      </CardActionArea>
+                    </Card>
+                  </Grid>
+                );
+              })}
+
+            </Grid>
+
+          }
+
+
+        </Grid >
+
+      )}
+
+    </>
   );
 };
 

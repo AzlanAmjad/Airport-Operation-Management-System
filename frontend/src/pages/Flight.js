@@ -143,6 +143,7 @@ const Flight = () => {
                           </Typography>
                         </Grid>
                       </Grid>
+
                       {!airport_admin && !airline_admin && (
                         <Grid item mr={2}>
                           <IconButton
@@ -159,6 +160,7 @@ const Flight = () => {
                           </IconButton>
                         </Grid>
                       )}
+
                     </Grid>
                   </Paper>
                 </Grid>
