@@ -63,6 +63,7 @@ const Flights = () => {
   const [premEcon, setPremEcon] = useState('');
   const [business, setBusiness] = useState('');
   const [firstClass, setFirstClass] = useState('');
+  const [tickets, setTickets] = useState('');
 
   const [addDialogForm, setAddDialogForm] = useState(false);
   const [editDialogForm, setEditDialogForm] = useState(false);
@@ -93,8 +94,6 @@ const Flights = () => {
         plane: planeID
 
       });
-      console.log(destCode + " " + planeID);
-      console.log(result.data);
 
 
       if (reload) {
@@ -110,17 +109,40 @@ const Flights = () => {
 
 
   };
-  const delay = ms => new Promise(res => setTimeout(res, ms));
   const handleEditSave = async () => {
     try {
-      const result = await axiosInstance.put(`flight/${editFlight}/`, {
+      const econClass = await axiosInstance.post(`fare/`, {
 
-        dep_time: departure,
-        arrival_time: arrival,
-        airline: adminInfo['airline']
+        price: econ,
+        cabin: 'Economy',
+        tickets_quantity: tickets,
+        flight: editFlight,
 
       });
-      console.log(result.data);
+      const premEconClass = await axiosInstance.post(`fare/`, {
+
+        price: premEcon,
+        cabin: 'Premium Economy',
+        tickets_quantity: tickets,
+        flight: editFlight,
+
+      });
+      const businessClass = await axiosInstance.post(`fare/`, {
+
+        price: business,
+        cabin: 'Business',
+        tickets_quantity: tickets,
+        flight: editFlight,
+
+      });
+      const _firstClass = await axiosInstance.post(`fare/`, {
+
+        price: firstClass,
+        cabin: 'First',
+        tickets_quantity: tickets,
+        flight: editFlight,
+
+      });
 
       setEditDialogForm(false);
       if (reload) {
@@ -355,6 +377,20 @@ const Flights = () => {
                     ))}
                   </Select>
                 </FormControl>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleAddFlight}>Add</Button>
+                <Button onClick={handleAddDialogFormClose}>Cancel</Button>
+              </DialogActions>
+            </Dialog>
+
+            {/*For editing a flight*/}
+            <Dialog open={editDialogForm} onClose={handleEditDialogFormClose}>
+              <DialogTitle>Edit a Flight</DialogTitle>
+              <DialogContent>
+                <DialogContentText sx={{ color: "text.primary" }}>
+                  To edit flight timings, please update following information:
+                </DialogContentText>
                 <FormControl sx={{ maxWidth: 120, padding: "10px" }}>
                   <Input type="number" inputProps={{ min: 0 }} onChange={(event) => { setEcon(event.target.value) }} />
                   <FormHelperText sx={{ color: "text.primary" }}>Economy Class</FormHelperText>
@@ -371,80 +407,9 @@ const Flights = () => {
                   <Input type="number" inputProps={{ min: 0 }} onChange={(event) => { setFirstClass(event.target.value) }} />
                   <FormHelperText sx={{ color: "text.primary" }}>First Class</FormHelperText>
                 </FormControl>
-              </DialogContent>
-              <DialogActions>
-                <Button onClick={handleAddFlight}>Add</Button>
-                <Button onClick={handleAddDialogFormClose}>Cancel</Button>
-              </DialogActions>
-            </Dialog>
-
-            {/*For editing a flight*/}
-            <Dialog open={editDialogForm} onClose={handleEditDialogFormClose}>
-              <DialogTitle>Edit a Flight</DialogTitle>
-              <DialogContent>
-                <DialogContentText sx={{ color: "text.primary" }}>
-                  To edit flight timings, please update following information:
-                </DialogContentText>
-                <FormControl sx={{ minWidth: 100, padding: "5px" }}>
-                  <DateTimePicker
-                    value={arrival}
-                    onChange={(newArrival) => {
-                      setArrival(newArrival);
-                    }}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        variant="outlined"
-                        placeholder="Departure Date"
-                        sx={{
-                          "& .MuiOutlinedInput-notchedOutline": {
-                            borderColor: "white",
-                          },
-                          "&:hover .MuiOutlinedInput-notchedOutline": {
-                            borderColor: "red",
-                          },
-                          "&.MuiOutlinedInput-notchedOutline.Mui-focused": {
-                            borderColor: "red",
-                          },
-                          "& .MuiButtonBase-root.MuiIconButton-root": {
-                            color: "white",
-                          },
-                        }}
-                      />
-                    )}
-                  />
-                  <FormHelperText sx={{ color: "text.primary" }}>Arrival</FormHelperText>
-                </FormControl>
-                <FormControl sx={{ minWidth: 100, padding: "5px" }}>
-                  <DateTimePicker
-                    value={departure}
-                    onChange={(newDeparture) => {
-                      setDeparture(newDeparture);
-                      console.log(departure);
-                    }}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        variant="outlined"
-                        placeholder="Departure Date"
-                        sx={{
-                          "& .MuiOutlinedInput-notchedOutline": {
-                            borderColor: "white",
-                          },
-                          "&:hover .MuiOutlinedInput-notchedOutline": {
-                            borderColor: "red",
-                          },
-                          "&.MuiOutlinedInput-notchedOutline.Mui-focused": {
-                            borderColor: "red",
-                          },
-                          "& .MuiButtonBase-root.MuiIconButton-root": {
-                            color: "white",
-                          },
-                        }}
-                      />
-                    )}
-                  />
-                  <FormHelperText sx={{ color: "text.primary" }}>Departure</FormHelperText>
+                <FormControl sx={{ maxWidth: 120, padding: "10px" }}>
+                  <Input type="number" inputProps={{ min: 0 }} onChange={(event) => { setTickets(event.target.value) }} />
+                  <FormHelperText sx={{ color: "text.primary" }}>Tickets</FormHelperText>
                 </FormControl>
               </DialogContent>
               <DialogActions>
