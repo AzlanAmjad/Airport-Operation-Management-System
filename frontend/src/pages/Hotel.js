@@ -23,6 +23,9 @@ import Input from "@mui/material/Input";
 import TextField from '@mui/material/TextField';
 import { ClipLoader } from "react-spinners";
 import { useSelector } from "react-redux";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import { CardActionArea } from "@mui/material";
 
 const Hotel = () => {
 
@@ -67,7 +70,12 @@ const Hotel = () => {
             });
             console.log(result.data);
             setAddDialogForm(false);
-            setReload(true);
+            if (reload) {
+                setReload(false);
+            }
+            else {
+                setReload(true);
+            }
         } catch (err) {
 
         }
@@ -94,6 +102,7 @@ const Hotel = () => {
         }
 
         setLoading(false);
+        console.log(stays.length);
     }, [reload]);
 
 
@@ -107,109 +116,153 @@ const Hotel = () => {
                     <ClipLoader loading={loading} size={70} />
                 </Grid>
             ) : (
+
+
                 <Grid container justifyContent="center">
-                    <Grid item xs={12}>
-                        <Typography variant="h1" component="div" gutterBottom>
-                            {stays[0]['hotel_name']}
-                        </Typography>
-                    </Grid>
-                    {airport_admin && <Grid container justifyContent="center">
-                        <Grid item container direction="column" spacing={2} xs={6}>
-                            {stays.map((stay) => {
-                                return (
 
-                                    <Grid
-                                        item
-                                        sx={{ width: "100%" }}
-                                    >
-                                        <Paper elevation={12} sx={{ padding: "30px" }}>
-                                            <Grid
-                                                container
-                                                direction="row"
-                                                alignItems="center"
-                                                justifyContent="space-between"
-                                                wrap="nowrap"
-                                            >
+                    {airport_admin &&
+
+                        <Grid container justifyContent="center">
+
+
+                            {stays.length === 0 ? (
+                                <Grid item xs={12}>
+                                    <Card sx={{ maxWidth: 300, minWidth: 300 }}>
+                                        <CardActionArea onClick={handleAddDialogFormOpen}>
+                                            <CardContent sx={{ padding: 4.5 }}>
+                                                <AddIcon fontSize="large" />
+                                            </CardContent>
+                                        </CardActionArea>
+                                    </Card>
+                                </Grid>
+                            ) : (
+                                <Grid item xs={12}>
+                                    <Typography variant="h1" component="div" gutterBottom>
+                                        {stays[0]['hotel_name']}
+                                    </Typography>
+                                </Grid>
+                            )}
+                            < Grid item container direction="column" spacing={2} xs={6}>
+
+                                {stays.map((stay) => {
+                                    return (
+
+                                        <Grid
+                                            item
+                                            sx={{ width: "100%" }}
+                                        >
+                                            <Paper elevation={12} sx={{ padding: "30px" }}>
                                                 <Grid
-                                                    item
                                                     container
-                                                    direction="column"
-                                                    alignItems="flex-start"
-                                                    justifyContent="space-evenly"
-                                                    rowSpacing={1}
+                                                    direction="row"
+                                                    alignItems="center"
+                                                    justifyContent="space-between"
+                                                    wrap="nowrap"
                                                 >
-                                                    <Grid item>
-                                                        <Typography variant="h2" >
-                                                            {stay.name}
-                                                        </Typography>
+                                                    <Grid
+                                                        item
+                                                        container
+                                                        direction="column"
+                                                        alignItems="flex-start"
+                                                        justifyContent="space-evenly"
+                                                        rowSpacing={1}
+                                                    >
+                                                        <Grid item>
+                                                            <Typography variant="h2" >
+                                                                {stay.name}
+                                                            </Typography>
+                                                        </Grid>
+                                                        <Grid item>
+                                                            <Typography>{stay.description}</Typography>
+                                                        </Grid>
+                                                        <Grid item>
+                                                            <Typography>{stay.price}</Typography>
+                                                        </Grid>
                                                     </Grid>
                                                     <Grid item>
-                                                        <Typography>{stay.description}</Typography>
-                                                    </Grid>
-                                                    <Grid item>
-                                                        <Typography>{stay.price}</Typography>
+                                                        <Button variant="contained">Reserve</Button>
                                                     </Grid>
                                                 </Grid>
-                                                <Grid item>
-                                                    <Button variant="contained">Reserve</Button>
-                                                </Grid>
-                                            </Grid>
-                                        </Paper>
-                                    </Grid>
-                                )
-                            })}
+                                            </Paper>
+                                        </Grid>
+                                    )
+                                })}
 
-                            <IconButton size="large" sx={{ color: "white" }} onClick={handleAddDialogFormOpen}><AddIcon fontSize="inherit" /></IconButton>
+                                {stays.length > 0 &&
+                                    <IconButton size="large" sx={{ color: "white" }} onClick={handleAddDialogFormOpen}><AddIcon fontSize="inherit" /></IconButton>
 
+                                }
+                            </Grid>
                         </Grid>
-                    </Grid>
                     }
-                    {!airport_admin &&
-                        <Grid item container direction="column" spacing={2} xs={6}>
-                            {stays.map((stay) => {
-                                return (
 
-                                    <Grid
-                                        item
-                                        sx={{ width: "100%" }}
-                                    >
-                                        <Paper elevation={12} sx={{ padding: "30px" }}>
-                                            <Grid
-                                                container
-                                                direction="row"
-                                                alignItems="center"
-                                                justifyContent="space-between"
-                                                wrap="nowrap"
-                                            >
-                                                <Grid
-                                                    item
-                                                    container
-                                                    direction="column"
-                                                    alignItems="flex-start"
-                                                    justifyContent="space-evenly"
-                                                    rowSpacing={1}
-                                                >
-                                                    <Grid item>
-                                                        <Typography variant="h2">
-                                                            {stay.name}
-                                                        </Typography>
-                                                    </Grid>
-                                                    <Grid item>
-                                                        <Typography>{stay.description}</Typography>
-                                                    </Grid>
-                                                    <Grid item>
-                                                        <Typography>{stay.price}</Typography>
-                                                    </Grid>
-                                                </Grid>
-                                                <Grid item>
-                                                    <Button variant="contained">Reserve</Button>
-                                                </Grid>
-                                            </Grid>
-                                        </Paper>
+
+                    {!airport_admin &&
+
+                        <>
+                            {
+                                stays.length === 0 ? (
+                                    <Grid item xs={12}>
+                                        <Typography variant="h1" component="div" gutterBottom>
+                                            Uh Oh! Someones had a little mess up and forgot to add stays! (Sajid mayhaps)
+                                        </Typography>
+                                    </Grid>
+                                ) : (
+                                    <Grid item xs={12}>
+                                        <Typography variant="h1" component="div" gutterBottom>
+                                            {stays[0]['hotel_name']}
+                                        </Typography>
                                     </Grid>
                                 )
-                            })}
-                        </Grid>
+                            }
+
+                            < Grid item container direction="column" spacing={2} xs={6}>
+
+                                {stays.map((stay) => {
+                                    return (
+
+                                        <Grid
+                                            item
+                                            sx={{ width: "100%" }}
+                                        >
+                                            <Paper elevation={12} sx={{ padding: "30px" }}>
+                                                <Grid
+                                                    container
+                                                    direction="row"
+                                                    alignItems="center"
+                                                    justifyContent="space-between"
+                                                    wrap="nowrap"
+                                                >
+                                                    <Grid
+                                                        item
+                                                        container
+                                                        direction="column"
+                                                        alignItems="flex-start"
+                                                        justifyContent="space-evenly"
+                                                        rowSpacing={1}
+                                                    >
+                                                        <Grid item>
+                                                            <Typography variant="h2">
+                                                                {stay.name}
+                                                            </Typography>
+                                                        </Grid>
+                                                        <Grid item>
+                                                            <Typography>{stay.description}</Typography>
+                                                        </Grid>
+                                                        <Grid item>
+                                                            <Typography>{stay.price}</Typography>
+                                                        </Grid>
+                                                    </Grid>
+                                                    <Grid item>
+                                                        <Button variant="contained">Reserve</Button>
+                                                    </Grid>
+                                                </Grid>
+                                            </Paper>
+                                        </Grid>
+                                    )
+                                })}
+                            </Grid>
+                        </>
                     }
 
                     <Grid itemx xs={12}>
@@ -267,7 +320,8 @@ const Hotel = () => {
 
                 </Grid >
 
-            )}
+            )
+            }
         </>
 
 

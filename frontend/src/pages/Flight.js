@@ -137,7 +137,7 @@ const Flight = () => {
                         </Grid>
                       </Grid>
                       <Grid item mr={2}>
-                        <IconButton color="inherit" onClick={() => {}}>
+                        <IconButton color="inherit" onClick={() => { }}>
                           <AddShoppingCartIcon fontSize="large" />
                         </IconButton>
                       </Grid>
