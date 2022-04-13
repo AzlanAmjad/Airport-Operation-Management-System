@@ -48,6 +48,8 @@ urlpatterns = [
      # BOOKS
      # POST books
      path('books/', views.Books.as_view()),
+     # POST list of books
+     path('books-list/', views.BooksCreateView.as_view()),
 
      # TRANSACTION
      # POST transaction
