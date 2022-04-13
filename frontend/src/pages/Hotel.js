@@ -4,7 +4,6 @@ import {
     Button,
     Typography,
     IconButton,
-    getListItemSecondaryActionClassesUtilityClass,
 } from "@mui/material";
 import * as React from "react";
 // state management
@@ -20,7 +19,8 @@ import DialogTitle from '@mui/material/DialogTitle';
 import FormControl from '@mui/material/FormControl';
 import FormHelperText from '@mui/material/FormHelperText';
 import Input from "@mui/material/Input";
-
+import TextField from '@mui/material/TextField';
+import { ClipLoader } from "react-spinners";
 
 
 const Hotel = () => {
@@ -31,12 +31,13 @@ const Hotel = () => {
             name: null,
             price: null,
             description: null,
+            hotel_name: null
         }
     ]);
 
     const [isAdmin, setIsAdmin] = useState(true);
 
-    const hotel = useParams();
+    const { hotel } = useParams();
 
     const [addDialogForm, setAddDialogForm] = useState(false);
     const handleAddDialogFormOpen = () => {
@@ -50,15 +51,36 @@ const Hotel = () => {
     const [price, setPrice] = useState('');
     const [description, setDescription] = useState('');
     const [hotelName, setHotelName] = useState('');
+    const [reload, setReload] = useState(false);
+    const [loading, setLoading] = useState(false); 
+
+    const handleAddStay = async () => {
+        try {
+
+            const result = await axiosInstance.post("stay/", {
+
+                name: stayName,
+                price: price,
+                description: description,
+                hotel: hotel,
+
+            });
+            console.log(result.data);
+            setAddDialogForm(false);
+            setReload(true);
+        } catch (err) {
+
+        }
 
 
+    };
 
 
     useEffect(() => {
 
         async function fetchData() {
             try {
-                const allComplaints = await axiosInstance.get(`/stays/${hotel.hotel}`, {
+                const allComplaints = await axiosInstance.get(`/stays/${hotel}`, {
 
                 })
                     .then((response) => {
@@ -72,19 +94,27 @@ const Hotel = () => {
             }
         };
         fetchData();
-        console.log(hotel);
 
+        setHotelName(stays[0]['hotel_name']);
+        setLoading(false); 
 
-    }, []);
+    }, [reload]);
 
 
 
 
     return (
+        <>
+
+{loading ? (
+        <Grid item>
+          <ClipLoader loading={loading} size={70} />
+        </Grid>
+      ) : (
         <Grid container justifyContent="center">
             <Grid item xs={12}>
                 <Typography variant="h1" component="div" gutterBottom>
-                    HotelName
+                    {hotelName}
                 </Typography>
             </Grid>
             {isAdmin && <Grid container justifyContent="center">
@@ -186,10 +216,63 @@ const Hotel = () => {
                 </Grid>
             }
 
+            <Grid itemx xs={12}>
+                <Dialog open={addDialogForm} onClose={handleAddDialogFormClose}>
+                    <DialogTitle>Add a Stay</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText sx={{ color: "text.primary" }}>
+                            To add a Stay, please add the following information
+                        </DialogContentText>
+                        <FormControl sx={{ maxWidth: 200, padding: "10px" }}>
+                            <Input inputProps={{ min: 0 }} onChange={(event) => { setStayName(event.target.value) }} />
+                            <FormHelperText sx={{ color: "text.primary" }}>Stay Name</FormHelperText>
+                        </FormControl>
+                        <FormControl sx={{ maxWidth: 100, padding: "10px" }}>
+                            <Input type="number" inputProps={{ min: 0 }} onChange={(event) => { setPrice(event.target.value) }} />
+                            <FormHelperText sx={{ color: "text.primary" }}>Price ($)</FormHelperText>
+                        </FormControl>
 
+                        <FormControl>
+                            <TextField
+                                label="Description"
+                                multiline
+                                variant="outlined"
+                                sx={{
+                                    "& .MuiOutlinedInput-notchedOutline": {
+                                        borderColor: "white",
+                                    },
+                                    "&:hover .MuiOutlinedInput-notchedOutline": {
+                                        borderColor: "red",
+                                    },
+                                    "&.MuiOutlinedInput-notchedOutline.Mui-focused": {
+                                        borderColor: "red",
+                                    },
+                                    "& .MuiButtonBase-root.MuiIconButton-root": {
+                                        color: "white",
+                                    },
+                                    minWidth: 550
+                                }
+                                }
+                                rows={4}
+                                InputLabelProps={{
+                                    style: { color: 'white' },
+                                }}
+                                onChange={(event) => { setDescription(event.target.value) }}
+                            />
+                        </FormControl>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={handleAddStay}>Add</Button>
+                        <Button onClick={handleAddDialogFormClose}>Cancel</Button>
+                    </DialogActions>
+                </Dialog>
+            </Grid>
 
 
         </Grid >
+
+      )}
+      </>
 
 
     );
