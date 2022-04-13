@@ -2,6 +2,8 @@ from rest_framework import serializers
 from . import models
 
 # USER
+
+
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.User
@@ -11,6 +13,7 @@ class UserSerializer(serializers.ModelSerializer):
             'first_name',
             'last_name'
         )
+
 
 class AllUserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -74,6 +77,7 @@ class GetHotelSerializer(serializers.ModelSerializer):
         model = models.Hotel
         fields = ('pk', 'name', 'location', 'company_name')
 
+
 class HotelSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Hotel
@@ -94,11 +98,20 @@ class StaySerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class GetStaySerializer(serializers.ModelSerializer):
+    hotel_name = serializers.CharField(source='hotel.name')
+
+    class Meta:
+        model = models.Stay
+        fields = ('pk', 'name', 'price', 'description', 'hotel_name')
+
+
 # AIRPORT COMPLAINT
 class AirportComplaintSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.AirportComplaint
         fields = '__all__'
+
 
 class GetAirportComplaintSerializer(serializers.ModelSerializer):
     passenger_email = serializers.EmailField(source='passenger.email')
@@ -120,6 +133,7 @@ class AirlineComplaintSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.AirlineComplaint
         fields = '__all__'
+
 
 class GetAirlineComplaintSerializer(serializers.ModelSerializer):
     passenger_email = serializers.EmailField(source='passenger.email')
@@ -149,15 +163,19 @@ class FlightSerializer(serializers.ModelSerializer):
         model = models.Flight
         fields = '__all__'
 
+
 class GetFlightSerializer(serializers.ModelSerializer):
     airline_name = serializers.CharField(source='airline.name')
     destination_city = serializers.CharField(source='destination.city')
 
     class Meta:
         model = models.Flight
-        fields = ('id', 'airline', 'dep_time', 'arrival_time', 'destination', 'plane', 'airline_name', 'destination_city')
+        fields = ('id', 'airline', 'dep_time', 'arrival_time',
+                  'destination', 'plane', 'airline_name', 'destination_city')
 
 # FARE
+
+
 class FareSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Fare

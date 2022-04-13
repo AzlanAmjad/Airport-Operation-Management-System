@@ -12,6 +12,8 @@ from . import models
 from . import serializers
 
 # REGISTRATION, AUTHENTICATION, AND AUTHORIZATION
+
+
 class PassengerCreate(APIView):
     permission_classes = [AllowAny]
 
@@ -21,6 +23,7 @@ class PassengerCreate(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 class BlacklistTokenView(APIView):
     permission_classes = [AllowAny]
@@ -42,7 +45,8 @@ class User(APIView):
         token = get_authorization_header(request).decode('utf-8')
         print(token)
         try:
-            payload = jwt.decode(jwt=token, key=settings.SECRET_KEY, algorithms=['HS256'])
+            payload = jwt.decode(
+                jwt=token, key=settings.SECRET_KEY, algorithms=['HS256'])
             user = models.User.objects.get(pk=payload['user_id'])
             serializer = serializers.AllUserSerializer(user)
             return Response(serializer.data)
@@ -50,7 +54,7 @@ class User(APIView):
             return Response({'error': 'Activations link expired'}, status=status.HTTP_400_BAD_REQUEST)
         except jwt.exceptions.DecodeError as e:
             return Response({'error': 'Invalid token'}, status=status.HTTP_400_BAD_REQUEST)
-            
+
 
 # PASSENGER
 class Passenger(APIView):
@@ -110,6 +114,7 @@ class Destination(APIView):
         oneDestination = models.Destination.objects.get(pk=destination)
         serializer = serializers.DestinationSerializer(oneDestination)
         return Response(serializer.data)
+
 
 class Destinations(APIView):
     def get(self, request, format=None):
@@ -195,6 +200,7 @@ class AirlineComplaint(APIView):
         _complaint.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+
 class AirlineComplaints(APIView):
     def get(self, request, airline, format=None):
         complaints = models.AirlineComplaint.objects.filter(airline=airline)
@@ -227,6 +233,7 @@ class AirportComplaint(APIView):
         _complaint.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+
 class AirportComplaints(APIView):
     def get(self, request, format=None):
         complaints = models.AirportComplaint.objects.all()
@@ -256,6 +263,7 @@ class Company(APIView):
         _company = models.Company.objects.get(pk=company)
         _company.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
 
 class Companies(APIView):
     def get(self, request, format=None):
@@ -306,14 +314,16 @@ class Fare(APIView):
 class SearchFlights(APIView):
     def get(self, request, destination, departure, format=None):
         date = datetime.datetime.strptime(departure, '%Y-%m-%d').date()
-        flights = models.Flight.objects.filter(destination=destination).filter(dep_time__date=date)
+        flights = models.Flight.objects.filter(
+            destination=destination).filter(dep_time__date=date)
         serializer = serializers.GetFlightSerializer(flights, many=True)
         return Response(serializer.data)
 
 
 class FlightFares(APIView):
     def get(self, request, flight, format=None):
-        fares = models.Fare.objects.filter(flight=flight).exclude(tickets_quantity=0)
+        fares = models.Fare.objects.filter(
+            flight=flight).exclude(tickets_quantity=0)
         serializer = serializers.FareSerializer(fares, many=True)
         return Response(serializer.data)
 
@@ -328,7 +338,7 @@ class CompanyHotels(APIView):
 class HotelStays(APIView):
     def get(self, request, hotel, format=None):
         stays = models.Stay.objects.filter(hotel=hotel).filter(transac=None)
-        serializer = serializers.StaySerializer(stays, many=True)
+        serializer = serializers.GetStaySerializer(stays, many=True)
         return Response(serializer.data)
 
 
