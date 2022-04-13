@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import Typography from "@mui/material/Typography";
-import Grid from "@mui/material/Grid";
-import Paper from "@mui/material/Paper";
+import { Grid, Paper, Button } from "@mui/material";
 import { ClipLoader } from "react-spinners";
 import axiosInstance from "../components/Axios";
 
 const MyComplaints = () => {
   const [loading, setLoading] = useState(true);
+  const [fileAirportComplaint, setFileAirportComplaint] = useState(false);
+  const [fileAirlineComplaint, setFileAirlineComplaint] = useState(false);
   const [passenger, setPassenger] = useState({});
   const [airportComplaints, setAirportComplaints] = useState([]);
   const [airlineComplaints, setAirlineComplaints] = useState([]);
@@ -15,6 +16,14 @@ const MyComplaints = () => {
   const { id } = useSelector((state) => state.user);
 
   useEffect(async () => {
+    try {
+      const passenger = await axiosInstance.get(`passenger/${id}/`);
+      console.log(passenger.data);
+      setPassenger(passenger);
+    } catch (err) {
+      console.log(err);
+    }
+
     try {
       const airport_complaints = await axiosInstance.get(
         `passenger/airport-complaints/${id}/`
@@ -57,6 +66,35 @@ const MyComplaints = () => {
               Your complaints
             </Typography>
           </Grid>
+          {!fileAirportComplaint && !fileAirlineComplaint && (
+            <Grid
+              item
+              container
+              direction="row"
+              justifyContent="flex-start"
+              spacing={3}
+            >
+              <Grid item>
+                <Button
+                  variant="contained"
+                  sx={{ minWidth: "220px" }}
+                  onClick={() => {}}
+                >
+                  File Airport Complaint
+                </Button>
+              </Grid>
+              <Grid item>
+                <Button
+                  variant="contained"
+                  sx={{ minWidth: "220px" }}
+                  onClick={() => {}}
+                >
+                  File Airline Complaint
+                </Button>
+              </Grid>
+            </Grid>
+          )}
+
           <Grid
             item
             container
@@ -72,8 +110,10 @@ const MyComplaints = () => {
                 <Typography>No airport complaints</Typography>
               </Grid>
             ) : (
-              <Grid item container ml="20px">
-                map complaints here
+              <Grid item container direction="column" ml="20px">
+                {airportComplaints.map((complaint) => {
+                  return <Grid item>{complaint.description}</Grid>;
+                })}
               </Grid>
             )}
           </Grid>
@@ -92,8 +132,10 @@ const MyComplaints = () => {
                 <Typography>No airline complaints</Typography>
               </Grid>
             ) : (
-              <Grid item container ml="20px">
-                map complaints here
+              <Grid item container direction="column" ml="20px">
+                {airlineComplaints.map((complaint) => {
+                  return <Grid item>{complaint.description}</Grid>;
+                })}
               </Grid>
             )}
           </Grid>
