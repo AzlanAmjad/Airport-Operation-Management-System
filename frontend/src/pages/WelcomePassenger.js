@@ -15,7 +15,6 @@ const WelcomePassenger = () => {
   useEffect(async () => {
     try {
       const user = await axiosInstance.get(`user/${id}/`);
-      console.log(user.data);
       setUser(user.data);
     } catch (err) {
       console.log(err);
