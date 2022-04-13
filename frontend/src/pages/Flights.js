@@ -83,13 +83,14 @@ const Flights = () => {
 
   const handleAddFlight = async () => {
     try {
+
       const result = await axiosInstance.post("flight/", {
 
         airline: adminInfo['airline'],
         dep_time: departure,
         arrival_time: arrival,
-        destination_id: destCode,
-        plane_id: planeID
+        destination: destCode,
+        plane: planeID
 
       });
       console.log(destCode + " " + planeID);
