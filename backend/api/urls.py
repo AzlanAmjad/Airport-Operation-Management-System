@@ -80,7 +80,7 @@ urlpatterns = [
      # post company
      path('company/', views.Company.as_view()),
      # put company, delete company
-     path('company/<int:company>', views.Company.as_view()),
+     path('company/<int:company>/', views.Company.as_view()),
      # get companies
      path('companies/', views.Companies.as_view()),
 
@@ -88,7 +88,7 @@ urlpatterns = [
      # post hotel
      path('hotel/', views.Hotel.as_view()),
      # put hotel
-     path('hotel/<int:hotel>', views.Hotel.as_view()),
+     path('hotel/<int:hotel>/', views.Hotel.as_view()),
 
      # AIRPLANE
 
@@ -113,4 +113,8 @@ urlpatterns = [
      path('flights/<int:airline>/', views.AirlineFlights.as_view()),
      # get airline airplanes
      path('airplanes/<int:airline>/', views.AirlineAirplanes.as_view()),
+     # get user airport complaints
+     path('passenger/airport-complaints/<int:user>/', views.PassengerAirportComplaints.as_view()),
+     # get user airline complaints
+     path('passenger/airline-complaints/<int:user>/', views.PassengerAirlineComplaintsView.as_view()),
 ]

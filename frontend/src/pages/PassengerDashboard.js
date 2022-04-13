@@ -65,7 +65,7 @@ const PassengerDashboard = () => {
         <Paper
           elevation={12}
           sx={{
-            padding: "50px 100px",
+            padding: "50px 70px",
             margin: "60px",
             minHeight: "400px",
             minWidth: "80%",
