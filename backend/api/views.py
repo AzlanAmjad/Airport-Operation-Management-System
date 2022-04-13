@@ -54,32 +54,32 @@ class User(APIView):
             return Response({'error': 'Invalid token'}, status=status.HTTP_400_BAD_REQUEST)
 
 class IdUser(APIView):
-    def get(self, request, id, format=None):
-        user = models.User.objects.get(pk=id)
-        serializer = serializers.AllUserSerializer(user)
+    def get(self, request, user, format=None):
+        _user = models.User.objects.get(pk=user)
+        serializer = serializers.AllUserSerializer(_user)
         return Response(serializer.data)
 
 
 # PASSENGER
 class Passenger(APIView):
-    def get(self, request, id, format=None):
-        passenger = models.Passenger.objects.get(pk=id)
+    def get(self, request, user, format=None):
+        passenger = models.Passenger.objects.get(user=user)
         serializer = serializers.PassengerSerializer(passenger)
         return Response(serializer.data)
 
 
 # AIRPORT ADMIN
 class AirportAdmin(APIView):
-    def get(self, request, id, format=None):
-        airportAdmin = models.AirportAdmin.objects.get(pk=id)
+    def get(self, request, user, format=None):
+        airportAdmin = models.AirportAdmin.objects.get(user=user)
         serializer = serializers.AirportAdminSerializer(airportAdmin)
         return Response(serializer.data)
 
 
 # AIRLINE ADMIN
 class AirlineAdmin(APIView):
-    def get(self, request, id, format=None):
-        airlineAdmin = models.AirlineAdmin.objects.get(pk=id)
+    def get(self, request, user, format=None):
+        airlineAdmin = models.AirlineAdmin.objects.get(user=user)
         serializer = serializers.AirlineAdminSerializer(airlineAdmin)
         return Response(serializer.data)
 
