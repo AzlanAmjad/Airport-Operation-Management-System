@@ -301,7 +301,7 @@ class SearchFlights(APIView):
     def get(self, request, destination, departure, format=None):
         date = datetime.datetime.strptime(departure, '%Y-%m-%d').date()
         flights = models.Flight.objects.filter(destination=destination).filter(dep_time__date=date)
-        serializer = serializers.GetFlightsSerializer(flights, many=True)
+        serializer = serializers.GetFlightSerializer(flights, many=True)
         return Response(serializer.data)
 
 

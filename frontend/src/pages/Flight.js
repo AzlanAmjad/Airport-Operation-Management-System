@@ -1,6 +1,6 @@
 import { Grid, Typography, Paper, IconButton } from "@mui/material";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
 const Flight = () => {
@@ -16,13 +16,6 @@ const Flight = () => {
     arrival_time: "1997-12-17 07:37:16-08",
     dest_code: "YYZ",
     plane_id: 0,
-  });
-
-  // fetch destination from API
-  const [destination, setDestination] = useState({
-    airport_code: "YYZ",
-    city: "Toronto",
-    country: "Canada",
   });
 
   // fetch fares for this flight from API
@@ -53,6 +46,16 @@ const Flight = () => {
     },
   ]);
 
+  useEffect(async () => {
+    try {
+      // get flight
+
+    }
+    catch (err) {
+
+    }
+  }, [id])
+
   return (
     <Grid
       item
@@ -74,7 +77,7 @@ const Flight = () => {
         rowSpacing={1}
       >
         <Grid item>
-          <Typography variant="h4">Calgary to {destination.city}</Typography>
+          <Typography variant="h4">Calgary to </Typography>
         </Grid>
         <Grid item>
           <Typography>
@@ -100,7 +103,7 @@ const Flight = () => {
       >
         <Grid item>
           <Typography variant="h6">
-            Select Fare to {destination.city}
+            Select Fare to 
           </Typography>
         </Grid>
 
