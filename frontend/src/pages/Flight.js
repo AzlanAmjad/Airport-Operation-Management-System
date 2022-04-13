@@ -3,12 +3,17 @@ import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { ClipLoader } from "react-spinners";
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { add } from "../features/cart/cartSlice";
 import axiosInstance from "../components/Axios";
 import moment from "moment";
 
 const Flight = () => {
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
+  const { passenger } = useSelector((state) => state.user);
+  const { airport_admin } = useSelector((state) => state.user);
+  const { airline_admin } = useSelector((state) => state.user);
   const { id } = useParams();
 
   // state letting us know we are still loading data
@@ -133,14 +138,27 @@ const Flight = () => {
                           <Typography>{fare.cabin} Class</Typography>
                         </Grid>
                         <Grid item>
-                          <Typography>{fare.tickets_quantity} Tickets Left</Typography>
+                          <Typography>
+                            {fare.tickets_quantity} Tickets Left
+                          </Typography>
                         </Grid>
                       </Grid>
-                      <Grid item mr={2}>
-                        <IconButton color="inherit" onClick={() => {}}>
-                          <AddShoppingCartIcon fontSize="large" />
-                        </IconButton>
-                      </Grid>
+                      {(!airport_admin && !airline_admin) && (
+                        <Grid item mr={2}>
+                          <IconButton
+                            color="inherit"
+                            onClick={() => {
+                              if (passenger) {
+                                dispatch(add({ ...fare, type: "fare" }));
+                              } else {
+                                navigate("/login");
+                              }
+                            }}
+                          >
+                            <AddShoppingCartIcon fontSize="large" />
+                          </IconButton>
+                        </Grid>
+                      )}
                     </Grid>
                   </Paper>
                 </Grid>
