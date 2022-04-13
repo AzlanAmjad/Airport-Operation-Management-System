@@ -52,6 +52,24 @@ class User(APIView):
             return Response({'error': 'Invalid token'}, status=status.HTTP_400_BAD_REQUEST)
             
 
+# PASSENGER
+class Passenger(APIView):
+    def get(self, request):
+        pass
+
+
+# AIRPORT ADMIN
+class AirportAdmin(APIView):
+    def get(self, request):
+        pass
+
+
+# AIRLINE ADMIN
+class AirlineAdmin(APIView):
+    def get(self, request):
+        pass
+
+
 # FLIGHT
 class Flight(APIView):
     def get(self, request, flight, format=None):
@@ -257,12 +275,6 @@ class Hotel(APIView):
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
-# PASSENGER
-
-# AIRPORT ADMIN
-
-# AIRLINE ADMIN
 
 # AIRLINE
 class Airline(APIView):
