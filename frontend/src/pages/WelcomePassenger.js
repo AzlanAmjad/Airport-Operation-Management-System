@@ -6,8 +6,6 @@ import axiosInstance from "../components/Axios";
 import { useSelector } from "react-redux";
 
 const WelcomePassenger = () => {
-  const { email } = useSelector((state) => state.user);
-
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState({});
 
