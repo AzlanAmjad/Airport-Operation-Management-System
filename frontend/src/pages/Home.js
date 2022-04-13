@@ -249,11 +249,11 @@ const Home = () => {
                         <Typography fontWeight="bold">
                           {moment(flight.dep_time)
                             .utc()
-                            .format("( MMMM DD, YYYY | HH:MM UTC )")}{" "}
+                            .format("( MMMM DD, YYYY | HH:mm UTC )")}{" "}
                           -{" "}
                           {moment(flight.arrival_time)
                             .utc()
-                            .format("( MMMM DD, YYYY | HH:MM UTC )")}
+                            .format("( MMMM DD, YYYY | HH:mm UTC )")}
                         </Typography>
                       </Grid>
                       <Grid item>
