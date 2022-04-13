@@ -54,7 +54,7 @@ const PassengerDashboard = () => {
           />
         </Tabs>
       </Grid>
-      <Grid item container xs={8}>
+      <Grid item container xs={8} py="30px">
         <Routes>
           <Route path="welcome" element={<WelcomePassenger />} />
           <Route path="complaints" element={<Complaints />} />
