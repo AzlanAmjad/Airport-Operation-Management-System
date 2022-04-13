@@ -49,7 +49,7 @@ const Flight = () => {
     <>
       {loading ? (
         <Grid item>
-          <ClipLoader loading={loading} size={70} />
+          <ClipLoader loading={loading} size={70} color={"#ffffff"} />
         </Grid>
       ) : (
         <Grid
@@ -143,7 +143,7 @@ const Flight = () => {
                           </Typography>
                         </Grid>
                       </Grid>
-                      {(!airport_admin && !airline_admin) && (
+                      {!airport_admin && !airline_admin && (
                         <Grid item mr={2}>
                           <IconButton
                             color="inherit"
