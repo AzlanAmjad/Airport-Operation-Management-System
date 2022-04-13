@@ -1,9 +1,7 @@
-import Grid from "@mui/material/Grid";
 import * as React from "react";
 import ArticleIcon from "@mui/icons-material/Article";
 import NoteAddIcon from "@mui/icons-material/NoteAdd";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
+import { Tabs, Tab, Paper, Grid } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import { Route, Routes, useNavigate, useLocation } from "react-router-dom";
 import WelcomePassenger from "./WelcomePassenger";
@@ -28,17 +26,24 @@ const PassengerDashboard = () => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
   const navigate = useNavigate();
   const location = useLocation();
 
   return (
-    <Grid container justifyContent="space-evenly" alignItems="center">
-      <Grid item container xs={1} paddingLeft="40px">
+    <Grid
+      item
+      container
+      direction="row"
+      justifyContent="space-evenly"
+      alignItems="center"
+    >
+      <Grid item xs={1} ml="100px">
         <Tabs
           value={value}
           onChange={handleChange}
           orientation="vertical"
-          textColor="white"
+          textColor="inherit"
         >
           <LinkTab
             label="Welcome"
@@ -58,11 +63,13 @@ const PassengerDashboard = () => {
         </Tabs>
       </Grid>
       <Grid item xs={10} container>
-        <Routes>
-          <Route path="welcome" element={<WelcomePassenger />} />
-          <Route path="my-complaints" element={<MyComplaints />} />
-          <Route path="file-complaint" element={<FileComplaint />} />
-        </Routes>
+        <Paper elevation={12} sx={{ padding: "80px", margin: "60px", minHeight: "400px", minWidth: "80%"}}>
+          <Routes>
+            <Route path="welcome" element={<WelcomePassenger />} />
+            <Route path="my-complaints" element={<MyComplaints />} />
+            <Route path="file-complaint" element={<FileComplaint />} />
+          </Routes>
+        </Paper>
       </Grid>
     </Grid>
   );
