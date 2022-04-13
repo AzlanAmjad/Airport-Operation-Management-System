@@ -55,20 +55,10 @@ const PassengerDashboard = () => {
         </Tabs>
       </Grid>
       <Grid item container xs={10}>
-        <Paper
-          elevation={12}
-          sx={{
-            padding: "50px 70px",
-            margin: "60px",
-            minHeight: "400px",
-            minWidth: "80%",
-          }}
-        >
-          <Routes>
-            <Route path="welcome" element={<WelcomePassenger />} />
-            <Route path="complaints" element={<Complaints />} />
-          </Routes>
-        </Paper>
+        <Routes>
+          <Route path="welcome" element={<WelcomePassenger />} />
+          <Route path="complaints" element={<Complaints />} />
+        </Routes>
       </Grid>
     </Grid>
   );

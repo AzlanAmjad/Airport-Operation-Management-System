@@ -98,13 +98,14 @@ const Complaints = () => {
   };
 
   return (
-    <>
+    <Grid item container mx="60px" my="40px">
       {loading ? (
         <Grid item>
           <ClipLoader loading={loading} size={70} color={"#ffffff"} />
         </Grid>
       ) : (
         <Grid
+          item
           container
           direction="column"
           justifyContent="flex-start"
@@ -272,7 +273,7 @@ const Complaints = () => {
                   )}
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item>
                 <TextField
                   placeholder="Complaint"
                   multiline
@@ -341,7 +342,7 @@ const Complaints = () => {
             container
             direction="column"
             alignItems="flex-start"
-            rowSpacing={2}
+            rowSpacing={3}
           >
             <Grid item>
               <Typography variant="h6">Airport Complaints</Typography>
@@ -351,11 +352,13 @@ const Complaints = () => {
                 <Typography>No airport complaints</Typography>
               </Grid>
             ) : (
-              <Grid item container direction="column" ml="20px">
+              <Grid item container direction="column" ml="20px" rowSpacing={3}>
                 {airportComplaints.map((complaint) => {
                   return (
-                    <Grid item key={complaint.pk}>
-                      {complaint.description}
+                    <Grid item key={complaint.pk} sx={{ width: "80%" }}>
+                      <Paper elevation={12} sx={{ padding: "30px" }}>
+                        {complaint.description}
+                      </Paper>
                     </Grid>
                   );
                 })}
@@ -367,7 +370,7 @@ const Complaints = () => {
             container
             direction="column"
             alignItems="flex-start"
-            rowSpacing={2}
+            rowSpacing={3}
           >
             <Grid item>
               <Typography variant="h6">Airline Complaints</Typography>
@@ -390,7 +393,7 @@ const Complaints = () => {
           </Grid>
         </Grid>
       )}
-    </>
+    </Grid>
   );
 };
 

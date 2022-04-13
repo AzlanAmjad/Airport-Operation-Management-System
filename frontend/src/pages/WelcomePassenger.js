@@ -1,5 +1,5 @@
 import * as React from "react";
-import Grid from "@mui/material/Grid";
+import { Grid, Paper } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { useState, useEffect } from "react";
 import axiosInstance from "../components/Axios";
@@ -24,7 +24,16 @@ const WelcomePassenger = () => {
   }, [id]);
 
   return (
-    <>
+    <Paper
+      elevation={12}
+      sx={{
+        padding: "50px 70px",
+        margin: "60px",
+        minHeight: "400px",
+        minWidth: "80%",
+      }}
+    >
+      {" "}
       {loading ? (
         <Grid item>
           <ClipLoader loading={loading} size={70} color={"#ffffff"} />
@@ -65,7 +74,7 @@ const WelcomePassenger = () => {
           </Grid>
         </Grid>
       )}
-    </>
+    </Paper>
   );
 };
 
