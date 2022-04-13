@@ -57,8 +57,7 @@ const Home = () => {
         const flights = await axiosInstance.get(
           `flights/${dest_param}/${dep_param}/`
         );
-        console.log(flights.data)
-        setFlights(flights.data)
+        setFlights(flights.data);
       } catch (err) {
         console.log(err);
       }
@@ -229,11 +228,7 @@ const Home = () => {
 
           {flights.map((flight) => {
             return (
-              <Grid
-                item
-                key={`${flight.airline_name} - ${flight.flight_num}`}
-                sx={{ width: "80%" }}
-              >
+              <Grid item key={flight.id} sx={{ width: "80%" }}>
                 <Paper elevation={12} sx={{ padding: "30px" }}>
                   <Grid
                     container
@@ -252,11 +247,20 @@ const Home = () => {
                     >
                       <Grid item>
                         <Typography>
-                          {flight.dep_time} - {flight.arrival_time}
+                          {moment(flight.dep_time)
+                            .utc()
+                            .format("( MMMM DD, YYYY | HH:MM UTC )")}{" "}
+                          -{" "}
+                          {moment(flight.arrival_time)
+                            .utc()
+                            .format("( MMMM DD, YYYY | HH:MM UTC )")}
                         </Typography>
                       </Grid>
                       <Grid item>
-                        <Typography>YYC - {flight.dest_code}</Typography>
+                        <Typography>
+                          Calgary (YYC) - {flight.destination_city} (
+                          {flight.destination})
+                        </Typography>
                       </Grid>
                       <Grid item>
                         <Typography>{flight.airline_name}</Typography>
