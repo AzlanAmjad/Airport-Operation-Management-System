@@ -269,7 +269,7 @@ const Flights = () => {
                         color="inherit"
                         onClick={() => handleEditDialogFormOpen(flight.id)}
                       >
-                        <EditIcon fontSize="medium" />
+                        <AddIcon fontSize="medium" />
                       </IconButton>
                     </Grid>
                   </Grid>
@@ -389,7 +389,7 @@ const Flights = () => {
               <DialogTitle>Edit a Flight</DialogTitle>
               <DialogContent>
                 <DialogContentText sx={{ color: "text.primary" }}>
-                  To edit flight timings, please update following information:
+                  To add Flight fares, please add following information:
                 </DialogContentText>
                 <FormControl sx={{ maxWidth: 120, padding: "10px" }}>
                   <Input type="number" inputProps={{ min: 0 }} onChange={(event) => { setEcon(event.target.value) }} />

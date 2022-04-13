@@ -5,14 +5,28 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Grid, Paper, IconButton } from "@mui/material";
 import { remove } from "../features/cart/cartSlice";
+import axiosInstance from "../components/Axios";
 
 const Cart = () => {
 
   const dispatch = useDispatch();
 
   const { items } = useSelector((state) => state.cart);
+  const { total } = useSelector((state) => state.cart);
+  const { id } = useSelector((state) => state.user);
 
 
+
+  const handleCheckout = async () => {
+
+    const promises = items.map((item) =>
+
+      console.log(item.type + " " + id + " " + item.hotel_name)
+    );
+
+    const values = await Promise.all(promises)
+
+  }
   return (
 
     <Grid
@@ -65,10 +79,15 @@ const Cart = () => {
 
                 </Grid>
                 {item.type === "stay" ? (
-                  <Grid item >
-                    <Button variant="contained" sx={{ marginTop: 2.2 }} onClick={() => {
-                      dispatch(remove({ ...item, type: "stay" }));
-                    }}>Remove</Button>
+                  <Grid item container
+                    justifyContent="space-evenly"
+                    direction="column"
+                    alignItems="flex-end">
+                    <Grid item >
+                      <Button variant="contained" sx={{ marginTop: 2.2 }} onClick={() => {
+                        dispatch(remove({ ...item, type: "stay" }));
+                      }}>Remove</Button>
+                    </Grid>
                   </Grid>
                 ) : (
 
@@ -78,12 +97,29 @@ const Cart = () => {
                     }}>Remove</Button>
                   </Grid>
                 )}
+
               </Grid>
             </Paper>
           </Grid>
         ))}
         <Grid item>
           <Divider></Divider>
+        </Grid>
+
+        <Grid item
+          container
+          direction="column"
+          alignItems="flex-end"
+          justifyContent="space-evenly">
+          <Grid item>
+            <Typography variant="h2">Total: ${total}.00</Typography>
+          </Grid>
+          <Grid item>
+            <Button variant="contained" sx={{ marginTop: 2.2 }} onClick={() => {
+              handleCheckout();
+            }}>Checkout</Button>
+          </Grid>
+
         </Grid>
 
 

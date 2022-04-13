@@ -222,10 +222,10 @@ const Company = () => {
 
           <Grid item>
             <Dialog open={addDialogForm} onClose={handleAddDialogFormClose}>
-              <DialogTitle>Add a Flight</DialogTitle>
+              <DialogTitle>Add a Hotel</DialogTitle>
               <DialogContent>
                 <DialogContentText sx={{ color: "text.primary" }}>
-                  To add a Company, please add the following information
+                  To add a Hotel, please add the following information
                 </DialogContentText>
                 <FormControl sx={{ maxWidth: 200, padding: "10px" }}>
                   <Input inputProps={{ min: 0 }} onChange={(event) => { setHotelName(event.target.value) }} />

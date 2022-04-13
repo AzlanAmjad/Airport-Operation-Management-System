@@ -32,15 +32,17 @@ const AirportComplaints = () => {
     const [reload, setReload] = useState(false);
     const [loading, setLoading] = useState(false);
 
-    const resolveComplaint = async (pk, desc, pass) => {
-        console.log(adminInfo);
+    const resolveComplaint = async (pk, desc, pass, air) => {
+        console.log(pk + " " + desc + " " + pass + " " + air);
+
 
         try {
             const result = await axiosInstance.put(`airline-complaint/${pk}/`, {
 
                 description: desc,
                 passenger: pass,
-                airline: adminInfo['airline']
+                admin: adminInfo['employee_id'],
+                airline: air
 
             });
 
@@ -132,9 +134,9 @@ const AirportComplaints = () => {
                                             <TableCell align="left">{row.passenger_email}</TableCell>
                                             <TableCell align="left">{row.description}</TableCell>
                                             <TableCell align="left">
-                                                {row.airline === null ? (
+                                                {row.admin === null ? (
 
-                                                    <Button variant="contained" onClick={() => resolveComplaint(row.pk, row.description, row.passenger)} >Resolve</Button>
+                                                    <Button variant="contained" onClick={() => resolveComplaint(row.pk, row.description, row.passenger, row.airline)} >Resolve</Button>
                                                 ) : (
                                                     <Typography variant="h8">Resolved</Typography>
                                                 )}
