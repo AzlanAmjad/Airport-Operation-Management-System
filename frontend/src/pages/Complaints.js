@@ -65,11 +65,11 @@ const Complaints = () => {
     setSubmitting(true);
 
     try {
-      const complaint = await axiosInstance.post("airport-complaint/", {
+      const ap_complaint = await axiosInstance.post("airport-complaint/", {
         description: description,
         passenger: passenger.id,
       });
-      console.log(complaint.data);
+      console.log(ap_complaint.data);
     } catch (err) {
       console.log(err);
     }
@@ -77,7 +77,25 @@ const Complaints = () => {
     setSubmitting(false);
   };
 
-  const submitAirlineComplaint = async () => {};
+  const submitAirlineComplaint = async () => {
+    setSubmitting(true);
+
+    const al = airline.match(/\d+/);
+    console.log(al);
+
+    try {
+      const al_complaint = await axiosInstance.post("airline-complaint/", {
+        description: description,
+        passenger: passenger.id,
+        airline: al[0],
+      });
+      console.log(al_complaint.data);
+    } catch (err) {
+      console.log(err);
+    }
+
+    setSubmitting(false);
+  };
 
   return (
     <>
