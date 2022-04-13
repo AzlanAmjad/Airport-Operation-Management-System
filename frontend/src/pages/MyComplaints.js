@@ -1,14 +1,30 @@
-import * as React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import { ClipLoader } from "react-spinners";
+import axiosInstance from "../components/Axios";
 
 const MyComplaints = () => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [passenger, setPassenger] = useState({});
   const [airportComplaints, setAirportComplaints] = useState([]);
   const [airlineComplaints, setAirlineComplaints] = useState([]);
+
+  const { id } = useSelector((state) => state.user);
+
+  useEffect(async () => {
+    try {
+      const passenger = await axiosInstance.get(`passenger/${id}`);
+      console.log(passenger.data)
+      setPassenger(passenger.data)
+    } catch (err) {
+      console.log(err);
+    }
+
+    setLoading(false)
+  }, [id]);
 
   return (
     <>
