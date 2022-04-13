@@ -6,21 +6,21 @@ const access = localStorage.getItem("access_token");
 
 const initialState = access
   ? {
-      isLoggedIn: true,
-      id: Number(localStorage.getItem("id")),
-      email: localStorage.getItem("email"),
-      passenger: localStorage.getItem("passenger") === "true",
-      airport_admin: localStorage.getItem("airport_admin") === "true",
-      airline_admin: localStorage.getItem("airline_admin") === "true",
-    }
+    isLoggedIn: true,
+    id: Number(localStorage.getItem("id")),
+    email: localStorage.getItem("email"),
+    passenger: localStorage.getItem("passenger") === "true",
+    airport_admin: localStorage.getItem("airport_admin") === "true",
+    airline_admin: localStorage.getItem("airline_admin") === "true",
+  }
   : {
-      isLoggedIn: false,
-      id: null,
-      email: null,
-      passenger: null,
-      airport_admin: null,
-      airline_admin: null,
-    };
+    isLoggedIn: false,
+    id: null,
+    email: null,
+    passenger: null,
+    airport_admin: null,
+    airline_admin: null,
+  };
 
 // async login action
 export const login = createAsyncThunk(
@@ -59,7 +59,7 @@ export const login = createAsyncThunk(
 );
 
 // async logout action
-export const logout = createAsyncThunk("user/logout", async ({}, thunkAPI) => {
+export const logout = createAsyncThunk("user/logout", async ({ }, thunkAPI) => {
   try {
     // blacklist
     const result = axiosInstance.post("logout/blacklist/", {
@@ -120,7 +120,7 @@ export const userSlice = createSlice({
 });
 
 // actions
-export const {} = userSlice.actions;
+export const { } = userSlice.actions;
 
 // reducer
 export default userSlice.reducer;

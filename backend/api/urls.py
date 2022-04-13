@@ -30,7 +30,7 @@ urlpatterns = [
 
      # AIRLINE ADMIN
      # get airline admin
-     path('airline-admin/<int:user>/', views.AirportAdmin.as_view()),
+     path('airline-admin/<int:user>/', views.AirlineAdmin.as_view()),
 
      # FLIGHT
      # post flight
