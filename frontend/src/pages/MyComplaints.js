@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import Typography from "@mui/material/Typography";
-import { Grid, Paper, Button } from "@mui/material";
+import { Grid, Paper, Button, TextField } from "@mui/material";
 import { ClipLoader } from "react-spinners";
 import axiosInstance from "../components/Axios";
 
@@ -9,9 +9,14 @@ const MyComplaints = () => {
   const [loading, setLoading] = useState(true);
   const [fileAirportComplaint, setFileAirportComplaint] = useState(false);
   const [fileAirlineComplaint, setFileAirlineComplaint] = useState(false);
+
   const [passenger, setPassenger] = useState({});
+  const [airlines, setAirlines] = useState([]);
   const [airportComplaints, setAirportComplaints] = useState([]);
   const [airlineComplaints, setAirlineComplaints] = useState([]);
+
+  const [description, setDescription] = useState(null);
+  const [airline, setAirline] = useState(null);
 
   const { id } = useSelector((state) => state.user);
 
@@ -78,7 +83,7 @@ const MyComplaints = () => {
                 <Button
                   variant="contained"
                   sx={{ minWidth: "220px" }}
-                  onClick={() => {}}
+                  onClick={() => setFileAirportComplaint(true)}
                 >
                   File Airport Complaint
                 </Button>
@@ -87,14 +92,141 @@ const MyComplaints = () => {
                 <Button
                   variant="contained"
                   sx={{ minWidth: "220px" }}
-                  onClick={() => {}}
+                  onClick={() => setFileAirlineComplaint(true)}
                 >
                   File Airline Complaint
                 </Button>
               </Grid>
             </Grid>
           )}
-
+          {fileAirportComplaint && (
+            <Grid
+              item
+              container
+              direction="column"
+              alignItems="flex-start"
+              rowSpacing={3}
+            >
+              <Grid item>
+                <Typography variant="h6">Airport Complaint</Typography>
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  label="complaint"
+                  multiline
+                  variant="outlined"
+                  sx={{
+                    "& .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "white",
+                    },
+                    "&:hover .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "red",
+                    },
+                    "&.MuiOutlinedInput-notchedOutline.Mui-focused": {
+                      borderColor: "red",
+                    },
+                    "& .MuiButtonBase-root.MuiIconButton-root": {
+                      color: "white",
+                    },
+                    minWidth: 600,
+                  }}
+                  rows={4}
+                  InputLabelProps={{
+                    style: { color: "white" },
+                  }}
+                  onChange={(event) => {
+                    setDescription(event.target.value);
+                  }}
+                />
+              </Grid>
+              <Grid
+                item
+                container
+                direction="row"
+                justifyContent="flex-start"
+                spacing={2}
+              >
+                <Grid item>
+                  <Button
+                    variant="contained"
+                    onClick={() => {
+                      setFileAirportComplaint(false);
+                      setDescription(null);
+                    }}
+                  >
+                    Cancel
+                  </Button>
+                </Grid>
+                <Grid item>
+                  <Button variant="contained">Submit</Button>
+                </Grid>
+              </Grid>
+            </Grid>
+          )}
+          {fileAirlineComplaint && (
+            <Grid
+              item
+              container
+              direction="column"
+              alignItems="flex-start"
+              rowSpacing={3}
+            >
+              <Grid item>
+                <Typography variant="h6">Airline Complaint</Typography>
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  label="complaint"
+                  multiline
+                  variant="outlined"
+                  sx={{
+                    "& .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "white",
+                    },
+                    "&:hover .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "red",
+                    },
+                    "&.MuiOutlinedInput-notchedOutline.Mui-focused": {
+                      borderColor: "red",
+                    },
+                    "& .MuiButtonBase-root.MuiIconButton-root": {
+                      color: "white",
+                    },
+                    minWidth: 600,
+                  }}
+                  rows={4}
+                  InputLabelProps={{
+                    style: { color: "white" },
+                  }}
+                  onChange={(event) => {
+                    setDescription(event.target.value);
+                  }}
+                />
+              </Grid>
+              <Grid
+                item
+                container
+                direction="row"
+                justifyContent="flex-start"
+                spacing={2}
+              >
+                <Grid item>
+                  <Button
+                    variant="contained"
+                    onClick={() => {
+                      setFileAirlineComplaint(false);
+                      setDescription(null);
+                    }}
+                  >
+                    Cancel
+                  </Button>
+                </Grid>
+                <Grid item>
+                  <Button variant="contained">Submit</Button>
+                </Grid>
+              </Grid>
+            </Grid>
+          )}
           <Grid
             item
             container
