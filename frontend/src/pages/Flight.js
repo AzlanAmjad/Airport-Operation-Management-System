@@ -4,6 +4,7 @@ import { ClipLoader } from "react-spinners";
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axiosInstance from "../components/Axios";
+import moment from "moment";
 
 const Flight = () => {
   const navigate = useNavigate();
@@ -68,19 +69,21 @@ const Flight = () => {
             rowSpacing={1}
           >
             <Grid item>
-              <Typography variant="h4">Calgary to </Typography>
+              <Typography variant="h4">
+                Calgary to {flight.destination_city}
+              </Typography>
             </Grid>
             <Grid item>
               <Typography>
                 {flight.airline_name} -{" "}
-                {flight.dep_time.match(/[0-9]{4}-[0-9]{2}-[0-9]{2}/)}
+                {moment(flight.dep_time).utc().format("MMMM DD, YYYY")}
               </Typography>
             </Grid>
           </Grid>
           <Grid item>
             <Typography>
-              {flight.dep_time.match(/[0-9]{2}:[0-9]{2}/)} -{" "}
-              {flight.arrival_time.match(/[0-9]{2}:[0-9]{2}/)}
+              {moment(flight.dep_time).utc().format("HH:mm UTC")} -{" "}
+              {moment(flight.arrival_time).utc().format("HH:mm UTC")}
             </Typography>
           </Grid>
           <Grid
@@ -92,13 +95,23 @@ const Flight = () => {
             rowSpacing={3}
             my="50px"
           >
-            <Grid item>
-              <Typography variant="h6">Select Fare to</Typography>
-            </Grid>
+            {fares.length === 0 ? (
+              <Grid item>
+                <Typography variant="h6">
+                  No Available Fare to {flight.destination_city}
+                </Typography>
+              </Grid>
+            ) : (
+              <Grid item>
+                <Typography variant="h6">
+                  Select Fare to {flight.destination_city}
+                </Typography>
+              </Grid>
+            )}
 
             {fares.map((fare) => {
               return (
-                <Grid item key={`${fare.fare_id}`} sx={{ width: "inherit" }}>
+                <Grid item key={`${fare.id}`} sx={{ width: "inherit" }}>
                   <Paper elevation={12} sx={{ padding: "30px" }}>
                     <Grid
                       container
@@ -122,7 +135,7 @@ const Flight = () => {
                           <Typography>{fare.cabin} Class</Typography>
                         </Grid>
                         <Grid item>
-                          <Typography>{fare.tickets} Tickets Left</Typography>
+                          <Typography>{fare.tickets_quantity} Tickets Left</Typography>
                         </Grid>
                       </Grid>
                       <Grid item mr={2}>
