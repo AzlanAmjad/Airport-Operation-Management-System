@@ -1,12 +1,10 @@
-import ArticleIcon from "@mui/icons-material/Article";
-import NoteAddIcon from "@mui/icons-material/NoteAdd";
 import HomeIcon from "@mui/icons-material/Home";
+import ArticleIcon from "@mui/icons-material/Article";
 import { Tabs, Tab, Paper, Grid } from "@mui/material";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import WelcomePassenger from "./WelcomePassenger";
-import FileComplaint from "./FileComplaint";
-import MyComplaints from "./MyComplaints";
+import Complaints from "./Complaints";
 
 function LinkTab(props) {
   return (
@@ -50,14 +48,9 @@ const PassengerDashboard = () => {
             onClick={() => navigate("welcome")}
           />
           <LinkTab
-            label="My Complaints"
+            label="Complaints"
             icon={<ArticleIcon />}
-            onClick={() => navigate("my-complaints")}
-          />
-          <LinkTab
-            label="File Complaint"
-            icon={<NoteAddIcon />}
-            onClick={() => navigate("file-complaint")}
+            onClick={() => navigate("complaints")}
           />
         </Tabs>
       </Grid>
@@ -73,8 +66,7 @@ const PassengerDashboard = () => {
         >
           <Routes>
             <Route path="welcome" element={<WelcomePassenger />} />
-            <Route path="my-complaints" element={<MyComplaints />} />
-            <Route path="file-complaint" element={<FileComplaint />} />
+            <Route path="complaints" element={<Complaints />} />
           </Routes>
         </Paper>
       </Grid>
