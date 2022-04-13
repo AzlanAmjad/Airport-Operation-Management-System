@@ -315,7 +315,7 @@ class FlightFares(APIView):
 class CompanyHotels(APIView):
     def get(self, request, company, format=None):
         hotels = models.Hotel.objects.filter(company=company)
-        serializer = serializers.GetSerializer(hotels, many=True)
+        serializer = serializers.GetHotelSerializer(hotels, many=True)
         return Response(serializer.data)
 
 
