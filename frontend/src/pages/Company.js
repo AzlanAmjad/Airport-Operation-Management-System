@@ -152,7 +152,7 @@ const Company = () => {
               <FormHelperText sx={{ color: "text.primary" }}>Hotel Name</FormHelperText>
             </FormControl>
             <FormControl sx={{ maxWidth: 200, padding: "10px" }}>
-              <Input inputProps={{ min: 0 }} onChange={(event) => { setLocation(event.target.value) }} />
+              <Input type="number" inputProps={{ min: 0 }} onChange={(event) => { setLocation(event.target.value) }} />
               <FormHelperText sx={{ color: "text.primary" }}>Location</FormHelperText>
             </FormControl>
           </DialogContent>
