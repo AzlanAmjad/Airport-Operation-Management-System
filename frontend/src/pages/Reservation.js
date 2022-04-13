@@ -118,7 +118,6 @@ const Reservation = () => {
           {airport_admin &&
             <Grid item container spacing={3} xs={6} justifyContent="space-around">
               {companies.length === 0 ? (
-
                 <Grid item xs={5}>
                   <Card sx={{ maxWidth: 400 }}>
                     <CardActionArea onClick={handleAddDialogFormOpen}>
@@ -174,14 +173,11 @@ const Reservation = () => {
             <Grid item container spacing={3} xs={6} justifyContent="space-around">
               {companies.length === 0 ? (
 
-                <Grid item xs={5}>
-                  <Card sx={{ maxWidth: 400 }}>
-                    <CardActionArea onClick={handleAddDialogFormOpen}>
-                      <CardContent>
-                        <AddIcon />
-                      </CardContent>
-                    </CardActionArea>
-                  </Card>
+                <Grid item xs={12}>
+                  <Typography variant="h1" component="div" gutterBottom>
+                    Someone forgot to add the companies :(
+                  </Typography>
+
                 </Grid>
               ) : (
                 <Grid item xs={12}>
