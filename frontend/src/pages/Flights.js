@@ -393,19 +393,19 @@ const Flights = () => {
                 </DialogContentText>
                 <FormControl sx={{ maxWidth: 120, padding: "10px" }}>
                   <Input type="number" inputProps={{ min: 0 }} onChange={(event) => { setEcon(event.target.value) }} />
-                  <FormHelperText sx={{ color: "text.primary" }}>Economy Class</FormHelperText>
+                  <FormHelperText sx={{ color: "text.primary" }}>Economy Class ($)</FormHelperText>
                 </FormControl>
                 <FormControl sx={{ maxWidth: 120, padding: "10px" }}>
                   <Input type="number" inputProps={{ min: 0 }} onChange={(event) => { setPremEcon(event.target.value) }} />
-                  <FormHelperText sx={{ color: "text.primary" }}>Premium Economy Class</FormHelperText>
+                  <FormHelperText sx={{ color: "text.primary" }}>Premium Economy Class ($)</FormHelperText>
                 </FormControl>
                 <FormControl sx={{ maxWidth: 120, padding: "10px" }}>
                   <Input type="number" inputProps={{ min: 0 }} onChange={(event) => { setBusiness(event.target.value) }} />
-                  <FormHelperText sx={{ color: "text.primary" }}>Business Class</FormHelperText>
+                  <FormHelperText sx={{ color: "text.primary" }}>Business Class ($)</FormHelperText>
                 </FormControl>
                 <FormControl sx={{ maxWidth: 120, padding: "10px" }}>
                   <Input type="number" inputProps={{ min: 0 }} onChange={(event) => { setFirstClass(event.target.value) }} />
-                  <FormHelperText sx={{ color: "text.primary" }}>First Class</FormHelperText>
+                  <FormHelperText sx={{ color: "text.primary" }}>First Class ($)</FormHelperText>
                 </FormControl>
                 <FormControl sx={{ maxWidth: 120, padding: "10px" }}>
                   <Input type="number" inputProps={{ min: 0 }} onChange={(event) => { setTickets(event.target.value) }} />
