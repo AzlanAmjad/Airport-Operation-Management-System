@@ -25,7 +25,7 @@ const Reservation = () => {
   const [companyName, setCompanyName] = useState("");
 
   const [addDialogForm, setAddDialogForm] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [reload, setReload] = useState(false);
 
   const { airport_admin } = useSelector((state) => state.user);
