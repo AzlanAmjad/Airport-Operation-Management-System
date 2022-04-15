@@ -24,9 +24,14 @@ const Cart = () => {
   }, [id]);
 
   const handleCheckout = async () => {
+    // post books for fare
     const books = [];
     items.map((item) => {
-      if (item.type === "stay") {
+      if (item.type === "fare") {
+        books.push({
+          fare: item.id,
+          passenger: passenger.id,
+        });
       }
     });
   };
