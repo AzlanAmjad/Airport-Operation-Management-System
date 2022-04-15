@@ -62,7 +62,9 @@ const Cart = () => {
                         </Grid>
                       ) : (
                         <Grid item>
-                          <Typography variant="h2">{item.cabin}</Typography>
+                          <Typography variant="h2">
+                            {item.cabin} Class
+                          </Typography>
                         </Grid>
                       )}
                       <Grid item>
