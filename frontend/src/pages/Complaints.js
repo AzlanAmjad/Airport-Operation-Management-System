@@ -111,7 +111,7 @@ const Complaints = () => {
           px="70px"
         >
           <Grid item>
-            <Typography variant="h5" fontWeight="bold">
+            <Typography variant="h2" fontWeight="bold">
               Your complaints
             </Typography>
           </Grid>
