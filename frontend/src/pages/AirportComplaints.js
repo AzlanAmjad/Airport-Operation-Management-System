@@ -64,14 +64,16 @@ const AirportComplaints = () => {
   return (
     <>
       {loading ? (
-        <Grid item>
-          <ClipLoader loading={loading} size={70} />
+        <Grid container justifyContent="center">
+          <Grid item>
+            <ClipLoader loading={loading} size={70} color={"#ffffff"} />
+          </Grid>
         </Grid>
       ) : (
         <Grid container justifyContent="center">
           <Grid item xs={12}>
-            <Typography variant="h1" component="div" gutterBottom>
-              YYC Internation Airport: Complaints
+            <Typography variant="h2" component="div" gutterBottom>
+              YYC International Airport: Complaints
             </Typography>
           </Grid>
 

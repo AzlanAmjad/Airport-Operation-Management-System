@@ -69,8 +69,10 @@ const Reservation = () => {
   return (
     <>
       {loading ? (
-        <Grid item>
-          <ClipLoader loading={loading} size={70} color={"#ffffff"} />
+        <Grid container justifyContent="center">
+          <Grid item>
+            <ClipLoader loading={loading} size={70} color={"#ffffff"} />
+          </Grid>
         </Grid>
       ) : (
         <Grid container justifyContent="center" spacing={5}>

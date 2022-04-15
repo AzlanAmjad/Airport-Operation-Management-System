@@ -77,8 +77,10 @@ const Company = () => {
   return (
     <>
       {loading ? (
-        <Grid item>
-          <ClipLoader loading={loading} size={70} />
+        <Grid container justifyContent="center">
+          <Grid item>
+            <ClipLoader loading={loading} size={70} />
+          </Grid>
         </Grid>
       ) : (
         <Grid container justifyContent="center" spacing={5}>
