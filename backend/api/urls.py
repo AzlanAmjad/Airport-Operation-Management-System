@@ -91,6 +91,7 @@ urlpatterns = [
      path('hotel/<int:hotel>/', views.Hotel.as_view()),
 
      # AIRPLANE
+     path('airplane/<int:id>/', views.Airplane.as_view()),
 
      # AIRLINE
      # get airline information based on id
