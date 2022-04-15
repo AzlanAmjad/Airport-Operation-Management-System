@@ -74,8 +74,8 @@ const Hotel = () => {
 
   useEffect(async () => {
     try {
-      const allComplaints = await axiosInstance
-        .get(`/stays/${hotel}`, {})
+      const stays = await axiosInstance
+        .get(`/stays/${hotel}/`)
         .then((response) => {
           setStays(response.data);
         });
