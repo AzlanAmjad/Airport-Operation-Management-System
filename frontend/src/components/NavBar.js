@@ -230,7 +230,7 @@ const NavBar = () => {
                       onClick={() => navigate(`/cart`)}
                     >
                       <ShoppingCartIcon fontSize="small" />
-                      <Typography sx={{ml: 1.5}}>{quantity}</Typography>
+                      <Typography sx={{ ml: 1.5 }}>{quantity}</Typography>
                     </Button>
                   </Grid>
                   <Grid item>
@@ -263,7 +263,7 @@ const NavBar = () => {
                     >
                       <MenuItem
                         onClick={() =>
-                          handleMenuClick(`/passenger-dashboard/welcome`)
+                          handleMenuClick(`/passenger-dashboard/home`)
                         }
                       >
                         Account
@@ -326,7 +326,7 @@ const NavBar = () => {
                     >
                       <MenuItem
                         onClick={() =>
-                          handleMenuClick(`/airport-dashboard/welcome`)
+                          handleMenuClick(`/airport-dashboard/home`)
                         }
                       >
                         Dashboard
@@ -389,7 +389,7 @@ const NavBar = () => {
                     >
                       <MenuItem
                         onClick={() =>
-                          handleMenuClick(`/airline-dashboard/welcome`)
+                          handleMenuClick(`/airline-dashboard/home`)
                         }
                       >
                         Dashboard
