@@ -48,7 +48,7 @@ const HomePassenger = () => {
             rowSpacing={4}
           >
             <Grid item>
-              <Typography variant="h5" fontWeight="bold">
+              <Typography variant="h2" fontWeight="bold">
                 Welcome to your account {user.first_name}!
               </Typography>
             </Grid>

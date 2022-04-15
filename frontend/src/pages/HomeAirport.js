@@ -48,7 +48,7 @@ const HomeAirport = () => {
             rowSpacing={4}
           >
             <Grid item>
-              <Typography variant="h5" fontWeight="bold">
+              <Typography variant="h2" fontWeight="bold">
                 Welcome to your YYC admin dashboard {user.first_name}!
               </Typography>
             </Grid>
