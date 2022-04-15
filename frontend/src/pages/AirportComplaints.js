@@ -20,7 +20,7 @@ const AirportComplaints = () => {
   const [rows, setRows] = useState([]);
 
   const [reload, setReload] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const resolveComplaint = async (pk, desc, pass) => {
     console.log(adminData);
@@ -44,12 +44,12 @@ const AirportComplaints = () => {
 
   useEffect(async () => {
     try {
-      const allComplaints = await axiosInstance
+      const complaints = await axiosInstance
         .get(`airport-complaints/`, {})
         .then((response) => {
           setRows(response.data);
         });
-      const adminID = await axiosInstance
+      const admin = await axiosInstance
         .get(`airport-admin/${id}/`)
         .then((response) => {
           setAdminData(response.data);
