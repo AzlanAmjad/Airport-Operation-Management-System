@@ -69,7 +69,7 @@ const Flights = () => {
         .then((response) => {
           const flight = response.data;
 
-          axiosInstance.get(`airplane/${planeID}`).then((response) => {
+          axiosInstance.get(`airplane/${planeID}/`).then((response) => {
             axiosInstance.post(`fare/`, {
               price: econ,
               cabin: "Economy",
