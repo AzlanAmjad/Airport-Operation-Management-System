@@ -205,7 +205,7 @@ class Stay(models.Model):
     price = models.DecimalField(max_digits=6, decimal_places=2)
     description = models.TextField()
     hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE, related_name='stays')
-    transac = models.ForeignKey(Transaction, on_delete=models.SET_NULL, null=True, related_name='stays')
+    transaction = models.ForeignKey(Transaction, on_delete=models.SET_NULL, null=True, related_name='stays')
     image = models.ImageField(upload_to='stay_images/', blank=True, null=True)
     thumbnail = models.ImageField(upload_to='stay_images/', blank=True, null=True)
 
