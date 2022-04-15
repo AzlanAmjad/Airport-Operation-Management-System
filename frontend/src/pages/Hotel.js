@@ -233,7 +233,7 @@ const Hotel = () => {
             </>
           )}
 
-          <Grid itemx xs={12}>
+          <Grid item xs={12}>
             <Dialog open={addDialogForm} onClose={handleAddDialogFormClose}>
               <DialogTitle>Add a Stay</DialogTitle>
               <DialogContent>
