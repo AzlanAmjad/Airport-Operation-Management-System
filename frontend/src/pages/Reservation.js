@@ -20,13 +20,7 @@ import { ClipLoader } from "react-spinners";
 import { useSelector } from "react-redux";
 
 const Reservation = () => {
-  const [companies, setCompanies] = useState([
-    {
-      id: null,
-      name: null,
-      admin: null,
-    },
-  ]);
+  const [companies, setCompanies] = useState([]);
 
   const [companyName, setCompanyName] = useState("");
 
@@ -100,8 +94,8 @@ const Reservation = () => {
                 </Grid>
               ) : (
                 <Grid item xs={12}>
-                  <Typography variant="h1" component="div" gutterBottom>
-                    Reserve a hotel with...
+                  <Typography variant="h2" component="div" gutterBottom>
+                    Companies
                   </Typography>
                 </Grid>
               )}
@@ -146,13 +140,13 @@ const Reservation = () => {
             >
               {companies.length === 0 ? (
                 <Grid item xs={12}>
-                  <Typography variant="h1" component="div" gutterBottom>
+                  <Typography variant="h2" component="div" gutterBottom>
                     Someone forgot to add the companies :(
                   </Typography>
                 </Grid>
               ) : (
                 <Grid item xs={12}>
-                  <Typography variant="h1" component="div" gutterBottom>
+                  <Typography variant="h2" component="div" gutterBottom>
                     Reserve a hotel with...
                   </Typography>
                 </Grid>
