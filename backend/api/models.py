@@ -297,7 +297,7 @@ class Destination(models.Model):
         db_table = 'destination'
 
     def __str__(self):
-        return self.airport_code
+        return f'{self.airport_code} - {self.city}'
 
 
 # Flight model
