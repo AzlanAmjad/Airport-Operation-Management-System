@@ -47,7 +47,7 @@ const AirportComplaints = () => {
   useEffect(async () => {
     try {
       const adminData = await axiosInstance
-        .get(`airline-admin/${id}`)
+        .get(`airline-admin/${id}/`)
         .then((response) => {
           setAdminInfo(response.data);
           axiosInstance

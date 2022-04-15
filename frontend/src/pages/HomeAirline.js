@@ -1,19 +1,90 @@
 import * as React from "react";
-import Grid from "@mui/material/Grid";
+import { Grid, Paper } from "@mui/material";
 import Typography from "@mui/material/Typography";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axiosInstance from "../components/Axios";
+import { useSelector } from "react-redux";
+import { ClipLoader } from "react-spinners";
 
 const HomeAirline = () => {
-  const [adminAirline, setAdminAirline] = useState("Air Canada");
+  const { id } = useSelector((state) => state.user);
+
+  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState({});
+  const [admin, setAdmin] = useState({});
+
+  useEffect(async () => {
+    try {
+      const user = await axiosInstance.get(`user/${id}/`);
+      setUser(user.data);
+    } catch (err) {
+      console.log(err);
+    }
+
+    try {
+      const admin = await axiosInstance.get(`airline-admin/${id}/`);
+      setAdmin(admin.data);
+    } catch (err) {
+      console.log(err);
+    }
+
+    setLoading(false);
+  }, [id]);
 
   return (
-    <Grid container justifyContent="center">
-      <Grid item xs={12}>
-        <Typography variant="h1" component="div" gutterBottom>
-          Welcome to {adminAirline}'s Dashboard
-        </Typography>
+    <Paper
+      elevation={12}
+      sx={{
+        padding: "50px 70px",
+        margin: "60px",
+        minHeight: "400px",
+        minWidth: "80%",
+      }}
+    >
+      <Grid item container justifyContent="center" alignItems="center">
+        {" "}
+        {loading ? (
+          <Grid item>
+            <ClipLoader loading={loading} size={70} color={"#ffffff"} />
+          </Grid>
+        ) : (
+          <Grid
+            container
+            direction="column"
+            justifyContent="flex-start"
+            alignItems="flex-start"
+            rowSpacing={4}
+          >
+            <Grid item>
+              <Typography variant="h5" fontWeight="bold">
+                Welcome to your {admin.airline_name} admin dashboard {user.first_name}!
+              </Typography>
+            </Grid>
+            <Grid
+              item
+              container
+              direction="column"
+              justifyContent="flex-start"
+              alignItems="flex-start"
+              rowSpacing={2}
+            >
+              <Grid item>
+                <Typography variant="h6">Your account information</Typography>
+              </Grid>
+              <Grid item>
+                <Typography>Email: {user.email}</Typography>
+              </Grid>
+              <Grid item>
+                <Typography>First Name: {user.first_name}</Typography>
+              </Grid>
+              <Grid item>
+                <Typography>Last Name: {user.last_name}</Typography>
+              </Grid>
+            </Grid>
+          </Grid>
+        )}
       </Grid>
-    </Grid>
+    </Paper>
   );
 };
 
