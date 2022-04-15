@@ -8,7 +8,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import { Route, Routes, useNavigate, useLocation } from "react-router-dom";
 import Flights from "./Flights";
 import AirlineComplaints from "./AirlineComplaints";
-import WelcomeAirline from "./WelcomeAirline";
+import HomeAirline from "./HomeAirline";
 
 function LinkTab(props) {
   return (
@@ -37,13 +37,12 @@ const AirlineDashboard = () => {
         <Tabs
           value={value}
           onChange={handleChange}
-          aria-label="nav tabs example"
           orientation="vertical"
           textColor="white"
         >
           <LinkTab
-            label="Welcome"
-            onClick={() => navigate(`welcome`)}
+            label="Home"
+            onClick={() => navigate(`home`)}
             icon={<HomeIcon />}
           />
           <LinkTab
@@ -60,7 +59,7 @@ const AirlineDashboard = () => {
       </Grid>
       <Grid item xs={10} container>
         <Routes>
-          <Route path="welcome" element={<WelcomeAirline />} />
+          <Route path="home" element={<HomeAirline />} />
           <Route path="flights" element={<Flights />} />
           <Route path="complaints" element={<AirlineComplaints />} />
         </Routes>
