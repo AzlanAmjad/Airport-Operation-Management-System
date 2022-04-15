@@ -20,7 +20,7 @@ const AirportComplaints = () => {
   const [rows, setRows] = useState([]);
 
   const [reload, setReload] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const resolveComplaint = async (pk, desc, pass, air) => {
     console.log(pk + " " + desc + " " + pass + " " + air);
