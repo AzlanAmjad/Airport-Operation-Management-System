@@ -1,7 +1,7 @@
 import HomeIcon from "@mui/icons-material/Home";
 import ArticleIcon from "@mui/icons-material/Article";
 import { Tabs, Tab, Grid } from "@mui/material";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes, useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
 import HomePassenger from "./HomePassenger";
 import Complaints from "./Complaints";
@@ -19,13 +19,19 @@ function LinkTab(props) {
 }
 
 const PassengerDashboard = () => {
-  const [value, setValue] = useState(0);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const pathToTab = {
+    "/passenger-dashboard/home": 0,
+    "/passenger-dashboard/complaints": 1,
+  };
+
+  const [value, setValue] = useState(pathToTab[location.pathname]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
-  const navigate = useNavigate();
 
   return (
     <Grid
