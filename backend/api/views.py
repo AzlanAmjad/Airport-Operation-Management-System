@@ -355,7 +355,7 @@ class CompanyHotels(APIView):
 
 class HotelStays(APIView):
     def get(self, request, hotel, format=None):
-        stays = models.Stay.objects.filter(hotel=hotel).filter(transac=None)
+        stays = models.Stay.objects.filter(hotel=hotel).filter(transaction=None)
         serializer = serializers.GetStaySerializer(stays, many=True)
         return Response(serializer.data)
 
