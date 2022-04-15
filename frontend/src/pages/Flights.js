@@ -47,9 +47,7 @@ const Flights = () => {
   const [addDialogForm, setAddDialogForm] = useState(false);
 
   const [reload, setReload] = useState(false);
-  const [loading, setLoading] = useState(false);
-
-  const [editFlight, setEditFlight] = useState("");
+  const [loading, setLoading] = useState(true);
 
   const handleAddDialogFormOpen = () => {
     setAddDialogForm(true);
@@ -108,44 +106,43 @@ const Flights = () => {
     } catch (err) {}
   };
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const adminData = await axiosInstance
-          .get(`airline-admin/${id}`)
-          .then((response) => {
-            setAdminInfo(response.data);
-            axiosInstance
-              .get(`airplanes/${response.data.airline}`)
-              .then((response) => {
-                setAllPlanes(response.data);
-              });
-            axiosInstance
-              .get(`flights/${response.data.airline}`)
-              .then((response) => {
-                setFlights(response.data);
-              });
-          });
+  useEffect(async () => {
+    try {
+      const admin = await axiosInstance
+        .get(`airline-admin/${id}`)
+        .then((response) => {
+          setAdminInfo(response.data);
+          axiosInstance
+            .get(`airplanes/${response.data.airline}`)
+            .then((response) => {
+              setAllPlanes(response.data);
+            });
+          axiosInstance
+            .get(`flights/${response.data.airline}`)
+            .then((response) => {
+              setFlights(response.data);
+            });
+        });
 
-        const allDests = await axiosInstance
-          .get("destinations/")
-          .then((response) => {
-            setAllDest(response.data);
-          });
-      } catch (e) {
-        console.error(e);
-      }
+      const destinations = await axiosInstance
+        .get("destinations/")
+        .then((response) => {
+          setAllDest(response.data);
+        });
+    } catch (e) {
+      console.error(e);
     }
 
-    fetchData();
     setLoading(false);
   }, [reload]);
 
   return (
     <>
       {loading ? (
-        <Grid item>
-          <ClipLoader loading={loading} size={70} />
+        <Grid container justifyContent="center">
+          <Grid item>
+            <ClipLoader loading={loading} size={70} color={"#ffffff"} />
+          </Grid>
         </Grid>
       ) : (
         <Grid container justifyContent="center">
