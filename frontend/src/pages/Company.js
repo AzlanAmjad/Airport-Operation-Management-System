@@ -29,7 +29,7 @@ const Company = () => {
   const { airport_admin } = useSelector((state) => state.user);
 
   const [location, setLocation] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [reload, setReload] = useState(false);
 
   const [addDialogForm, setAddDialogForm] = useState(false);
@@ -60,7 +60,7 @@ const Company = () => {
 
   useEffect(async () => {
     try {
-      const allComplaints = await axiosInstance
+      const hotels = await axiosInstance
         .get(`/hotels/${company}`, {})
         .then((response) => {
           setHotels(response.data);

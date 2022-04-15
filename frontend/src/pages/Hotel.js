@@ -45,7 +45,7 @@ const Hotel = () => {
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
   const [reload, setReload] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const handleAddStay = async () => {
     try {
@@ -77,7 +77,6 @@ const Hotel = () => {
     }
 
     setLoading(false);
-    console.log(stays.length);
   }, [reload]);
 
   return (
