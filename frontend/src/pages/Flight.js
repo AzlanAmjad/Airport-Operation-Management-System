@@ -160,7 +160,6 @@ const Flight = () => {
                           </IconButton>
                         </Grid>
                       )}
-
                     </Grid>
                   </Paper>
                 </Grid>

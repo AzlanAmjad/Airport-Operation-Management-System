@@ -1,11 +1,4 @@
-import {
-  Paper,
-  Grid,
-  Button,
-  Typography,
-  IconButton,
-  formControlLabelClasses,
-} from "@mui/material";
+import { Paper, Grid, Button, Typography, IconButton } from "@mui/material";
 import * as React from "react";
 // state management
 import { useState, useEffect } from "react";

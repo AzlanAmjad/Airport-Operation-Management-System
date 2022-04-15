@@ -48,8 +48,8 @@ const Login = () => {
 
   // on click log in
   const log_in = async () => {
-    dispatch(login({email, password}))
-    navigate("/")
+    dispatch(login({ email, password }));
+    navigate("/");
   };
 
   return (

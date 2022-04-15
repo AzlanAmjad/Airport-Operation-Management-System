@@ -11,7 +11,6 @@ import Flight from "./pages/Flight";
 import Company from "./pages/Company";
 import Reservation from "./pages/Reservation";
 import Cart from "./pages/Cart";
-import Checkout from "./pages/Checkout";
 import AirportDashboard from "./pages/AirportDashboard";
 import AirlineDashboard from "./pages/AirlineDashboard";
 import PassengerDashboard from "./pages/PassengerDashboard";
@@ -118,7 +117,6 @@ function App() {
               />
 
               <Route path="/cart" element={<Cart />} />
-              <Route path="/checkout" element={<Checkout />} />
             </Routes>
           </Grid>
 

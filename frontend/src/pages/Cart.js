@@ -27,7 +27,6 @@ const Cart = () => {
     const books = [];
     items.map((item) => {
       if (item.type === "stay") {
-
       }
     });
   };
@@ -67,11 +66,7 @@ const Cart = () => {
                         </Grid>
                       )}
                       <Grid item>
-                        {
-                          <Typography>
-                            CA ${item.price}
-                          </Typography>
-                        }
+                        {<Typography>CA ${item.price}</Typography>}
                       </Grid>
                     </Grid>
                     {item.type === "stay" ? (

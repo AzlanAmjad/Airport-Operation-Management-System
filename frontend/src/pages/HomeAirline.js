@@ -57,7 +57,8 @@ const HomeAirline = () => {
           >
             <Grid item>
               <Typography variant="h2" fontWeight="bold">
-                Welcome to your {admin.airline_name} admin dashboard {user.first_name}!
+                Welcome to your {admin.airline_name} admin dashboard{" "}
+                {user.first_name}!
               </Typography>
             </Grid>
             <Grid

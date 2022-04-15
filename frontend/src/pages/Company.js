@@ -6,104 +6,71 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useState, useEffect } from "react";
 import { CardActionArea } from "@mui/material";
-import { Route, Routes, useNavigate, useLocation, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axiosInstance from "../components/Axios";
-import AddIcon from '@mui/icons-material/Add';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import FormControl from '@mui/material/FormControl';
-import FormHelperText from '@mui/material/FormHelperText';
+import AddIcon from "@mui/icons-material/Add";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import FormControl from "@mui/material/FormControl";
+import FormHelperText from "@mui/material/FormHelperText";
 import Input from "@mui/material/Input";
-import IconButton from '@mui/material/IconButton';
 import { ClipLoader } from "react-spinners";
 import { useSelector } from "react-redux";
 
-
-
 const Company = () => {
-
   const { company } = useParams();
 
-  const [hotels, setHotels] = useState([
-    {
-      id: null,
-      name: null,
-      location: null,
-      company_name: null,
-    }
-  ]);
-  const [hotelName, setHotelName] = useState('');
+  const [hotels, setHotels] = useState([]);
+  const [hotelName, setHotelName] = useState("");
 
   const { airport_admin } = useSelector((state) => state.user);
 
-  const [location, setLocation] = useState('');
+  const [location, setLocation] = useState("");
   const [loading, setLoading] = useState(false);
   const [reload, setReload] = useState(false);
 
   const [addDialogForm, setAddDialogForm] = useState(false);
   const handleAddDialogFormOpen = () => {
     setAddDialogForm(true);
-  }
+  };
   const handleAddDialogFormClose = () => {
     setAddDialogForm(false);
-  }
-
+  };
 
   const handleAddHotel = async () => {
     try {
-
-
       const result = await axiosInstance.post("hotel/", {
-
         name: hotelName,
         location: location,
-        company: company
-
+        company: company,
       });
       console.log(result.data);
-
 
       setAddDialogForm(false);
       if (reload) {
         setReload(false);
-      }
-      else {
+      } else {
         setReload(true);
       }
-    } catch (err) {
-
-    }
-
-
+    } catch (err) {}
   };
 
-
-
-
   useEffect(async () => {
-
     try {
-      const allComplaints = await axiosInstance.get(`/hotels/${company}`, {
-
-      })
+      const allComplaints = await axiosInstance
+        .get(`/hotels/${company}`, {})
         .then((response) => {
           setHotels(response.data);
         });
-
-
-
     } catch (e) {
       console.error(e);
     }
 
     setLoading(false);
-
-
   }, [reload]);
-
 
   const navigate = useNavigate();
 
@@ -114,12 +81,15 @@ const Company = () => {
           <ClipLoader loading={loading} size={70} />
         </Grid>
       ) : (
-
         <Grid container justifyContent="center" spacing={5}>
-
-          {airport_admin &&
-            <Grid item container spacing={3} xs={6} justifyContent="space-around">
-
+          {airport_admin && (
+            <Grid
+              item
+              container
+              spacing={3}
+              xs={6}
+              justifyContent="space-around"
+            >
               {hotels.length === 0 ? (
                 <Grid item>
                   <Card sx={{ maxWidth: 300, minWidth: 300 }}>
@@ -133,11 +103,10 @@ const Company = () => {
               ) : (
                 <Grid item xs={12}>
                   <Typography variant="h1" component="div" gutterBottom>
-                    {hotels[0]['company_name']}
+                    {hotels[0]["company_name"]}
                   </Typography>
                 </Grid>
               )}
-
 
               {hotels.map((hotel) => {
                 return (
@@ -149,10 +118,18 @@ const Company = () => {
                         backgroundColor: "background.paper",
                       }}
                     >
-                      <CardActionArea onClick={() => navigate(`/reservation/${company}/${hotel.pk}`)}>
+                      <CardActionArea
+                        onClick={() =>
+                          navigate(`/reservation/${company}/${hotel.pk}`)
+                        }
+                      >
                         <CardContent>
-                          <Typography gutterBottom variant="h2">{hotel.name}</Typography>
-                          <Typography gutterBottom variant="h6">{hotel.location}</Typography>
+                          <Typography gutterBottom variant="h2">
+                            {hotel.name}
+                          </Typography>
+                          <Typography gutterBottom variant="h6">
+                            {hotel.location}
+                          </Typography>
                         </CardContent>
                       </CardActionArea>
                     </Card>
@@ -160,8 +137,7 @@ const Company = () => {
                 );
               })}
 
-              {hotels.length > 0 &&
-
+              {hotels.length > 0 && (
                 <Grid item>
                   <Card sx={{ maxWidth: 300, minWidth: 300 }}>
                     <CardActionArea onClick={handleAddDialogFormOpen}>
@@ -171,15 +147,17 @@ const Company = () => {
                     </CardActionArea>
                   </Card>
                 </Grid>
-
-              }
-
+              )}
             </Grid>
-
-          }
-          {!airport_admin &&
-            <Grid item container spacing={3} xs={6} justifyContent="space-around">
-
+          )}
+          {!airport_admin && (
+            <Grid
+              item
+              container
+              spacing={3}
+              xs={6}
+              justifyContent="space-around"
+            >
               {hotels.length === 0 ? (
                 <Grid item xs={12}>
                   <Typography variant="h1" component="div" gutterBottom>
@@ -189,11 +167,10 @@ const Company = () => {
               ) : (
                 <Grid item xs={12}>
                   <Typography variant="h1" component="div" gutterBottom>
-                    {hotels[0]['company_name']}
+                    {hotels[0]["company_name"]}
                   </Typography>
                 </Grid>
               )}
-
 
               {hotels.map((hotel) => {
                 return (
@@ -205,20 +182,26 @@ const Company = () => {
                         backgroundColor: "background.paper",
                       }}
                     >
-                      <CardActionArea onClick={() => navigate(`/reservation/${company}/${hotel.pk}`)}>
+                      <CardActionArea
+                        onClick={() =>
+                          navigate(`/reservation/${company}/${hotel.pk}`)
+                        }
+                      >
                         <CardContent>
-                          <Typography gutterBottom variant="h2">{hotel.name}</Typography>
-                          <Typography gutterBottom variant="h6">{hotel.location}</Typography>
+                          <Typography gutterBottom variant="h2">
+                            {hotel.name}
+                          </Typography>
+                          <Typography gutterBottom variant="h6">
+                            {hotel.location}
+                          </Typography>
                         </CardContent>
                       </CardActionArea>
                     </Card>
                   </Grid>
                 );
               })}
-
             </Grid>
-
-          }
+          )}
 
           <Grid item>
             <Dialog open={addDialogForm} onClose={handleAddDialogFormClose}>
@@ -228,12 +211,26 @@ const Company = () => {
                   To add a Hotel, please add the following information
                 </DialogContentText>
                 <FormControl sx={{ maxWidth: 200, padding: "10px" }}>
-                  <Input inputProps={{ min: 0 }} onChange={(event) => { setHotelName(event.target.value) }} />
-                  <FormHelperText sx={{ color: "text.primary" }}>Hotel Name</FormHelperText>
+                  <Input
+                    inputProps={{ min: 0 }}
+                    onChange={(event) => {
+                      setHotelName(event.target.value);
+                    }}
+                  />
+                  <FormHelperText sx={{ color: "text.primary" }}>
+                    Hotel Name
+                  </FormHelperText>
                 </FormControl>
                 <FormControl sx={{ maxWidth: 200, padding: "10px" }}>
-                  <Input inputProps={{ min: 0 }} onChange={(event) => { setLocation(event.target.value) }} />
-                  <FormHelperText sx={{ color: "text.primary" }}>Location</FormHelperText>
+                  <Input
+                    inputProps={{ min: 0 }}
+                    onChange={(event) => {
+                      setLocation(event.target.value);
+                    }}
+                  />
+                  <FormHelperText sx={{ color: "text.primary" }}>
+                    Location
+                  </FormHelperText>
                 </FormControl>
               </DialogContent>
               <DialogActions>
@@ -242,13 +239,8 @@ const Company = () => {
               </DialogActions>
             </Dialog>
           </Grid>
-
-
-        </Grid >
-
-      )
-      }
-
+        </Grid>
+      )}
     </>
   );
 };

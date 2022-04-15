@@ -62,8 +62,8 @@ const Signup = () => {
         address: address,
       });
 
-      console.log(result.data)
-      
+      console.log(result.data);
+
       navigate("/login");
     } catch (err) {
       console.log(err);
