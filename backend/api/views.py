@@ -310,6 +310,14 @@ class Airline(APIView):
 # AIRPLANE
 
 
+class Airplane(APIView):
+    def get(self, request, id, format=None):
+        plane = models.Airplane.objects.filter(pk=id)
+        serializer = serializers.AirplaneSerializer(plane, many=True)
+        return Response(serializer.data)
+
+
+
 # FARE
 class Fare(APIView):
     def post(self, request, format=None):

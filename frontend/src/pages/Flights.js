@@ -23,6 +23,7 @@ import axiosInstance from "../components/Axios";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import { useSelector } from "react-redux";
 import { ClipLoader } from "react-spinners";
+import { Divider } from "@mui/material";
 
 const Flights = () => {
   const { id } = useSelector((state) => state.user);
@@ -68,19 +69,20 @@ const Flights = () => {
   ]);
   const [departure, setDeparture] = useState(new Date());
   const [arrival, setArrival] = useState(new Date());
-  const [econ, setEcon] = useState("");
-  const [premEcon, setPremEcon] = useState("");
-  const [business, setBusiness] = useState("");
-  const [firstClass, setFirstClass] = useState("");
-  const [tickets, setTickets] = useState("");
+  const [econ, setEcon] = useState('');
+  const [premEcon, setPremEcon] = useState('');
+  const [business, setBusiness] = useState('');
+  const [firstClass, setFirstClass] = useState('');
+
 
   const [addDialogForm, setAddDialogForm] = useState(false);
-  const [editDialogForm, setEditDialogForm] = useState(false);
 
   const [reload, setReload] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const [editFlight, setEditFlight] = useState("");
+
+
+  const [editFlight, setEditFlight] = useState('');
 
   const handleAddDialogFormOpen = () => {
     setAddDialogForm(true);
@@ -96,6 +98,43 @@ const Flights = () => {
         dep_time: departure,
         arrival_time: arrival,
         destination: destCode,
+
+        plane: planeID
+
+      }).then((response) => {
+
+        const flight = response.data;
+
+
+
+        axiosInstance.get(`airplane/${planeID}`)
+          .then((response) => {
+            axiosInstance.post(`fare/`, {
+              price: econ,
+              cabin: "Economy",
+              tickets_quantity: response.data[0].economy_seats,
+              flight: flight.id,
+            });
+            axiosInstance.post(`fare/`, {
+              price: premEcon,
+              cabin: "Premium Economy",
+              tickets_quantity: response.data[0].premium_economy_seats,
+              flight: flight.id,
+            });
+            axiosInstance.post(`fare/`, {
+              price: business,
+              cabin: "Business",
+              tickets_quantity: response.data[0].business_seats,
+              flight: flight.id,
+            });
+            axiosInstance.post(`fare/`, {
+              price: firstClass,
+              cabin: "First",
+              tickets_quantity: response.data[0].first_seats,
+              flight: flight.id,
+            });
+          });
+
         plane: planeID,
       });
 
@@ -107,51 +146,6 @@ const Flights = () => {
       setAddDialogForm(false);
     } catch (err) {}
   };
-  const handleEditSave = async () => {
-    try {
-      const econClass = await axiosInstance.post(`fare/`, {
-        price: econ,
-        cabin: "Economy",
-        tickets_quantity: tickets,
-        flight: editFlight,
-      });
-      const premEconClass = await axiosInstance.post(`fare/`, {
-        price: premEcon,
-        cabin: "Premium Economy",
-        tickets_quantity: tickets,
-        flight: editFlight,
-      });
-      const businessClass = await axiosInstance.post(`fare/`, {
-        price: business,
-        cabin: "Business",
-        tickets_quantity: tickets,
-        flight: editFlight,
-      });
-      const _firstClass = await axiosInstance.post(`fare/`, {
-        price: firstClass,
-        cabin: "First",
-        tickets_quantity: tickets,
-        flight: editFlight,
-      });
-
-      setEditDialogForm(false);
-      if (reload) {
-        setReload(false);
-      } else {
-        setReload(true);
-      }
-    } catch (err) {}
-  };
-
-  const handleEditDialogFormOpen = (flightNum) => {
-    setEditFlight(flightNum);
-    setEditDialogForm(true);
-  };
-
-  const handleEditDialogFormClose = () => {
-    setEditDialogForm(false);
-  };
-
   useEffect(() => {
     async function fetchData() {
       try {
@@ -242,14 +236,6 @@ const Flights = () => {
                         <Typography>Plane ID: {flight.plane}</Typography>
                       </Grid>
                     </Grid>
-                    <Grid item>
-                      <IconButton
-                        color="inherit"
-                        onClick={() => handleEditDialogFormOpen(flight.id)}
-                      >
-                        <AddIcon fontSize="medium" />
-                      </IconButton>
-                    </Grid>
                   </Grid>
                 </Paper>
               </Grid>
@@ -268,35 +254,53 @@ const Flights = () => {
             <Dialog open={addDialogForm} onClose={handleAddDialogFormClose}>
               <DialogTitle>Add a Flight</DialogTitle>
               <DialogContent>
-                <DialogContentText sx={{ color: "text.primary" }}>
-                  To add flight, please add following information:
-                </DialogContentText>
-                <FormControl sx={{ minWidth: 100, padding: "5px" }}>
-                  <DateTimePicker
-                    value={arrival}
-                    onChange={(newArrival) => {
-                      setArrival(newArrival);
-                    }}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        variant="outlined"
-                        placeholder="Departure Date"
-                        sx={{
-                          "& .MuiOutlinedInput-notchedOutline": {
-                            borderColor: "white",
-                          },
-                          "&:hover .MuiOutlinedInput-notchedOutline": {
-                            borderColor: "red",
-                          },
-                          "&.MuiOutlinedInput-notchedOutline.Mui-focused": {
-                            borderColor: "red",
-                          },
-                          "& .MuiButtonBase-root.MuiIconButton-root": {
-                            color: "white",
-                          },
+                <Grid type="column" rowSpacing={5}>
+                  <Grid item xs={12}>
+                    <DialogContentText sx={{ color: "text.primary" }}>
+                      To add flight, please add following information:
+                    </DialogContentText>
+                    <Grid item xs={12}>
+                      <Typography variant="h5">Flight:</Typography>
+                    </Grid>
+                  </Grid>
+                  <Grid item container>
+                    <FormControl sx={{ minWidth: 100, padding: "5px" }}>
+                      <DateTimePicker
+                        value={arrival}
+                        onChange={(newArrival) => {
+                          setArrival(newArrival);
                         }}
+                        renderInput={(params) => (
+                          <TextField
+                            {...params}
+                            variant="outlined"
+                            placeholder="Departure Date"
+                            sx={{
+                              "& .MuiOutlinedInput-notchedOutline": {
+                                borderColor: "white",
+                              },
+                              "&:hover .MuiOutlinedInput-notchedOutline": {
+                                borderColor: "red",
+                              },
+                              "&.MuiOutlinedInput-notchedOutline.Mui-focused": {
+                                borderColor: "red",
+                              },
+                              "& .MuiButtonBase-root.MuiIconButton-root": {
+                                color: "white",
+                              },
+                            }}
+                          />
+                        )}
                       />
+ 
+                      <FormHelperText sx={{ color: "text.primary" }}>Arrival</FormHelperText>
+                    </FormControl>
+                    <FormControl sx={{ minWidth: 100, padding: "5px" }}>
+                      <DateTimePicker
+                        value={departure}
+                        onChange={(newDeparture) => {
+                          setDeparture(newDeparture);
+
                     )}
                   />
                   <FormHelperText sx={{ color: "text.primary" }}>
@@ -327,8 +331,85 @@ const Flights = () => {
                           "& .MuiButtonBase-root.MuiIconButton-root": {
                             color: "white",
                           },
+
                         }}
+                        renderInput={(params) => (
+                          <TextField
+                            {...params}
+                            variant="outlined"
+                            placeholder="Departure Date"
+                            sx={{
+                              "& .MuiOutlinedInput-notchedOutline": {
+                                borderColor: "white",
+                              },
+                              "&:hover .MuiOutlinedInput-notchedOutline": {
+                                borderColor: "red",
+                              },
+                              "&.MuiOutlinedInput-notchedOutline.Mui-focused": {
+                                borderColor: "red",
+                              },
+                              "& .MuiButtonBase-root.MuiIconButton-root": {
+                                color: "white",
+                              },
+                            }}
+                          />
+                        )}
                       />
+                      <FormHelperText sx={{ color: "text.primary" }}>Departure</FormHelperText>
+                    </FormControl>
+                    <FormControl sx={{ minWidth: 120, padding: "5px" }}>
+                      <InputLabel sx={{ color: "text.primary" }}>Destination Code</InputLabel>
+                      <Select
+                        value={destCode}
+                        onChange={(event) => {
+                          setDestCode(event.target.value);
+                          console.log(event.target.value);
+
+                        }}
+                      >
+                        {allDest.map((dest) => (
+                          <MenuItem value={dest.airport_code}>{dest.airport_code}</MenuItem>
+
+                        ))}
+                      </Select>
+                    </FormControl>
+                    <FormControl sx={{ minWidth: 120, padding: "5px" }}>
+                      <InputLabel sx={{ color: "text.primary" }}>Plane Model</InputLabel>
+                      <Select
+                        value={planeID}
+                        onChange={(event) => {
+                          setPlaneID(event.target.value);
+                        }}
+                      >
+                        {allPlanes.map((plane) => (
+                          <MenuItem value={plane.id}>{plane.model}</MenuItem>
+
+                        ))}
+                      </Select>
+                    </FormControl>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Typography variant="h5">Fare:</Typography>
+                  </Grid>
+                  <Grid item container>
+                    <FormControl sx={{ maxWidth: 120, padding: "10px" }}>
+                      <Input type="number" inputProps={{ min: 0 }} onChange={(event) => { setEcon(event.target.value) }} />
+                      <FormHelperText sx={{ color: "text.primary" }}>Economy Class ($)</FormHelperText>
+                    </FormControl>
+                    <FormControl sx={{ maxWidth: 120, padding: "10px" }}>
+                      <Input type="number" inputProps={{ min: 0 }} onChange={(event) => { setPremEcon(event.target.value) }} />
+                      <FormHelperText sx={{ color: "text.primary" }}>Premium Economy Class ($)</FormHelperText>
+                    </FormControl>
+                    <FormControl sx={{ maxWidth: 120, padding: "10px" }}>
+                      <Input type="number" inputProps={{ min: 0 }} onChange={(event) => { setBusiness(event.target.value) }} />
+                      <FormHelperText sx={{ color: "text.primary" }}>Business Class ($)</FormHelperText>
+                    </FormControl>
+                    <FormControl sx={{ maxWidth: 120, padding: "10px" }}>
+                      <Input type="number" inputProps={{ min: 0 }} onChange={(event) => { setFirstClass(event.target.value) }} />
+                      <FormHelperText sx={{ color: "text.primary" }}>First Class ($)</FormHelperText>
+                    </FormControl>
+                  </Grid>
+                </Grid>
                     )}
                   />
                   <FormHelperText sx={{ color: "text.primary" }}>
@@ -375,79 +456,6 @@ const Flights = () => {
               </DialogActions>
             </Dialog>
 
-            {/*For editing a flight*/}
-            <Dialog open={editDialogForm} onClose={handleEditDialogFormClose}>
-              <DialogTitle>Edit a Flight</DialogTitle>
-              <DialogContent>
-                <DialogContentText sx={{ color: "text.primary" }}>
-                  To add Flight fares, please add following information:
-                </DialogContentText>
-                <FormControl sx={{ maxWidth: 120, padding: "10px" }}>
-                  <Input
-                    type="number"
-                    inputProps={{ min: 0 }}
-                    onChange={(event) => {
-                      setEcon(event.target.value);
-                    }}
-                  />
-                  <FormHelperText sx={{ color: "text.primary" }}>
-                    Economy Class ($)
-                  </FormHelperText>
-                </FormControl>
-                <FormControl sx={{ maxWidth: 120, padding: "10px" }}>
-                  <Input
-                    type="number"
-                    inputProps={{ min: 0 }}
-                    onChange={(event) => {
-                      setPremEcon(event.target.value);
-                    }}
-                  />
-                  <FormHelperText sx={{ color: "text.primary" }}>
-                    Premium Economy Class ($)
-                  </FormHelperText>
-                </FormControl>
-                <FormControl sx={{ maxWidth: 120, padding: "10px" }}>
-                  <Input
-                    type="number"
-                    inputProps={{ min: 0 }}
-                    onChange={(event) => {
-                      setBusiness(event.target.value);
-                    }}
-                  />
-                  <FormHelperText sx={{ color: "text.primary" }}>
-                    Business Class ($)
-                  </FormHelperText>
-                </FormControl>
-                <FormControl sx={{ maxWidth: 120, padding: "10px" }}>
-                  <Input
-                    type="number"
-                    inputProps={{ min: 0 }}
-                    onChange={(event) => {
-                      setFirstClass(event.target.value);
-                    }}
-                  />
-                  <FormHelperText sx={{ color: "text.primary" }}>
-                    First Class ($)
-                  </FormHelperText>
-                </FormControl>
-                <FormControl sx={{ maxWidth: 120, padding: "10px" }}>
-                  <Input
-                    type="number"
-                    inputProps={{ min: 0 }}
-                    onChange={(event) => {
-                      setTickets(event.target.value);
-                    }}
-                  />
-                  <FormHelperText sx={{ color: "text.primary" }}>
-                    Tickets
-                  </FormHelperText>
-                </FormControl>
-              </DialogContent>
-              <DialogActions>
-                <Button onClick={handleEditSave}>Save</Button>
-                <Button onClick={handleEditDialogFormClose}>Cancel</Button>
-              </DialogActions>
-            </Dialog>
           </Grid>
         </Grid>
       )}
