@@ -73,7 +73,7 @@ const AirportComplaints = () => {
         <Grid container justifyContent="center">
           <Grid item xs={12}>
             <Typography variant="h2" component="div" gutterBottom>
-              YYC International Airport: Complaints
+              YYC International Airport Complaints
             </Typography>
           </Grid>
 
