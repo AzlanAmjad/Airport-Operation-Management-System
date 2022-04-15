@@ -16,22 +16,20 @@ import { ClipLoader } from "react-spinners";
 
 const AirportComplaints = () => {
   const { id } = useSelector((state) => state.user);
-  const [adminData, setAdminData] = useState([]);
-  const [rows, setRows] = useState([]);
+  const [admin, setAdmin] = useState([]);
+  const [complaints, setComplaints] = useState([]);
 
   const [reload, setReload] = useState(false);
   const [loading, setLoading] = useState(true);
 
   const resolveComplaint = async (pk, desc, pass) => {
-    console.log(adminData);
     try {
       const result = await axiosInstance.put(`airport-complaint/${pk}/`, {
         description: desc,
         passenger: pass,
-        admin: adminData["admin_id"],
+        admin: admin["id"],
       });
 
-      console.log(result);
       if (reload) {
         setReload(false);
       } else {
@@ -47,12 +45,12 @@ const AirportComplaints = () => {
       const complaints = await axiosInstance
         .get(`airport-complaints/`, {})
         .then((response) => {
-          setRows(response.data);
+          setComplaints(response.data);
         });
       const admin = await axiosInstance
         .get(`airport-admin/${id}/`)
         .then((response) => {
-          setAdminData(response.data);
+          setAdmin(response.data);
         });
     } catch (e) {
       console.error(e);
@@ -89,7 +87,7 @@ const AirportComplaints = () => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {rows.map((row) => (
+                  {complaints.map((row) => (
                     <TableRow
                       key={row.pk}
                       sx={{ "&:last-child td, &:last-child th": { border: 0 } }}

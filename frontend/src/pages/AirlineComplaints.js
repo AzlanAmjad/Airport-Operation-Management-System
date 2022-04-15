@@ -23,8 +23,6 @@ const AirportComplaints = () => {
   const [loading, setLoading] = useState(true);
 
   const resolveComplaint = async (pk, desc, pass, air) => {
-    console.log(admin["id"]);
-
     try {
       const result = await axiosInstance.put(`airline-complaint/${pk}/`, {
         description: desc,
