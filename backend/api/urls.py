@@ -46,10 +46,8 @@ urlpatterns = [
      path('destinations/', views.Destinations.as_view()),
 
      # BOOKS
-     # POST books
-     path('books/', views.Books.as_view()),
      # POST list of books
-     path('books-list/', views.BooksCreateView.as_view()),
+     path('multiple-books/', views.MultipleBooksCreate.as_view()),
 
      # TRANSACTION
      # POST transaction
@@ -92,6 +90,7 @@ urlpatterns = [
      path('hotel/<int:hotel>/', views.Hotel.as_view()),
 
      # AIRPLANE
+     # GET airplane
      path('airplane/<int:id>/', views.Airplane.as_view()),
 
      # AIRLINE

@@ -1,5 +1,6 @@
 import datetime
 from django.conf import settings
+from django.forms import ValidationError
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -128,29 +129,37 @@ class Destinations(APIView):
 
 
 # BOOKS
-class Books(APIView):
-    def post(self, request, format=None):
-        serializer = serializers.BooksSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
+# bulk create BOOKS
+class MultipleBooksCreate(generics.CreateAPIView):
+    serializer_class = serializers.BooksSerializer
 
-            # decrement the tickets count in fare
-            fare = models.Fare.objects.get(pk=serializer.get_attribute('fare'))
-            # can decrement
-            if fare.tickets_quantity > 0:
-                data = serializers.FareSerializer(fare).data
-                data["tickets_quantity"] -= 1
-                fare_serializer = serializers.FareSerializer(fare, data=data)
-                if fare_serializer.is_valid():
-                    fare_serializer.save()
+    def post(self, request, *args, **kwargs):
+        if isinstance(request.data, list):
+            for item in request.data:
+                # decrement the tickets count in fare
+                fare = models.Fare.objects.get(pk=item['fare'])
+                # can decrement
+                if fare.tickets_quantity > 0:
+                    data = serializers.FareSerializer(fare).data
+                    data["tickets_quantity"] -= 1
+                    fare_serializer = serializers.FareSerializer(fare, data=data)
+                    if fare_serializer.is_valid():
+                        fare_serializer.save()
+                    else:
+                        return Response(fare_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+                # can not decrement
                 else:
-                    return Response(fare_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-            # can not decrement
-            else:
-                return Response(status=status.HTTP_400_BAD_REQUEST)
+                    return Response(status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return super(MultipleBooksCreate, self).post(request, *args, **kwargs)
+
+    def get_serializer(self, *args, **kwargs):
+        if isinstance(kwargs.get("data", {}), list):
+            kwargs["many"] = True
+
+        return super(MultipleBooksCreate, self).get_serializer(*args, **kwargs)
 
 
 # TRANSACTION
@@ -308,14 +317,11 @@ class Airline(APIView):
 
 
 # AIRPLANE
-
-
 class Airplane(APIView):
     def get(self, request, id, format=None):
         plane = models.Airplane.objects.filter(pk=id)
         serializer = serializers.AirplaneSerializer(plane, many=True)
         return Response(serializer.data)
-
 
 
 # FARE
@@ -388,34 +394,3 @@ class PassengerAirlineComplaints(APIView):
         complaints = models.AirlineComplaint.objects.filter(passenger=p_serializer.data['id'])
         serializer = serializers.GetAirlineComplaintSerializer(complaints, many=True)
         return Response(serializer.data)
-
-# bulk create BOOKS
-class BooksCreateView(generics.CreateAPIView):
-    serializer_class = serializers.BooksSerializer
-
-    def create(self, request, *args, **kwargs):
-        serializer = self.serializer_class(...)
-        data = serializer.data
-
-        # decrement the tickets count in fare
-        fare = models.Fare.objects.get(pk=data['fare'])
-        # can decrement
-        if fare.tickets_quantity > 0:
-            data = serializers.FareSerializer(fare).data
-            data["tickets_quantity"] -= 1
-            fare_serializer = serializers.FareSerializer(fare, data=data)
-            if fare_serializer.is_valid():
-                fare_serializer.save()
-            else:
-                return Response(fare_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        # can not decrement
-        else:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
-
-        return Response(serializer.validated_data, status=status.HTTP_201_CREATED)
-
-    def get_serializer(self, *args, **kwargs):
-        if isinstance(kwargs.get("data", {}), list):
-            kwargs["many"] = True
-
-        return super(BooksCreateView, self).get_serializer(*args, **kwargs)

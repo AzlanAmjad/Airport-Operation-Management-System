@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Button, Divider, Typography } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import { Grid, Paper } from "@mui/material";
-import { remove } from "../features/cart/cartSlice";
+import { empty, remove } from "../features/cart/cartSlice";
 import axiosInstance from "../components/Axios";
 
 const Cart = () => {
@@ -34,6 +34,14 @@ const Cart = () => {
         });
       }
     });
+
+    try {
+      const result = await axiosInstance.post("multiple-books/", books);
+    } catch (err) {
+      console.log(err);
+    }
+
+    dispatch(empty())
   };
 
   return (
@@ -44,7 +52,7 @@ const Cart = () => {
         <Grid item container justifyContent="center">
           <Grid item container direction="column" spacing={2} xs={6}>
             {items.map((item) => (
-              <Grid item sx={{ width: "100%" }}>
+              <Grid item sx={{ width: "100%" }} key={item.id}>
                 <Paper elevation={12} sx={{ padding: "30px" }}>
                   <Grid
                     container

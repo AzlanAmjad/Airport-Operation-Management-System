@@ -1,3 +1,5 @@
+from django.db import IntegrityError
+from django.forms import ValidationError
 from rest_framework import serializers
 from . import models
 
@@ -170,8 +172,6 @@ class GetFlightSerializer(serializers.ModelSerializer):
                   'destination', 'plane', 'airline_name', 'destination_city')
 
 # FARE
-
-
 class FareSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Fare
@@ -179,7 +179,27 @@ class FareSerializer(serializers.ModelSerializer):
 
 
 # BOOKS
+class BulkCreateListSerializer(serializers.ListSerializer):
+    def create(self, validated_data):
+        result = [self.child.create(attrs) for attrs in validated_data]
+
+        try:
+            self.child.Meta.model.objects.bulk_create(result)
+        except IntegrityError as e:
+            raise ValidationError(e)
+
+        return result
+
 class BooksSerializer(serializers.ModelSerializer):
+    def create(self, validated_data):
+        instance = models.Books(**validated_data)
+
+        if isinstance(self._kwargs["data"], dict):
+            instance.save()
+
+        return instance
+
     class Meta:
         model = models.Books
         fields = '__all__'
+        list_serializer_class = BulkCreateListSerializer
