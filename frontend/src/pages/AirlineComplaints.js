@@ -16,20 +16,20 @@ import { ClipLoader } from "react-spinners";
 
 const AirportComplaints = () => {
   const { id } = useSelector((state) => state.user);
-  const [adminInfo, setAdminInfo] = useState([]);
-  const [rows, setRows] = useState([]);
+  const [admin, setAdmin] = useState([]);
+  const [complaints, setComplaints] = useState([]);
 
   const [reload, setReload] = useState(false);
   const [loading, setLoading] = useState(true);
 
   const resolveComplaint = async (pk, desc, pass, air) => {
-    console.log(pk + " " + desc + " " + pass + " " + air);
+    console.log(admin["id"]);
 
     try {
       const result = await axiosInstance.put(`airline-complaint/${pk}/`, {
         description: desc,
         passenger: pass,
-        admin: adminInfo["employee_id"],
+        admin: admin["id"],
         airline: air,
       });
 
@@ -46,20 +46,19 @@ const AirportComplaints = () => {
 
   useEffect(async () => {
     try {
-      const adminData = await axiosInstance
+      const admin = await axiosInstance
         .get(`airline-admin/${id}/`)
         .then((response) => {
-          setAdminInfo(response.data);
+          setAdmin(response.data);
           axiosInstance
-            .get(`airline-complaints/${response.data.airline}`)
+            .get(`airline-complaints/${response.data.airline}/`)
             .then((response) => {
-              setRows(response.data);
+              setComplaints(response.data);
             });
         });
     } catch (e) {
       console.error(e);
     }
-
     setLoading(false);
   }, [reload]);
 
@@ -75,7 +74,7 @@ const AirportComplaints = () => {
         <Grid container justifyContent="center">
           <Grid item xs={12}>
             <Typography variant="h2" component="div" gutterBottom>
-              {adminInfo["airline_name"]} Complaints
+              {admin["airline_name"]} Complaints
             </Typography>
           </Grid>
 
@@ -91,7 +90,7 @@ const AirportComplaints = () => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {rows.map((row) => (
+                  {complaints.map((row) => (
                     <TableRow
                       key={row.pk}
                       sx={{ "&:last-child td, &:last-child th": { border: 0 } }}

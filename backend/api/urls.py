@@ -65,11 +65,9 @@ urlpatterns = [
      # POST airline complaint
      path('airline-complaint/', views.AirlineComplaint.as_view()),
      # PUT airline complaint, DELETE airline complaint
-     path('airline-complaint/<int:complaint>/',
-          views.AirlineComplaint.as_view()),
+     path('airline-complaint/<int:complaint>/', views.AirlineComplaint.as_view()),
      # GET airline complaints
-     path('airline-complaints/<int:airline>/',
-          views.AirlineComplaints.as_view()),
+     path('airline-complaints/<int:airline>/', views.AirlineComplaints.as_view()),
 
      # AIRPORT COMPLAINT
      # POST airport complaint
