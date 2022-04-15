@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.authentication import get_authorization_header
+from rest_framework import generics
 import jwt
 
 from . import models
@@ -21,7 +22,6 @@ class PassengerCreate(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
 
 class BlacklistTokenView(APIView):
     permission_classes = [AllowAny]
@@ -309,11 +309,13 @@ class Airline(APIView):
 
 # AIRPLANE
 
+
 class Airplane(APIView):
     def get(self, request, id, format=None):
         plane = models.Airplane.objects.filter(pk=id)
         serializer = serializers.AirplaneSerializer(plane, many=True)
         return Response(serializer.data)
+
 
 
 # FARE
@@ -386,3 +388,34 @@ class PassengerAirlineComplaints(APIView):
         complaints = models.AirlineComplaint.objects.filter(passenger=p_serializer.data['id'])
         serializer = serializers.GetAirlineComplaintSerializer(complaints, many=True)
         return Response(serializer.data)
+
+# bulk create BOOKS
+class BooksCreateView(generics.CreateAPIView):
+    serializer_class = serializers.BooksSerializer
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.serializer_class(...)
+        data = serializer.data
+
+        # decrement the tickets count in fare
+        fare = models.Fare.objects.get(pk=data['fare'])
+        # can decrement
+        if fare.tickets_quantity > 0:
+            data = serializers.FareSerializer(fare).data
+            data["tickets_quantity"] -= 1
+            fare_serializer = serializers.FareSerializer(fare, data=data)
+            if fare_serializer.is_valid():
+                fare_serializer.save()
+            else:
+                return Response(fare_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        # can not decrement
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+        return Response(serializer.validated_data, status=status.HTTP_201_CREATED)
+
+    def get_serializer(self, *args, **kwargs):
+        if isinstance(kwargs.get("data", {}), list):
+            kwargs["many"] = True
+
+        return super(BooksCreateView, self).get_serializer(*args, **kwargs)

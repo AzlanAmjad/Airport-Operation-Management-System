@@ -24,7 +24,6 @@ const Complaints = () => {
   useEffect(async () => {
     try {
       const passenger = await axiosInstance.get(`passenger/${id}/`);
-      console.log(passenger.data);
       setPassenger(passenger.data);
     } catch (err) {
       console.log(err);
@@ -32,7 +31,6 @@ const Complaints = () => {
 
     try {
       const airlines = await axiosInstance.get("airlines/");
-      console.log(airlines.data);
       setAirlines(airlines.data);
     } catch (err) {
       console.log(err);
@@ -42,7 +40,6 @@ const Complaints = () => {
       const airport_complaints = await axiosInstance.get(
         `passenger/airport-complaints/${id}/`
       );
-      console.log(airport_complaints.data);
       setAirportComplaints(airport_complaints.data);
     } catch (err) {
       console.log(err);
@@ -52,7 +49,6 @@ const Complaints = () => {
       const airline_complaints = await axiosInstance.get(
         `passenger/airline-complaints/${id}/`
       );
-      console.log(airline_complaints.data);
       setAirlineComplaints(airline_complaints.data);
     } catch (err) {
       console.log(err);
@@ -115,7 +111,7 @@ const Complaints = () => {
           px="70px"
         >
           <Grid item>
-            <Typography variant="h5" fontWeight="bold">
+            <Typography variant="h2" fontWeight="bold">
               Your complaints
             </Typography>
           </Grid>

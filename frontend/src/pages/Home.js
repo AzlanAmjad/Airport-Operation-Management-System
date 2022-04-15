@@ -126,7 +126,7 @@ const Home = () => {
               disablePortal
               id="combo-box-demo"
               options={destinations.map((item) => {
-                const dest = `${item.city} - ${item.airport_code}`;
+                const dest = `${item.city}, ${item.country} - ${item.airport_code}`;
                 return dest;
               })}
               sx={{ width: 300 }}

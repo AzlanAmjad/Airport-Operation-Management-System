@@ -1,9 +1,9 @@
 import HomeIcon from "@mui/icons-material/Home";
 import ArticleIcon from "@mui/icons-material/Article";
-import { Tabs, Tab, Paper, Grid } from "@mui/material";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Tabs, Tab, Grid } from "@mui/material";
+import { Route, Routes, useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
-import WelcomePassenger from "./WelcomePassenger";
+import HomePassenger from "./HomePassenger";
 import Complaints from "./Complaints";
 
 function LinkTab(props) {
@@ -19,13 +19,19 @@ function LinkTab(props) {
 }
 
 const PassengerDashboard = () => {
-  const [value, setValue] = useState(0);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const pathToTab = {
+    "/passenger-dashboard/home": 0,
+    "/passenger-dashboard/complaints": 1,
+  };
+
+  const [value, setValue] = useState(pathToTab[location.pathname]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
-  const navigate = useNavigate();
 
   return (
     <Grid
@@ -43,9 +49,9 @@ const PassengerDashboard = () => {
           textColor="inherit"
         >
           <LinkTab
-            label="Welcome"
+            label="Home"
             icon={<HomeIcon />}
-            onClick={() => navigate("welcome")}
+            onClick={() => navigate("home")}
           />
           <LinkTab
             label="Complaints"
@@ -56,7 +62,7 @@ const PassengerDashboard = () => {
       </Grid>
       <Grid item container xs={8} py="30px">
         <Routes>
-          <Route path="welcome" element={<WelcomePassenger />} />
+          <Route path="home" element={<HomePassenger />} />
           <Route path="complaints" element={<Complaints />} />
         </Routes>
       </Grid>

@@ -6,7 +6,7 @@ import axiosInstance from "../components/Axios";
 import { useSelector } from "react-redux";
 import { ClipLoader } from "react-spinners";
 
-const WelcomePassenger = () => {
+const HomeAirport = () => {
   const { id } = useSelector((state) => state.user);
 
   const [loading, setLoading] = useState(true);
@@ -48,8 +48,8 @@ const WelcomePassenger = () => {
             rowSpacing={4}
           >
             <Grid item>
-              <Typography variant="h5" fontWeight="bold">
-                Welcome to your account {user.first_name}!
+              <Typography variant="h2" fontWeight="bold">
+                Welcome to your YYC admin dashboard {user.first_name}!
               </Typography>
             </Grid>
             <Grid
@@ -80,4 +80,4 @@ const WelcomePassenger = () => {
   );
 };
 
-export default WelcomePassenger;
+export default HomeAirport;
