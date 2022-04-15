@@ -6,7 +6,7 @@ import axiosInstance from "../components/Axios";
 import { useSelector } from "react-redux";
 import { ClipLoader } from "react-spinners";
 
-const WelcomePassenger = () => {
+const HomePassenger = () => {
   const { id } = useSelector((state) => state.user);
 
   const [loading, setLoading] = useState(true);
@@ -80,4 +80,4 @@ const WelcomePassenger = () => {
   );
 };
 
-export default WelcomePassenger;
+export default HomePassenger;
