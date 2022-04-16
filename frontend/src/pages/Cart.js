@@ -101,7 +101,7 @@ const Cart = () => {
       });
     }
 
-    //dispatch(empty());
+    dispatch(empty());
   };
 
   return (

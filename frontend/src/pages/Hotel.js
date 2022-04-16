@@ -159,14 +159,14 @@ const Hotel = () => {
             <>
               {stays.length === 0 ? (
                 <Grid item xs={12}>
-                  <Typography variant="h1" component="div" gutterBottom>
+                  <Typography variant="h2" component="div" gutterBottom>
                     Uh Oh! Someones had a little mess up and forgot to add
                     stays! (Sajid mayhaps)
                   </Typography>
                 </Grid>
               ) : (
                 <Grid item xs={12}>
-                  <Typography variant="h1" component="div" gutterBottom>
+                  <Typography variant="h2" component="div" gutterBottom>
                     {stays[0]["hotel_name"]}
                   </Typography>
                 </Grid>
