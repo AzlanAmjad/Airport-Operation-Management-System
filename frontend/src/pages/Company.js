@@ -162,13 +162,13 @@ const Company = () => {
             >
               {hotels.length === 0 ? (
                 <Grid item xs={12}>
-                  <Typography variant="h1" component="div" gutterBottom>
+                  <Typography variant="h2" component="div" gutterBottom>
                     Uh Oh! No Hotels were found :(
                   </Typography>
                 </Grid>
               ) : (
                 <Grid item xs={12}>
-                  <Typography variant="h1" component="div" gutterBottom>
+                  <Typography variant="h2" component="div" gutterBottom>
                     {hotels[0]["company_name"]}
                   </Typography>
                 </Grid>
