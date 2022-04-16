@@ -50,49 +50,50 @@ const Cart = () => {
         stays.push(item);
       }
     });
+    if (stays.length !== 0) {
+      // group stays based off of company
+      const company_groups = stays.reduce(
+        (groups, item) => ({
+          ...groups,
+          [item.company]: [...(groups[item.company] || []), item],
+        }),
+        {}
+      );
+      console.log(company_groups);
 
-    // group stays based off of company
-    const company_groups = stays.reduce(
-      (groups, item) => ({
-        ...groups,
-        [item.company]: [...(groups[item.company] || []), item],
-      }),
-      {}
-    );
-    console.log(company_groups);
+      const transactions = [];
+      for (const company in company_groups) {
+        transactions.push({
+          passenger: passenger.id,
+          company: company,
+          type: "reservation",
+        });
+      }
+      console.log(transactions);
 
-    const transactions = [];
-    for (const company in company_groups) {
-      transactions.push({
-        passenger: passenger.id,
-        company: company,
-        type: "reservation",
+      // post transactions
+      transactions.map(async (transaction) => {
+        try {
+          axiosInstance.post("transaction/", transaction).then((response) => {
+            // put the stays for the company passenger is transacting with
+            const company_stays = [];
+            company_groups[transaction.company].map((stay) => {
+              company_stays.push({
+                name: stay.name,
+                price: stay.price,
+                description: stay.description,
+                hotel: stay.hotel,
+                transaction: response.data.id,
+              });
+            });
+            // PUT COMPANY STAYS
+            console.log(company_stays);
+          });
+        } catch (err) {
+          console.log(err);
+        }
       });
     }
-    console.log(transactions);
-
-    // post transactions
-    transactions.map(async (transaction) => {
-      try {
-        axiosInstance.post("transaction/", transaction).then((response) => {
-          // put the stays for the company passenger is transacting with
-          const company_stays = [];
-          company_groups[transaction.company].map((stay) => {
-            company_stays.push({
-              name: stay.name,
-              price: stay.price,
-              description: stay.description,
-              hotel: stay.hotel,
-              transaction: response.data.id,
-            });
-          });
-          // PUT COMPANY STAYS
-          console.log(company_stays);
-        });
-      } catch (err) {
-        console.log(err);
-      }
-    });
 
     //dispatch(empty());
   };
