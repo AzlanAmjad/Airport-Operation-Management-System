@@ -16,7 +16,6 @@ const Cart = () => {
   useEffect(async () => {
     try {
       const passenger = await axiosInstance.get(`passenger/${id}/`);
-      console.log(passenger.data);
       setPassenger(passenger.data);
     } catch (err) {
       console.log(err);
@@ -43,21 +42,59 @@ const Cart = () => {
     }
 
     // post transaction and put the stays
-    
 
+    // get all stays
     const stays = [];
     items.map((item) => {
       if (item.type === "stay") {
-        stays.push({
-          name: item.name,
-          price: item.price, // might have to parse float
-          description: item.price,
-          hotel: item.hotel,
-          transaction: 1, // replace with transaction id of posted transaction
-        });
+        stays.push(item);
       }
     });
-    dispatch(empty());
+
+    // group stays based off of company
+    const company_groups = stays.reduce(
+      (groups, item) => ({
+        ...groups,
+        [item.company]: [...(groups[item.company] || []), item],
+      }),
+      {}
+    );
+    console.log(company_groups);
+
+    const transactions = [];
+    for (const company in company_groups) {
+      transactions.push({
+        passenger: passenger.id,
+        company: company,
+        type: "reservation",
+      });
+    }
+    console.log(transactions);
+
+    // post transactions
+    transactions.map(async (transaction) => {
+      try {
+        axiosInstance.post("transaction/", transaction).then((response) => {
+          // put the stays for the company passenger is transacting with
+          const company_stays = [];
+          company_groups[transaction.company].map((stay) => {
+            company_stays.push({
+              name: stay.name,
+              price: stay.price,
+              description: stay.description,
+              hotel: stay.hotel,
+              transaction: response.data.id,
+            });
+          });
+          // PUT COMPANY STAYS
+          console.log(company_stays);
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    });
+
+    //dispatch(empty());
   };
 
   return (
