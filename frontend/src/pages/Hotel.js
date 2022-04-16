@@ -55,7 +55,6 @@ const Hotel = () => {
         description: description,
         hotel: hotel,
       });
-      console.log(result.data);
       setAddDialogForm(false);
       if (reload) {
         setReload(false);
@@ -109,7 +108,7 @@ const Hotel = () => {
               <Grid item container direction="column" spacing={2} xs={6}>
                 {stays.map((stay) => {
                   return (
-                    <Grid item sx={{ width: "100%" }}>
+                    <Grid item sx={{ width: "100%" }} key={stay.id}>
                       <Paper elevation={12} sx={{ padding: "30px" }}>
                         <Grid
                           container
@@ -133,7 +132,7 @@ const Hotel = () => {
                               <Typography>{stay.description}</Typography>
                             </Grid>
                             <Grid item>
-                              <Typography>{stay.price}</Typography>
+                              <Typography>CA ${stay.price}</Typography>
                             </Grid>
                           </Grid>
                         </Grid>
@@ -175,7 +174,7 @@ const Hotel = () => {
               <Grid item container direction="column" spacing={2} xs={6}>
                 {stays.map((stay) => {
                   return (
-                    <Grid item sx={{ width: "100%" }}>
+                    <Grid item sx={{ width: "100%" }} key={stay.id}>
                       <Paper elevation={12} sx={{ padding: "30px" }}>
                         <Grid
                           container
@@ -199,7 +198,7 @@ const Hotel = () => {
                               <Typography>{stay.description}</Typography>
                             </Grid>
                             <Grid item>
-                              <Typography>{stay.price}</Typography>
+                              <Typography>CA ${stay.price}</Typography>
                             </Grid>
                           </Grid>
                           <Grid item>
