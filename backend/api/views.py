@@ -191,6 +191,47 @@ class Stay(APIView):
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+# bulk put the STAYS
+class MultipleStaysUpdate(generics.UpdateAPIView):
+    serializer_class = serializers.PutStaySerializer
+
+    def get_serializer(self, *args, **kwargs):
+        if isinstance(kwargs.get("data", {}), list):
+            kwargs["many"] = True
+
+        return super(MultipleStaysUpdate, self).get_serializer(*args, **kwargs)
+
+    def get_queryset(self, ids=None):
+        if ids:
+            return models.Stay.objects.filter(pk__in=ids)
+
+        return models.Stay.objects.filter(name=self.kwargs['name'])
+
+    def update(self, request, *args, **kwargs):
+        ids = validate_ids(request.data)
+        instances = self.get_queryset(ids=ids)
+        serializer = self.get_serializer(
+            instances, data=request.data, partial=False, many=True
+        )
+        serializer.is_valid(raise_exception=True)
+
+        self.perform_update(serializer)
+
+        return Response(serializer.data)
+        
+
+def validate_ids(data, field="id", unique=True):
+
+    if isinstance(data, list):
+        id_list = [x[field] for x in data]
+
+        if unique and len(id_list) != len(set(id_list)):
+            raise ValidationError("Multiple updates to a single {} found".format(field))
+
+        return id_list
+
+    return [data]
+
 
 # AIRLINE COMPLAINT
 class AirlineComplaint(APIView):

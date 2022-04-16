@@ -103,6 +103,33 @@ class GetStaySerializer(serializers.ModelSerializer):
         model = models.Stay
         fields = ('id', 'name', 'price', 'description', 'hotel_name', 'hotel', 'company')
 
+class UpdateListSerializer(serializers.ListSerializer):
+    def update(self, instances, validated_data):
+        instance_hash = {index: instance for index, instance in enumerate(instances)}
+        result = [
+            self.child.update(instance_hash[index], attrs)
+            for index, attrs in enumerate(validated_data)
+        ]
+        return result
+
+class PutStaySerializer(serializers.ModelSerializer):
+    def update(self, instance, validated_data):
+        instance.id = validated_data['id']
+        instance.name = validated_data['name']
+        instance.price = validated_data['price']
+        instance.description = validated_data['description']
+        instance.hotel = validated_data['hotel']
+        instance.transaction = validated_data['transaction']
+
+        instance.save()
+
+        return instance
+
+    class Meta:
+        model = models.Stay
+        fields = '__all__'
+        list_serializer_class = UpdateListSerializer
+
 
 # AIRPORT COMPLAINT
 class AirportComplaintSerializer(serializers.ModelSerializer):

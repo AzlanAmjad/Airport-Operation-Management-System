@@ -79,6 +79,7 @@ const Cart = () => {
             const company_stays = [];
             company_groups[transaction.company].map((stay) => {
               company_stays.push({
+                id: stay.id,
                 name: stay.name,
                 price: stay.price,
                 description: stay.description,
@@ -88,6 +89,11 @@ const Cart = () => {
             });
             // PUT COMPANY STAYS
             console.log(company_stays);
+            axiosInstance
+              .put("multiple-stays/", company_stays)
+              .then((response) => {
+                console.log(response.data);
+              });
           });
         } catch (err) {
           console.log(err);

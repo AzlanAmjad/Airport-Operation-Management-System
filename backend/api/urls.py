@@ -58,6 +58,8 @@ urlpatterns = [
      path('stay/', views.Stay.as_view()),
      # PUT stay
      path('stay/<int:stay>/', views.Stay.as_view()),
+     # PUT list of stays
+     path('multiple-stays/', views.MultipleStaysUpdate.as_view()),
 
      # AIRLINE COMPLAINT
      # POST airline complaint
