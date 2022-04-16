@@ -103,32 +103,67 @@ class GetStaySerializer(serializers.ModelSerializer):
         model = models.Stay
         fields = ('id', 'name', 'price', 'description', 'hotel_name', 'hotel', 'company')
 
-class UpdateListSerializer(serializers.ListSerializer):
+class BulkUpdateListSerializer(serializers.ListSerializer):
     def update(self, instances, validated_data):
         instance_hash = {index: instance for index, instance in enumerate(instances)}
+
         result = [
             self.child.update(instance_hash[index], attrs)
             for index, attrs in enumerate(validated_data)
         ]
+
+        writable_fields = [
+            x
+            for x in self.child.Meta.fields
+            if x not in self.child.Meta.read_only_fields
+        ]
+        
+        try:
+            self.child.Meta.model.objects.bulk_update(result, writable_fields)
+        except IntegrityError as e:
+            raise ValidationError(e)
+
         return result
+
+    def to_internal_value(self, data):
+        ret = []
+        errors = []
+
+        for item in data:
+            try:
+                # prepare child serializer to only handle one instance
+                self.child.instance = self.instance.get(id=item['id']) if self.instance else None
+                self.child.initial_data = item
+                validated = self.child.run_validation(item)
+            except ValidationError as exc:
+                errors.append(exc.detail)
+            else:
+                ret.append(validated)
+                errors.append({})
+
+        if any(errors):
+            raise ValidationError(errors)
+
+        return ret
 
 class PutStaySerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
-        instance.id = validated_data['id']
         instance.name = validated_data['name']
         instance.price = validated_data['price']
         instance.description = validated_data['description']
         instance.hotel = validated_data['hotel']
         instance.transaction = validated_data['transaction']
 
-        instance.save()
+        if isinstance(self._kwargs["data"], dict):
+            instance.save()
 
-        return instance
+        return instance        
 
     class Meta:
         model = models.Stay
-        fields = '__all__'
-        list_serializer_class = UpdateListSerializer
+        fields = ('id', 'name', 'price', 'description', 'hotel', 'transaction')
+        read_only_fields = ('id',)
+        list_serializer_class = BulkUpdateListSerializer
 
 
 # AIRPORT COMPLAINT

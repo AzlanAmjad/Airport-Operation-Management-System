@@ -1,4 +1,5 @@
 import datetime
+import re
 from django.conf import settings
 from django.forms import ValidationError
 from rest_framework import status
@@ -194,6 +195,7 @@ class Stay(APIView):
 # bulk put the STAYS
 class MultipleStaysUpdate(generics.UpdateAPIView):
     serializer_class = serializers.PutStaySerializer
+    lookup_field = "id"
 
     def get_serializer(self, *args, **kwargs):
         if isinstance(kwargs.get("data", {}), list):
@@ -203,9 +205,9 @@ class MultipleStaysUpdate(generics.UpdateAPIView):
 
     def get_queryset(self, ids=None):
         if ids:
-            return models.Stay.objects.filter(pk__in=ids)
+            return models.Stay.objects.filter(name__in=ids)
 
-        return models.Stay.objects.filter(name=self.kwargs['name'])
+        return models.Stay.objects.filter(name=self.kwargs['name'])        
 
     def update(self, request, *args, **kwargs):
         ids = validate_ids(request.data)
@@ -213,14 +215,15 @@ class MultipleStaysUpdate(generics.UpdateAPIView):
         serializer = self.get_serializer(
             instances, data=request.data, partial=False, many=True
         )
+        print(serializer)
         serializer.is_valid(raise_exception=True)
 
         self.perform_update(serializer)
 
         return Response(serializer.data)
-        
 
-def validate_ids(data, field="id", unique=True):
+
+def validate_ids(data, field="name", unique=True):
 
     if isinstance(data, list):
         id_list = [x[field] for x in data]
@@ -228,6 +231,7 @@ def validate_ids(data, field="id", unique=True):
         if unique and len(id_list) != len(set(id_list)):
             raise ValidationError("Multiple updates to a single {} found".format(field))
 
+        print('id list created')
         return id_list
 
     return [data]
