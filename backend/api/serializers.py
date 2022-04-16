@@ -95,13 +95,13 @@ class StaySerializer(serializers.ModelSerializer):
         model = models.Stay
         fields = '__all__'
 
-
 class GetStaySerializer(serializers.ModelSerializer):
     hotel_name = serializers.CharField(source='hotel.name')
+    company = serializers.IntegerField(source='hotel.company.id')
 
     class Meta:
         model = models.Stay
-        fields = ('id', 'name', 'price', 'description', 'hotel_name')
+        fields = ('id', 'name', 'price', 'description', 'hotel_name', 'hotel', 'company')
 
 
 # AIRPORT COMPLAINT
@@ -109,7 +109,6 @@ class AirportComplaintSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.AirportComplaint
         fields = '__all__'
-
 
 class GetAirportComplaintSerializer(serializers.ModelSerializer):
     passenger_email = serializers.EmailField(source='passenger.user.email')

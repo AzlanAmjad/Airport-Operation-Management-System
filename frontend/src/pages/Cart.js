@@ -34,14 +34,30 @@ const Cart = () => {
         });
       }
     });
-
-    try {
-      const result = await axiosInstance.post("multiple-books/", books);
-    } catch (err) {
-      console.log(err);
+    if (books.length !== 0) {
+      try {
+        const result = await axiosInstance.post("multiple-books/", books);
+      } catch (err) {
+        console.log(err);
+      }
     }
 
-    dispatch(empty())
+    // post transaction and put the stays
+    
+
+    const stays = [];
+    items.map((item) => {
+      if (item.type === "stay") {
+        stays.push({
+          name: item.name,
+          price: item.price, // might have to parse float
+          description: item.price,
+          hotel: item.hotel,
+          transaction: 1, // replace with transaction id of posted transaction
+        });
+      }
+    });
+    dispatch(empty());
   };
 
   return (
