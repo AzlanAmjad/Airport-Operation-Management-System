@@ -136,6 +136,8 @@ class MultipleBooksCreate(generics.CreateAPIView):
     def post(self, request, *args, **kwargs):
         if isinstance(request.data, list):
             for item in request.data:
+                if models.Books.objects.filter(fare=item['fare']).filter(passenger=item['passenger']).exists():
+                    return Response("you have already purchased this fare", status=status.HTTP_400_BAD_REQUEST)
                 # decrement the tickets count in fare
                 fare = models.Fare.objects.get(pk=item['fare'])
                 # can decrement
