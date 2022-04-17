@@ -10,3 +10,5 @@
 Add your name
 
 - Azlan Amjad
+- Faiz Marsad
+- Saud Agha
