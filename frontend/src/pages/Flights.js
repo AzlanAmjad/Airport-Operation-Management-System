@@ -17,13 +17,11 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Paper from "@mui/material/Paper";
-import EditIcon from "@mui/icons-material/Edit";
 import Input from "@mui/material/Input";
 import axiosInstance from "../components/Axios";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import { useSelector } from "react-redux";
 import { ClipLoader } from "react-spinners";
-import { Divider } from "@mui/material";
 
 const Flights = () => {
   const { id } = useSelector((state) => state.user);
@@ -134,7 +132,7 @@ const Flights = () => {
     }
 
     setLoading(false);
-  }, [reload]);
+  }, [reload, id]);
 
   return (
     <>

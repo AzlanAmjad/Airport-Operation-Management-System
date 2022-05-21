@@ -1,4 +1,4 @@
-import { AppBar, Button, Toolbar, Grid, Typography, Link } from "@mui/material";
+import { AppBar, Button, Toolbar, Grid, Typography } from "@mui/material";
 import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
 import IconButton from "@mui/material/IconButton";
 import AccountCircle from "@mui/icons-material/AccountCircle";
@@ -37,7 +37,7 @@ const NavBar = () => {
   const handleMenuClick = (path) => {
     setAnchorEl(null);
 
-    if (path == "/logout") {
+    if (path === "/logout") {
       dispatch(logout({}));
       navigate("/");
     } else {

@@ -26,14 +26,14 @@ const cartSlice = createSlice({
       }
     },
     remove(state, action) {
-      if (state.quantity != 0 && state.cart === true) {
+      if (state.quantity !== 0 && state.cart === true) {
         const index = state.items.findIndex((object) => {
           return (
             object.id === action.payload.id &&
             object.type === action.payload.type
           );
         });
-        if (index != -1) {
+        if (index !== -1) {
           state.items.splice(index, 1);
           state.quantity -= 1;
           state.total -= parseFloat(action.payload.price);

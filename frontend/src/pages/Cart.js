@@ -32,6 +32,7 @@ const Cart = () => {
           passenger: passenger.id,
         });
       }
+      return;
     });
     if (books.length !== 0) {
       try {
@@ -49,6 +50,7 @@ const Cart = () => {
       if (item.type === "stay") {
         stays.push(item);
       }
+      return;
     });
     if (stays.length !== 0) {
       // group stays based off of company
