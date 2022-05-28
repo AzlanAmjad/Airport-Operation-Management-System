@@ -2,13 +2,10 @@
 
 ## Technologies
 - React (Material UI, Redux)
-- Django
+- Django (Django REST Framework)
 - PostgreSQL
 
 ## Contributers
-
-Add your name
-
 - Azlan Amjad
 - Faiz Marsad
 - Saud Agha
