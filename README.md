@@ -1,4 +1,4 @@
-# Airport-Operation-Management-Application
+# Airport-Operation-Management-System
 
 ## Technologies
 - React (Material UI, Redux)
